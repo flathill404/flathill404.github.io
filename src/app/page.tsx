@@ -1,5 +1,4 @@
-import Image from "next/image";
-
+import Image from 'next/image'
 
 export default function Home() {
   return (
@@ -43,7 +42,12 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Image src="/images/logos/x.svg" width="24" height="24" alt="X icon link"/>
+          <Image
+            src="/images/logos/x.svg"
+            width="24"
+            height="24"
+            alt="X icon link"
+          />
         </a>
         <a
           className="flex items-center justify-center gap-2 rounded-lg p-2 text-sm transition-colors hover:bg-neutral-700"
@@ -51,9 +55,14 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Image src="/images/logos/github-mark-white.svg" width="24" height="24" alt="Github icon link"/>
-        </a> 
+          <Image
+            src="/images/logos/github-mark-white.svg"
+            width="24"
+            height="24"
+            alt="Github icon link"
+          />
+        </a>
       </footer>
     </div>
-  );
+  )
 }

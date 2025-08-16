@@ -1,7 +1,7 @@
-"use client";
+'use client'
 
-import FrequencyTable from "./components/FrequencyTable";
-import DelayTimeTable from "./components/DelayTimeTable";
+import FrequencyTable from './components/FrequencyTable'
+import DelayTimeTable from './components/DelayTimeTable'
 
 export default function Utils() {
   return (
@@ -14,5 +14,5 @@ export default function Utils() {
         {/* no contents */}
       </footer>
     </div>
-  );
+  )
 }

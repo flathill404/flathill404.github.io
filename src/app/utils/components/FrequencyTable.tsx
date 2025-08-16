@@ -1,28 +1,15 @@
-"use client";
+'use client'
 
-const TONES = [
-  "A",
-  "A#",
-  "B",
-  "C",
-  "C#",
-  "D",
-  "D#",
-  "E",
-  "F",
-  "F#",
-  "G",
-  "G#",
-];
-const OCTAVES = Array.from({ length: 8 }, (_, i) => i); // 0-7
-const STEPS = Array.from({ length: 12 }, (_, i) => i); // 0-11
+const TONES = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
+const OCTAVES = Array.from({ length: 8 }, (_, i) => i) // 0-7
+const STEPS = Array.from({ length: 12 }, (_, i) => i) // 0-11
 
-const standardPitch = 440;
-const ratio = 1.0594630943593;
+const standardPitch = 440
+const ratio = 1.0594630943593
 
 const frequency = (n: number) => {
-  return standardPitch * ratio ** n;
-};
+  return standardPitch * ratio ** n
+}
 
 const FrequencyTable = () => {
   return (
@@ -66,7 +53,7 @@ const FrequencyTable = () => {
         </table>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default FrequencyTable;
+export default FrequencyTable
