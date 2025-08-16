@@ -57,7 +57,7 @@ const FrequencyTable = () => {
                 </th>
                 {STEPS.map((step) => (
                   <td className="px-6 py-4" key={step}>
-                    {frequency(12 * (rank - 4) + step).toFixed(3)}
+                    {frequency(12 * (rank - 4) + step).toFixed(1)}
                   </td>
                 ))}
               </tr>
