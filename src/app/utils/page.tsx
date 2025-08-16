@@ -21,16 +21,16 @@ export default function Utils() {
   );
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+    <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center p-8 pb-20 font-[family-name:var(--font-geist-sans)]">
+      <main className="row-start-2 flex flex-col items-center gap-8 sm:items-start">
         {/* Frequency */}
-        <ul className="text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
+        <ul className="text-center font-[family-name:var(--font-geist-mono)] text-sm sm:text-left">
           <li>Equal Temperament Frequency Table</li>
         </ul>
 
         <div className="relative overflow-x-auto">
-          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <table className="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
+            <thead className="bg-gray-50 text-xs text-gray-700 uppercase dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <th scope="col" className="px-6 py-3"></th>
                 {[
@@ -57,12 +57,12 @@ export default function Utils() {
               {[0, 1, 2, 3, 4, 5, 6, 7].map((rank) => {
                 return (
                   <tr
-                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
+                    className="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800"
                     key={rank}
                   >
                     <th
                       scope="row"
-                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                      className="px-6 py-4 font-medium whitespace-nowrap text-gray-900 dark:text-white"
                     >
                       {rank}
                     </th>
@@ -80,7 +80,7 @@ export default function Utils() {
         {/* --- */}
 
         {/* Delay Time */}
-        <ul className="text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
+        <ul className="text-center font-[family-name:var(--font-geist-mono)] text-sm sm:text-left">
           <li>
             Delay Time Table at{" "}
             <input
@@ -94,8 +94,8 @@ export default function Utils() {
         </ul>
 
         <div className="relative overflow-x-auto">
-          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <table className="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
+            <thead className="bg-gray-50 text-xs text-gray-700 uppercase dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <th scope="col" className="px-6 py-3"></th>
                 <th scope="col" className="px-6 py-3">
@@ -145,12 +145,12 @@ export default function Utils() {
 
                 return (
                   <tr
-                    className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
+                    className="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800"
                     key={note}
                   >
                     <th
                       scope="row"
-                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                      className="px-6 py-4 font-medium whitespace-nowrap text-gray-900 dark:text-white"
                     >
                       1/{label}th
                     </th>
@@ -173,7 +173,7 @@ export default function Utils() {
         </div>
         {/* --- */}
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
+      <footer className="row-start-3 flex flex-wrap items-center justify-center gap-6">
         {/* no contents */}
       </footer>
     </div>
