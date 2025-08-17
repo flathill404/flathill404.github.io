@@ -12,9 +12,9 @@ export default function Home() {
           <li>
             <a
               className="rounded-lg border border-neutral-800 bg-neutral-800 p-2 transition-colors hover:bg-neutral-700"
-              href="/notes"
+              href="/articles"
             >
-              notes
+              articles
             </a>
           </li>
           <li>
