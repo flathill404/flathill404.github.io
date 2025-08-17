@@ -1,7 +1,7 @@
 'use client'
 
-import FrequencyTable from './components/FrequencyTable'
 import DelayTimeTable from './components/DelayTimeTable'
+import FrequencyTable from './components/FrequencyTable'
 
 export default function Utils() {
   return (

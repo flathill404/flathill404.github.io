@@ -14,7 +14,7 @@ const frequency = (n: number) => {
 const FrequencyTable = () => {
   return (
     <div className="flex flex-col items-center gap-8 sm:items-start">
-      <ul className="text-center font-[family-name:var(--font-geist-mono)] text-sm sm:text-left">
+      <ul className="text-center text-sm sm:text-left">
         <li>Equal Temperament Frequency Table</li>
       </ul>
 

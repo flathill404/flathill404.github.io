@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useMemo, useState } from 'react'
 
 const DEFAULT_BPM = 144
 
@@ -33,7 +33,7 @@ const DelayTimeTable = () => {
 
   return (
     <div className="flex flex-col items-center gap-8 sm:items-start">
-      <ul className="text-center font-[family-name:var(--font-geist-mono)] text-sm sm:text-left">
+      <ul className="text-center text-sm sm:text-left">
         <li>
           Delay Time Table at{' '}
           <input
