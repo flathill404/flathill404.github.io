@@ -2,13 +2,13 @@ import Image from 'next/image'
 
 export default function Home() {
   return (
-    <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20">
+    <div className="grid min-h-screen grid-rows-[32px_1fr_32px] items-center justify-items-center gap-16 p-8 pb-20">
       <main className="row-start-2 flex flex-col items-center gap-8">
-        <ul className="text-center text-sm">
+        <ul className="text-center">
           <li className="mb-2">Welcome!!</li>
           <li>This is flathill404&apos;s personal website.</li>
         </ul>
-        <ul className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-center text-sm">
+        <ul className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-center">
           <li>
             <a
               className="rounded-lg border border-neutral-800 bg-neutral-800 p-2 transition-colors hover:bg-neutral-700"
@@ -37,7 +37,7 @@ export default function Home() {
       </main>
       <footer className="row-start-3 flex flex-wrap items-center justify-center gap-6">
         <a
-          className="flex items-center justify-center gap-2 rounded-lg p-2 text-sm transition-colors hover:bg-neutral-700"
+          className="flex items-center justify-center gap-2 rounded-lg p-2 transition-colors hover:bg-neutral-700"
           href="https://twitter.com/flathill404"
           target="_blank"
           rel="noopener noreferrer"
@@ -50,7 +50,7 @@ export default function Home() {
           />
         </a>
         <a
-          className="flex items-center justify-center gap-2 rounded-lg p-2 text-sm transition-colors hover:bg-neutral-700"
+          className="flex items-center justify-center gap-2 rounded-lg p-2 transition-colors hover:bg-neutral-700"
           href="https://github.com/flathill404"
           target="_blank"
           rel="noopener noreferrer"
