@@ -143,7 +143,6 @@ export const HomeMainContent = () => {
               <TypescriptOriginal size={DEVICON_SIZE} />
               <Html5Original size={DEVICON_SIZE} />
               <Css3Original size={DEVICON_SIZE} />
-              <BashOriginal size={DEVICON_SIZE} />
               <WasmOriginal size={DEVICON_SIZE} />
             </div>
           </div>
@@ -168,7 +167,7 @@ export const HomeMainContent = () => {
               <MaterializecssOriginal size={DEVICON_SIZE} />
               <ProcessingOriginal size={DEVICON_SIZE} />
               <WebgpuOriginal size={DEVICON_SIZE} />
-              <OpenglOriginal size={DEVICON_SIZE} />
+              <StorybookOriginal size={DEVICON_SIZE} />
             </div>
           </div>
           <div className="mb-2">
@@ -209,7 +208,6 @@ export const HomeMainContent = () => {
               <PlaywrightOriginal size={DEVICON_SIZE} />
               <PuppeteerOriginal size={DEVICON_SIZE} />
               <VitestOriginal size={DEVICON_SIZE} />
-              <StorybookOriginal size={DEVICON_SIZE} />
             </div>
           </div>
           <div className="mb-2">
@@ -250,6 +248,7 @@ export const HomeMainContent = () => {
               <SshOriginal size={DEVICON_SIZE} />
               <UnixOriginal size={DEVICON_SIZE} />
               <MsdosOriginal size={DEVICON_SIZE} />
+              <BashOriginal size={DEVICON_SIZE} />
             </div>
           </div>
           <div className="mb-2">
@@ -260,8 +259,15 @@ export const HomeMainContent = () => {
               <PandasOriginal size={DEVICON_SIZE} />
               <MatplotlibOriginal size={DEVICON_SIZE} />
               <ScikitlearnOriginal size={DEVICON_SIZE} />
-              <OpencvOriginal size={DEVICON_SIZE} />
               <PlotlyOriginal size={DEVICON_SIZE} />
+            </div>
+          </div>
+          <div className="mb-2">
+            <h4 className="font-bold">Web Sites</h4>
+            <div className="flex flex-wrap gap-2 justify-center">
+              <GoogleOriginal size={DEVICON_SIZE} />
+              <StackoverflowOriginal size={DEVICON_SIZE} />
+              <TwitterOriginal size={DEVICON_SIZE} />
             </div>
           </div>
           <div className="mb-2">
@@ -272,18 +278,17 @@ export const HomeMainContent = () => {
               <ChromeOriginal size={DEVICON_SIZE} />
               <ElectronOriginal size={DEVICON_SIZE} />
               <GitkrakenOriginal size={DEVICON_SIZE} />
-              <GoogleOriginal size={DEVICON_SIZE} />
               <JsonOriginal size={DEVICON_SIZE} />
               <MarkdownOriginal size={DEVICON_SIZE} />
               <OauthOriginal size={DEVICON_SIZE} />
               <OktaOriginal size={DEVICON_SIZE} />
               <QtOriginal size={DEVICON_SIZE} />
               <SlackOriginal size={DEVICON_SIZE} />
-              <StackoverflowOriginal size={DEVICON_SIZE} />
-              <TwitterOriginal size={DEVICON_SIZE} />
               <V8Original size={DEVICON_SIZE} />
               <YamlOriginal size={DEVICON_SIZE} />
               <DeviconsReactOriginal size={DEVICON_SIZE} />
+              <OpencvOriginal size={DEVICON_SIZE} />
+              <OpenglOriginal size={DEVICON_SIZE} />
             </div>
           </div>
         </div>
