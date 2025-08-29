@@ -108,19 +108,18 @@ import {
   Windows11Original,
   YamlOriginal,
 } from 'devicons-react'
-import { DynamicIcon } from 'lucide-react/dynamic'
-import type { IconName } from 'lucide-react/dynamic'
+import { NewspaperIcon, NotebookIcon, AppWindowIcon } from 'lucide-react'
 
 const DEVICON_SIZE = 36
 
 const navLinks: {
   href: string
   label: string
-  icon: IconName
+  icon: React.ElementType
 }[] = [
-  { href: '/articles', label: 'articles', icon: 'newspaper' },
-  { href: '/blogs', label: 'blogs', icon: 'notebook' },
-  { href: '/utils', label: 'utils', icon: 'app-window' },
+  { href: '/articles', label: 'articles', icon: NewspaperIcon },
+  { href: '/blogs', label: 'blogs', icon: NotebookIcon },
+  { href: '/utils', label: 'utils', icon: AppWindowIcon },
 ] as const
 
 export const HomeMainContent = () => {
@@ -250,7 +249,7 @@ export const HomeMainContent = () => {
         {navLinks.map((link) => (
           <li key={link.href}>
             <NavLink href={link.href}>
-              <DynamicIcon name={link.icon} size={24} />
+              <link.icon size={24} />
               {link.label}
             </NavLink>
           </li>
