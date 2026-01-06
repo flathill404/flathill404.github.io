@@ -1,0 +1,612 @@
+[
+    {
+        "title": "エキスパートPythonプログラミング 改訂2版",
+        "url": "https://www.amazon.co.jp/dp/B079Z2GX64",
+        "published_at": "2018/2/26"
+    },
+    {
+        "title": "プログラムはなぜ動くのか 第2版 知っておきたいプログラムの基礎知識",
+        "url": "https://www.amazon.co.jp/dp/B00HRN7VK0",
+        "published_at": "2007/4/9"
+    },
+    {
+        "title": "世界でもっとも強力な9のアルゴリズム",
+        "url": "https://www.amazon.co.jp/dp/B00FR78X64",
+        "published_at": "2012/7/23"
+    },
+    {
+        "title": "情熱プログラマー ソフトウェア開発者の幸せな生き方",
+        "url": "https://www.amazon.co.jp/dp/B01IGW5MQ0",
+        "published_at": "2010/2/25"
+    },
+    {
+        "title": "C#でテスト駆動開発[TDD]する方法をわかりやすく解説",
+        "url": "https://www.amazon.co.jp/dp/B07F5P51FG",
+        "published_at": "2018/6/29"
+    },
+    {
+        "title": "インサイドWindows 第7版 上",
+        "url": "https://www.amazon.co.jp/dp/B07DJ1Q2B4",
+        "published_at": "2018/4/27"
+    },
+    {
+        "title": "C#でオブジェクト指向をする方法: カプセル化，インタフェース，継承の使いどころが 解るようになります",
+        "url": "https://www.amazon.co.jp/dp/B07FXSC6G9",
+        "published_at": "2018/7/25"
+    },
+    {
+        "title": "テスト駆動開発",
+        "url": "https://www.amazon.co.jp/dp/B077D2L69C",
+        "published_at": "2017/10/13"
+    },
+    {
+        "title": "はじめて学ぶソフトウェアのテスト技法",
+        "url": "https://www.amazon.co.jp/dp/B00HE8082Q",
+        "published_at": "2005/11/7"
+    },
+    {
+        "title": "改訂新版JavaScript本格入門 ～モダンスタイルによる基礎から現場での応用まで",
+        "url": "https://www.amazon.co.jp/dp/B01LYO6C1N",
+        "published_at": "2016/9/30"
+    },
+    {
+        "title": "真剣に学ぶJavaScriptの基礎",
+        "url": "https://www.amazon.co.jp/dp/B07R9N153R",
+        "published_at": "2019/4/26"
+    },
+    {
+        "title": "実戦で役立つ C#プログラミングのイディオム/定石&パターン",
+        "url": "https://www.amazon.co.jp/dp/B06WP7HJ27",
+        "published_at": "2017/2/18"
+    },
+    {
+        "title": "これからWebをはじめる人のHTML&CSS、JavaScriptのきほんのきほん",
+        "url": "https://www.amazon.co.jp/dp/B06XT19H2D",
+        "published_at": "2017/3/27"
+    },
+    {
+        "title": "ZERO BUGS シリコンバレープログラマの教え",
+        "url": "https://www.amazon.co.jp/dp/B071ZLK6RR",
+        "published_at": "2017/5/25"
+    },
+    {
+        "title": "内部構造から学ぶPostgreSQL 設計・運用計画の鉄則",
+        "url": "https://www.amazon.co.jp/dp/B00NM7VROQ",
+        "published_at": "2014/9/17"
+    },
+    {
+        "title": "スッキリわかるSQL入門 第2版",
+        "url": "https://www.amazon.co.jp/dp/4295005096",
+        "published_at": "2018/11/30"
+    },
+    {
+        "title": "ネットワークはなぜつながるのか 第2版",
+        "url": "https://www.amazon.co.jp/dp/B077XSB8BS",
+        "published_at": "2007/4/12"
+    },
+    {
+        "title": "C#を勉強する順番: 文法プログラマーを卒業する方法",
+        "url": "https://www.amazon.co.jp/dp/B07NTSF7CV",
+        "published_at": "2019/2/16"
+    },
+    {
+        "title": "C#のWPFでXAMLを書く方法",
+        "url": "https://www.amazon.co.jp/dp/B07NCZWPFG",
+        "published_at": "2019/2/4"
+    },
+    {
+        "title": "Adaptive Code ~ C#実践開発手法 第2版",
+        "url": "https://www.amazon.co.jp/dp/4822253546",
+        "published_at": "2018/2/24"
+    },
+    {
+        "title": "ユーザー要件を正しく実装へつなぐシステム設計のセオリー",
+        "url": "https://www.amazon.co.jp/dp/B075M7Y2JS",
+        "published_at": "2016/3/10"
+    },
+    {
+        "title": "独習C# 第3版",
+        "url": "https://www.amazon.co.jp/dp/B015IXBSMM",
+        "published_at": "2010/12/2"
+    },
+    {
+        "title": "リーダブルコード ―より良いコードを書くためのシンプルで実践的なテクニック",
+        "url": "https://www.amazon.co.jp/dp/4873115655",
+        "published_at": "2012/6/23"
+    },
+    {
+        "title": "SEの基本",
+        "url": "https://www.amazon.co.jp/dp/4534045123",
+        "published_at": "2009/2/21"
+    },
+    {
+        "title": "オブジェクト指向でなぜつくるのか 第2版",
+        "url": "https://www.amazon.co.jp/dp/4822284654",
+        "published_at": "2011/4/7"
+    },
+    {
+        "title": "失敗学のすすめ",
+        "url": "https://www.amazon.co.jp/dp/4062747596",
+        "published_at": "2005/4/15"
+    },
+    {
+        "title": "Electronではじめるデスクトップアプリケーション開発",
+        "url": "https://www.amazon.co.jp/dp/B08P4KDZ1R",
+        "published_at": "2020/11/25"
+    },
+    {
+        "title": "目指すは生涯現役のITエンジニア!どこでも通用するために今からやっておくべきチェックシート。",
+        "url": "https://www.amazon.co.jp/dp/B07L4382MX",
+        "published_at": "2018/12/7"
+    },
+    {
+        "title": "Effective Python: 90 Specific Ways to Write Better Python",
+        "url": "https://www.amazon.co.jp/dp/B07ZG18BH3",
+        "published_at": "2019/10/25"
+    },
+    {
+        "title": "AIの壁 人間の知性を問いなおす",
+        "url": "https://www.amazon.co.jp/dp/B08K8FWTRV",
+        "published_at": "2020/9/28"
+    },
+    {
+        "title": "カフカ短篇集",
+        "url": "https://www.amazon.co.jp/dp/B072L5F1TF",
+        "published_at": "1987/1/16"
+    },
+    {
+        "title": "世界で闘うプログラミング力を鍛える本 コーディング面接189問とその解法",
+        "url": "https://www.amazon.co.jp/dp/B071GN3JN2",
+        "published_at": "2017/2/27"
+    },
+    {
+        "title": "新装版 達人プログラマー 職人から名匠への道",
+        "url": "https://www.amazon.co.jp/dp/427421933X",
+        "published_at": "2016/10/20"
+    },
+    {
+        "title": "サーチ・インサイド・ユアセルフ ― 仕事と人生を飛躍させるグーグルのマインドフルネス実践法",
+        "url": "https://www.amazon.co.jp/dp/B01ESTWPYC",
+        "published_at": "2016/5/17"
+    },
+    {
+        "title": "たった1日で基本が身に付く! Docker/Kubernetes超入門",
+        "url": "https://www.amazon.co.jp/dp/B08CMMN45Z",
+        "published_at": "2020/7/11"
+    },
+    {
+        "title": "迷わない！困らない！レガシーフロントエンド安全改善ガイド",
+        "url": "https://www.amazon.co.jp/dp/B0811FYH79",
+        "published_at": "2019/11/8"
+    },
+    {
+        "title": "Node.jsデザインパターン 第2版",
+        "url": "https://www.amazon.co.jp/dp/4873118735",
+        "published_at": "2019/5/18"
+    },
+    {
+        "title": "webpack 実践入門: webpackの基礎をしっかり理解して使いこなす",
+        "url": "https://www.amazon.co.jp/dp/B07X9H8JZZ",
+        "published_at": "2019/8/31"
+    },
+    {
+        "title": "レベルアップNode.js",
+        "url": "https://www.amazon.co.jp/dp/B08B183M5V",
+        "published_at": "2020/6/19"
+    },
+    {
+        "title": "React Deep Dive",
+        "url": "https://www.amazon.co.jp/dp/B089NVD8ZL",
+        "published_at": "2020/6/3"
+    },
+    {
+        "title": "ITエンジニア的論理思考テクニック! 仕事ができる人になるための13の極意。",
+        "url": "https://www.amazon.co.jp/dp/B07MGYCHD9",
+        "published_at": "2019/1/4"
+    },
+    {
+        "title": "JavaScript コードレシピ集",
+        "url": "https://www.amazon.co.jp/dp/B07N8YVCRQ",
+        "published_at": "2019/1/25"
+    },
+    {
+        "title": "わかばちゃんと学ぶ Git使い方入門",
+        "url": "https://www.amazon.co.jp/dp/B071D4D6XX",
+        "published_at": "2017/4/21"
+    },
+    {
+        "title": "作って理解するOS x86系コンピュータを動かす理論と実装",
+        "url": "https://www.amazon.co.jp/dp/B07YBQY75J",
+        "published_at": "2019/9/26"
+    },
+    {
+        "title": "OSの仕組みの絵本",
+        "url": "https://www.amazon.co.jp/dp/B00G9QITO8",
+        "published_at": "2011/11/1"
+    },
+    {
+        "title": "プログラミングコンテスト攻略のためのアルゴリズムとデータ構造",
+        "url": "https://www.amazon.co.jp/dp/B00U5MVXZO",
+        "published_at": "2015/1/30"
+    },
+    {
+        "title": "オブジェクト指向UIデザイン──使いやすいソフトウェアの原理",
+        "url": "https://www.amazon.co.jp/dp/B0893RK6WC",
+        "published_at": "2020/6/5"
+    },
+    {
+        "title": "CSS設計完全ガイド ～詳細解説＋実践的モジュール集",
+        "url": "https://www.amazon.co.jp/dp/B0856YMH7L",
+        "published_at": "2020/2/27"
+    },
+    {
+        "title": "改訂2版 みんなのGo言語",
+        "url": "https://www.amazon.co.jp/dp/B07VPSXF6N",
+        "published_at": "2019/8/1"
+    },
+    {
+        "title": "DNSがよくわかる教科書",
+        "url": "https://www.amazon.co.jp/dp/B07KQSRZ1S",
+        "published_at": "2018/11/21"
+    },
+    {
+        "title": "Webを支える技術 ―― HTTP,URI,HTML,そしてREST",
+        "url": "https://www.amazon.co.jp/dp/B07JK7FZH2",
+        "published_at": "2018/11/14"
+    },
+    {
+        "title": "The DevOps ハンドブック 理論・原則・実践のすべて",
+        "url": "https://www.amazon.co.jp/dp/B073PRMWR5",
+        "published_at": "2017/6/22"
+    },
+    {
+        "title": "「実践ドメイン駆動設計」から学ぶDDDの実装入門",
+        "url": "https://www.amazon.co.jp/dp/B07S675HVM",
+        "published_at": "2019/5/31"
+    },
+    {
+        "title": "データサイエンスのための数学 データサイエンス入門シリーズ",
+        "url": "https://www.amazon.co.jp/dp/B07ZNP4PC5",
+        "published_at": "2019/8/31"
+    },
+    {
+        "title": "React.js & Next.js超入門",
+        "url": "https://www.amazon.co.jp/dp/B07X7DHZ9F",
+        "published_at": "2019/3/15"
+    },
+    {
+        "title": "Python実践データ分析100本ノック",
+        "url": "https://www.amazon.co.jp/dp/B07ZSGSN9S",
+        "published_at": "2019/10/10"
+    },
+    {
+        "title": "Python Tricks: A Buffet of Awesome Python Features",
+        "url": "https://www.amazon.co.jp/dp/B0785Q7GSY",
+        "published_at": "2017/12/6"
+    },
+    {
+        "title": "統計的因果探索",
+        "url": "https://www.amazon.co.jp/dp/B0756TM3KM?",
+        "published_at": "2017/5/24"
+    },
+    {
+        "title": "リファクタリング 既存のコードを安全に改善する（第2版）",
+        "url": "https://www.amazon.co.jp/dp/B0831M1RK5",
+        "published_at": "2019/12/26"
+    },
+    {
+        "title": "これからはじめるVue.js実践入門",
+        "url": "https://www.amazon.co.jp/dp/B07WVXRNH3",
+        "published_at": "2019/8/21"
+    },
+    {
+        "title": "図解でなっとく！トラブル知らずのシステム設計",
+        "url": "https://www.amazon.co.jp/dp/B075ZLS5HR",
+        "published_at": "2017/10/5"
+    },
+    {
+        "title": "図解でなっとく！トラブル知らずのシステム設計 エラー制御・排他制御編",
+        "url": "https://www.amazon.co.jp/dp/B07B649FBM",
+        "published_at": "2018/3/23"
+    },
+    {
+        "title": "脳パフォーマンスがあがるマインドフルネス瞑想法",
+        "url": "https://www.amazon.co.jp/dp/B06Y2X9C3P",
+        "published_at": "2017/4/7"
+    },
+    {
+        "title": "ドメイン駆動設計入門 ボトムアップでわかる！ドメイン駆動設計の基本",
+        "url": "https://www.amazon.co.jp/dp/B082WXZVPC",
+        "published_at": "2020/2/13"
+    },
+    {
+        "title": "テスト駆動Python",
+        "url": "https://www.amazon.co.jp/dp/B07F65PFZN",
+        "published_at": "2018/8/29"
+    },
+    {
+        "title": "人生の結論",
+        "url": "https://www.amazon.co.jp/dp/B07G8Z8PT7",
+        "published_at": "2018/8/10"
+    },
+    {
+        "title": "まんがでわかるLinux シス管系女子",
+        "url": "https://www.amazon.co.jp/dp/4822224961",
+        "published_at": "2015/2/18"
+    },
+    {
+        "title": "ITエンジニアとして生き残るための指南書。 自分を守りアップデートするための18のテクニック。",
+        "url": "https://www.amazon.co.jp/dp/B07K7L83Y4",
+        "published_at": "2018/11/23"
+    },
+    {
+        "title": "ドグラ・マグラ（上）",
+        "url": "https://www.amazon.co.jp/dp/B00DHX5G74",
+        "published_at": "2000/9/1"
+    },
+    {
+        "title": "現場で役立つシステム設計の原則 〜変更を楽で安全にするオブジェクト指向の実践技法",
+        "url": "https://www.amazon.co.jp/dp/B073GSDBGT",
+        "published_at": "2017/7/5"
+    },
+    {
+        "title": "ユースケース駆動開発実践ガイド",
+        "url": "https://www.amazon.co.jp/dp/B01B5MX2TC",
+        "published_at": "2007/10/16"
+    },
+    {
+        "title": "組込みエンジニアの教科書",
+        "url": "https://www.amazon.co.jp/dp/B07QV5SZ1M",
+        "published_at": "2019/4/20"
+    },
+    {
+        "title": "Engineers in VOYAGE ― 事業をエンジニアリングする技術者たち",
+        "url": "https://www.amazon.co.jp/dp/B08GSQ4BL3",
+        "published_at": "2020/8/26"
+    },
+    {
+        "title": "エクストリームプログラミング",
+        "url": "https://www.amazon.co.jp/dp/B012UWOLOQ",
+        "published_at": "2015/6/25"
+    },
+    {
+        "title": "Clean Code アジャイルソフトウェア達人の技",
+        "url": "https://www.amazon.co.jp/dp/B078HYWY5X",
+        "published_at": "2017/12/28"
+    },
+    {
+        "title": "マイクロサービスパターン［実践的システムデザインのためのコード解説］",
+        "url": "https://www.amazon.co.jp/dp/B086JJNDKS",
+        "published_at": "2020/3/23"
+    },
+    {
+        "title": "実践ドメイン駆動設計 ",
+        "url": "https://www.amazon.co.jp/dp/B00UX9VJGW",
+        "published_at": "2015/3/16"
+    },
+    {
+        "title": "エリック・エヴァンスのドメイン駆動設計",
+        "url": "https://www.amazon.co.jp/dp/B00GRKD6XU",
+        "published_at": "2011/4/8"
+    },
+    {
+        "title": "アプリケーションアーキテクチャ設計パターン",
+        "url": "https://www.amazon.co.jp/dp/B076BY4VJH",
+        "published_at": "2017/10/12"
+    },
+    {
+        "title": "問題解決力を鍛える！アルゴリズムとデータ構造",
+        "url": "https://www.amazon.co.jp/dp/B08PV83L3N",
+        "published_at": "2020/10/2"
+    },
+    {
+        "title": "Architecture Patterns with Python: Enabling Test-Driven Development, Domain-Driven Design, and Event-Driven Microservices",
+        "url": "https://www.amazon.co.jp/dp/B085KB31X3",
+        "published_at": "2020/3/5"
+    },
+    {
+        "title": "オブジェクト指向設計実践ガイド ～Rubyでわかる 進化しつづける柔軟なアプリケーションの育て方",
+        "url": "https://www.amazon.co.jp/dp/B01L8SEVYI",
+        "published_at": "2016/9/2"
+    },
+    {
+        "title": "Practical Object-Oriented Design: An Agile Primer Using Ruby",
+        "url": "https://www.amazon.co.jp/dp/0134456475",
+        "published_at": "2018/8/22"
+    },
+    {
+        "title": "Pythonによる問題解決のためのアルゴリズム設計技法",
+        "url": "https://www.amazon.co.jp/dp/B08NT7D47G",
+        "published_at": "2020/11/13"
+    },
+    {
+        "title": "インフィニティNumPy: 配列の初期化から、ゲームの戦闘、静止画や動画作成までの221問",
+        "url": "https://www.amazon.co.jp/dp/B08QH49TD1",
+        "published_at": "2020/12/26"
+    },
+    {
+        "title": "HTML解体新書",
+        "url": "https://www.amazon.co.jp/dp/B0BJ1SGBG5",
+        "published_at": "2022/4/25"
+    },
+    {
+        "title": "読みやすいコードのガイドライン -持続可能なソフトウェア開発のために",
+        "url": "https://www.amazon.co.jp/dp/B0BGX2VGYR",
+        "published_at": "2022/10/20"
+    },
+    {
+        "title": "Clean Craftsmanship 規律、基準、倫理",
+        "url": "https://www.amazon.co.jp/dp/B0B9LPZ4R7",
+        "published_at": "2022/8/31"
+    },
+    {
+        "title": "プロダクトマネジメントのすべて 事業戦略・IT開発・UXデザイン・マーケティングからチーム・組織運営まで",
+        "url": "https://www.amazon.co.jp/dp/B08W51KLQJ",
+        "published_at": "2021/3/3"
+    },
+    {
+        "title": "なぜ、システム開発は必ずモメるのか？",
+        "url": "https://www.amazon.co.jp/dp/B00M84FTDO",
+        "published_at": "2013/10/1"
+    },
+    {
+        "title": "新しいLinuxの教科書",
+        "url": "https://www.amazon.co.jp/dp/B072K1NH76",
+        "published_at": "2015/6/5"
+    },
+    {
+        "title": "失敗から学ぶRDBの正しい歩き方",
+        "url": "https://www.amazon.co.jp/dp/B07P8PMHLL",
+        "published_at": "2019/2/27"
+    },
+    {
+        "title": "達人が教えるWebパフォーマンスチューニング 〜ISUCONから学ぶ高速化の実践",
+        "url": "https://www.amazon.co.jp/dp/B0B1Z9ZMY6",
+        "published_at": "2022/5/30"
+    },
+    {
+        "title": "プロを目指す人のためのTypeScript入門 安全なコードの書き方から高度な型の使い方まで",
+        "url": "https://www.amazon.co.jp/dp/B09Y527YPV",
+        "published_at": "2022/4/19"
+    },
+    {
+        "title": "良いコード／悪いコードで学ぶ設計入門―保守しやすい 成長し続けるコードの書き方",
+        "url": "https://www.amazon.co.jp/dp/B09Y1MWK9N",
+        "published_at": "2022/4/26"
+    },
+    {
+        "title": "セキュア・バイ・デザイン: 安全なソフトウェア設計",
+        "url": "https://www.amazon.co.jp/dp/B09F697K2V",
+        "published_at": "2021/9/24"
+    },
+    {
+        "title": "HTML5&CSS3デザイン 現場の新標準ガイド【第2版】",
+        "url": "https://www.amazon.co.jp/dp/4839974594",
+        "published_at": "2020/10/23"
+    },
+    {
+        "title": "達人に学ぶDB設計 徹底指南書",
+        "url": "https://www.amazon.co.jp/dp/B00EE1XPAI",
+        "published_at": "2012/3/15"
+    },
+    {
+        "title": "達人に学ぶSQL徹底指南書 第2版 初級者で終わりたくないあなたへ",
+        "url": "https://www.amazon.co.jp/dp/B07GB4CNKP",
+        "published_at": "2018/10/11"
+    },
+    {
+        "title": "世界一流エンジニアの思考法",
+        "url": "https://www.amazon.co.jp/dp/B0CKSZV5DQ",
+        "published_at": "2023/10/23"
+    },
+    {
+        "title": "APIデザイン・パターン",
+        "url": "https://www.amazon.co.jp/dp/B0B67JW8Z3",
+        "published_at": "2022/8/26"
+    },
+    {
+        "title": "Good Code, Bad Code ～持続可能な開発のためのソフトウェアエンジニア的思考",
+        "url": "https://www.amazon.co.jp/dp/B0BSW72QKZ",
+        "published_at": "2023/1/27"
+    },
+    {
+        "title": "データ指向プログラミング",
+        "url": "https://www.amazon.co.jp/dp/B0BWR57K64",
+        "published_at": "2023/4/19"
+    },
+    {
+        "title": "ロバストPython ―クリーンで保守しやすいコードを書く",
+        "url": "https://www.amazon.co.jp/dp/4814400179",
+        "published_at": "2023/3/25"
+    },
+    {
+        "title": "ちょうぜつソフトウェア設計入門――PHPで理解するオブジェクト指向の活用",
+        "url": "https://www.amazon.co.jp/dp/B0BNH1J2W2",
+        "published_at": "2022/12/7"
+    },
+    {
+        "title": "［改訂新版］プログラマのための文字コード技術入門",
+        "url": "https://www.amazon.co.jp/dp/B07M98R3S5",
+        "published_at": "2018/12/22"
+    },
+    {
+        "title": "プログラマー脳 ～優れたプログラマーになるための認知科学に基づくアプローチ",
+        "url": "https://www.amazon.co.jp/dp/4798068535",
+        "published_at": "2023/2/16"
+    },
+    {
+        "title": "単体テストの考え方/使い方",
+        "url": "https://www.amazon.co.jp/dp/B0BLTG8Z9K",
+        "published_at": "2022/12/28"
+    },
+    {
+        "title": "リーダーの仮面――「いちプレーヤー」から「マネジャー」に頭を切り替える思考法",
+        "url": "https://www.amazon.co.jp/dp/B08G8W4TQ1",
+        "published_at": "2020/11/24"
+    },
+    {
+        "title": "手を動かしてわかるクリーンアーキテクチャ ヘキサゴナルアーキテクチャによるクリーンなアプリケーション開発",
+        "url": "https://www.amazon.co.jp/dp/B0D9V7Y949",
+        "published_at": "2024/7/19"
+    },
+    {
+        "title": "実践Next.js —— App Routerで進化するWebアプリ開発 エンジニア選書",
+        "url": "https://www.amazon.co.jp/dp/B0CW1KC9N8",
+        "published_at": "2024/3/16"
+    },
+    {
+        "title": "データモデリングでドメインを駆動する──分散／疎結合な基幹系システムに向けて",
+        "url": "https://www.amazon.co.jp/dp/B0CSYDWQSV",
+        "published_at": "2024/2/24"
+    },
+    {
+        "title": "暗号技術のすべて",
+        "url": "https://www.amazon.co.jp/dp/B073J82NQX",
+        "published_at": "2017/8/3"
+    },
+    {
+        "title": "フロントエンド開発のためのテスト入門 今からでも知っておきたい自動テスト戦略の必須知識",
+        "url": "https://www.amazon.co.jp/dp/B0BWR5GHMP",
+        "published_at": "2023/4/24"
+    },
+    {
+        "title": "ソフトウェア設計の結合バランス 持続可能な成長を支えるモジュール化の原則",
+        "url": "https://www.amazon.co.jp/dp/4295022969",
+        "published_at": "2025/10/17"
+    },
+    {
+        "title": "実践で学ぶコード改善の極意 5行ルールで強く美しくリファクタリングする",
+        "url": "https://www.amazon.co.jp/dp/4839987718",
+        "published_at": "2025/5/23"
+    },
+    {
+        "title": "Looks Good To Me",
+        "url": "https://www.amazon.co.jp/dp/4798071447",
+        "published_at": "2025/5/30"
+    },
+    {
+        "title": "図解即戦力 ネットワークのしくみと技術がこれ1冊でしっかりわかる本",
+        "url": "https://www.amazon.co.jp/dp/B09ZXPLMKT",
+        "published_at": "2022/5/13"
+    },
+    {
+        "title": "庭に埋めたものは掘り起こさなければならない",
+        "url": "https://www.amazon.co.jp/dp/4260057669",
+        "published_at": "2024/10/15"
+    },
+    {
+        "title": "SQLアンチパターン",
+        "url": "https://www.amazon.co.jp/dp/4873115892",
+        "published_at": "2013/1/26"
+    },
+    {
+        "title": "レガシーコードからの脱却 ―ソフトウェアの寿命を延ばし価値を高める9つのプラクティス",
+        "url": "https://www.amazon.co.jp/dp/4873118867",
+        "published_at": "2019/9/19"
+    },
+    {
+        "title": "モノリスからマイクロサービスへ ―モノリスを進化させる実践移行ガイド",
+        "url": "https://www.amazon.co.jp/dp/4873119316",
+        "published_at": "2020/12/26"
+    }
+]
