@@ -56,7 +56,7 @@ export default function ShelfPage() {
                                                         aria-hidden="true"
                                                     />
 
-                                                    <div className="relative z-10 w-full h-full flex items-center justify-center p-1">
+                                                    <div className="relative z-10 w-full h-full flex items-center justify-center">
                                                         <img
                                                             src={book.og_image}
                                                             alt={book.title}
