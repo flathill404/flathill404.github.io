@@ -41,7 +41,7 @@ export function BookCard({ book }: BookCardProps) {
                                     />
                                 </div>
 
-                                <div className="relative z-10 w-full h-full flex items-center justify-center p-2">
+                                <div className="relative z-10 w-full h-full flex items-center justify-center">
                                     <div className="relative w-full h-full">
                                         <Image
                                             src={book.og_image}
