@@ -10,12 +10,12 @@ export default function ShelfPage() {
     // booksData is imported as an array
     const books = Array.isArray(booksData)
         ? booksData
-              .sort((a, b) => {
-                  // sort by published_at ascending
-                  if (!a.published_at) return 1;
-                  if (!b.published_at) return -1;
-                  return a.published_at.localeCompare(b.published_at);
-              })
+            .sort((a, b) => {
+                // sort by published_at ascending
+                if (!a.published_at) return 1;
+                if (!b.published_at) return -1;
+                return a.published_at.localeCompare(b.published_at);
+            })
         : [];
 
     return (
@@ -30,27 +30,53 @@ export default function ShelfPage() {
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
                     {books.map((book, index) => {
                         const link = book.og_url ? book.og_url : book.url;
+                        const hasImage = !!book.og_image;
+
                         return (
                             <div key={index} className="flex flex-col items-center">
                                 <a
                                     href={link}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex flex-col items-center w-full"
+                                    className="group relative w-32 perspective-[1000px]"
                                 >
-                                    {book.og_image ? (
-                                        <img
-                                            src={book.og_image}
-                                            alt={book.title}
-                                            className="rounded shadow-md object-contain w-32 h-48 bg-zinc-100 dark:bg-zinc-800"
-                                            loading="lazy"
-                                        />
-                                    ) : (
-                                        <div className="flex items-center justify-center w-32 h-48 rounded shadow-md bg-zinc-100 dark:bg-zinc-800 border border-dashed border-zinc-300 dark:border-zinc-700">
-                                            <span className="text-xs text-zinc-400 dark:text-zinc-600 text-center px-2">No Image</span>
+                                    <div className="relative h-48 w-full transition-all duration-500 ease-out [transform-style:preserve-3d] group-hover:[transform:rotateY(0deg)] [transform:rotateY(-24deg)]">
+
+
+                                        <div className="absolute inset-0 bg-zinc-200 dark:bg-zinc-700 translate-z-[-6px] translate-x-[4px] rounded shadow-xl" />
+
+                                        <div className="absolute inset-0 overflow-hidden rounded shadow-sm bg-zinc-100 dark:bg-zinc-800 border-l border-zinc-300 dark:border-zinc-600">
+
+                                            {hasImage ? (
+                                                <>
+                                                    <img
+                                                        src={book.og_image}
+                                                        alt=""
+                                                        className="absolute inset-0 w-full h-full object-cover blur-md opacity-50 scale-125"
+                                                        aria-hidden="true"
+                                                    />
+
+                                                    <div className="relative z-10 w-full h-full flex items-center justify-center p-1">
+                                                        <img
+                                                            src={book.og_image}
+                                                            alt={book.title}
+                                                            className="max-w-full max-h-full object-contain shadow-sm"
+                                                            loading="lazy"
+                                                        />
+                                                    </div>
+                                                </>
+                                            ) : (
+                                                <div className="flex items-center justify-center w-full h-full relative z-10">
+                                                    <span className="text-xs text-zinc-400 text-center px-1">No Image</span>
+                                                </div>
+                                            )}
+
+
+                                            <div className="absolute inset-0 z-20 bg-gradient-to-br from-white/20 via-transparent to-black/10 pointer-events-none" />
                                         </div>
-                                    )}
-                                    <span className="mt-2 text-sm text-zinc-800 dark:text-zinc-200 text-center w-32 break-words font-medium">
+                                    </div>
+
+                                    <span className="mt-4 block text-sm text-zinc-800 dark:text-zinc-200 text-center w-full break-words font-medium transition-opacity group-hover:text-black dark:group-hover:text-white">
                                         {book.title}
                                     </span>
                                 </a>
