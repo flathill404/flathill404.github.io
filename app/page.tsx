@@ -2,12 +2,10 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { BsMicrosoftTeams } from "react-icons/bs";
 import { DiVisualstudio } from "react-icons/di";
 import {
 	FaApple,
 	FaAws,
-	FaDiscord,
 	FaDocker,
 	FaGitAlt,
 	FaGithub,
@@ -42,7 +40,6 @@ import {
 	SiJenkins,
 	SiJira,
 	SiJquery,
-	SiKubernetes,
 	SiLaravel,
 	SiMysql,
 	SiNextdotjs,
