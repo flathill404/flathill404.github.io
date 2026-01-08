@@ -39,6 +39,11 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'www.c-r.com' },
     ],
   },
+  experimental: {
+    optimizePackageImports: [
+      'lucide-react',
+    ],
+  },
 };
 
 export default nextConfig;
