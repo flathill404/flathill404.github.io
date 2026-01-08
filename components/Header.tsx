@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Home } from 'lucide-react';
 
 export default function Header() {
     return (
@@ -16,17 +15,6 @@ export default function Header() {
                     />
                     flathill404
                 </Link>
-                <nav>
-                    <ul className="flex items-center gap-6 text-sm font-medium text-gray-600 dark:text-gray-300">
-                        <li>
-                            <Link href="/" className="hover:text-black dark:hover:text-white transition-colors flex items-center gap-2">
-                                <Home size={20} />
-                                <span className="sr-only">Home</span>
-                            </Link>
-                        </li>
-                        {/* Add more links here as needed */}
-                    </ul>
-                </nav>
             </div>
         </header>
     );
