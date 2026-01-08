@@ -19,7 +19,7 @@ export default function ShelfPage() {
 
     return (
         <div className="flex min-h-screen justify-center bg-zinc-50 font-sans dark:bg-black">
-            <main className="flex min-h-screen w-full max-w-5xl flex-col py-32 px-8 bg-white dark:bg-black">
+            <main className="flex min-h-screen w-full max-w-5xl flex-col p-8 bg-white dark:bg-black">
                 <h1 className="text-4xl font-bold text-zinc-900 dark:text-zinc-100 mb-8">
                     Book Shelf
                 </h1>
