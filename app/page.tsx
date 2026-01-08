@@ -5,6 +5,9 @@ import { motion } from 'framer-motion';
 import { FaGithub, FaTwitter, FaPhp, FaPython, FaJava, FaAws, FaDocker, FaLinux, FaWindows, FaApple, FaGitAlt, FaSlack, FaDiscord } from 'react-icons/fa';
 import { SiTypescript, SiJavascript, SiGo, SiDart, SiGnubash, SiLaravel, SiWordpress, SiSpringboot, SiDotnet, SiDjango, SiFlask, SiFastapi, SiNodedotjs, SiExpress, SiPrisma, SiTypeorm, SiReact, SiNextdotjs, SiVuedotjs, SiNuxtdotjs, SiJquery, SiFlutter, SiElectron, SiHtml5, SiCss3, SiTailwindcss, SiBootstrap, SiSass, SiStyledcomponents, SiVite, SiWebpack, SiBabel, SiNpm, SiYarn, SiPnpm, SiBun, SiMysql, SiPostgresql, SiOracle, SiSqlite, SiRedis, SiFirebase, SiGooglecloud, SiCloudflare, SiKubernetes, SiNginx, SiApache, SiJenkins, SiPostman, SiSentry, SiJira, SiConfluence } from 'react-icons/si';
 import { BsMicrosoftTeams } from 'react-icons/bs';
+import { TbBrandCSharp } from 'react-icons/tb';
+import { VscVscode } from 'react-icons/vsc';
+import { DiVisualstudio } from 'react-icons/di';
 
 // Skill Data Structure
 type Skill = {
@@ -27,7 +30,7 @@ const skillCategories: SkillCategory[] = [
       { name: 'JavaScript', icon: <SiJavascript />, color: '#F7DF1E' },
       { name: 'Python', icon: <FaPython />, color: '#3776AB' },
       { name: 'Java', icon: <FaJava />, color: '#007396' },
-      // { name: 'C#', icon: <SiCsharp />, color: '#239120' },
+      { name: 'C#', icon: <TbBrandCSharp />, color: '##9179E4' },
       { name: 'Go', icon: <SiGo />, color: '#00ADD8' },
       { name: 'Dart', icon: <SiDart />, color: '#0175C2' },
       { name: 'Bash', icon: <SiGnubash />, color: '#4EAA25' },
@@ -102,8 +105,8 @@ const skillCategories: SkillCategory[] = [
       { name: 'Teams', icon: <BsMicrosoftTeams />, color: '#6264A7' },
       { name: 'Postman', icon: <SiPostman />, color: '#FF6C37' },
       { name: 'Sentry', icon: <SiSentry />, color: '#362D59' },
-      // { name: 'VS Code', icon: <SiVisualstudiocode />, color: '#007ACC' },
-      // { name: 'Visual Studio', icon: <SiVisualstudio />, color: '#5C2D91' },
+      { name: 'VS Code', icon: <VscVscode />, color: '#007ACC' },
+      { name: 'Visual Studio', icon: <DiVisualstudio />, color: '#5C2D91' },
     ]
   }
 ];
