@@ -3,9 +3,8 @@
 import { useEffect } from "react";
 import ErrorView from "@/components/ErrorView";
 
-export default function Error({
+export default function ErrorPage({
 	error,
-	reset,
 }: {
 	error: Error & { digest?: string };
 	reset: () => void;

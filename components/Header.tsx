@@ -42,6 +42,7 @@ export default function Header() {
                 */}
 
 				<button
+					type="button"
 					onClick={toggleMenu}
 					className="p-2 z-[60] text-gray-800 dark:text-gray-200 hover:bg-gray-200/50 dark:hover:bg-gray-800/50 rounded-full transition-colors"
 					aria-label="Toggle menu"
