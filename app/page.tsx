@@ -21,9 +21,7 @@ import {
 } from "react-icons/fa";
 import {
 	SiApache,
-	SiBabel,
 	SiBootstrap,
-	SiBun,
 	SiCloudflare,
 	SiConfluence,
 	SiCss3,
@@ -50,10 +48,8 @@ import {
 	SiNextdotjs,
 	SiNginx,
 	SiNodedotjs,
-	SiNpm,
 	SiNuxtdotjs,
 	SiOracle,
-	SiPnpm,
 	SiPostgresql,
 	SiPostman,
 	SiPrisma,
@@ -71,7 +67,6 @@ import {
 	SiVuedotjs,
 	SiWebpack,
 	SiWordpress,
-	SiYarn,
 } from "react-icons/si";
 import { TbBrandCSharp } from "react-icons/tb";
 import { VscVscode } from "react-icons/vsc";
