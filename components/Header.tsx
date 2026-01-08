@@ -13,7 +13,9 @@ export default function Header() {
 	const closeMenu = () => setIsOpen(false);
 
 	return (
-		<header className="w-full border-b border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-black/50 backdrop-blur-md sticky top-0 z-50">
+		<header className="w-full border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50">
+			<div className="absolute inset-0 bg-white/50 dark:bg-black/50 backdrop-blur-md -z-10" />
+
 			<div className="container mx-auto px-4 h-16 flex items-center justify-between">
 				<Link
 					href="/"
@@ -29,17 +31,6 @@ export default function Header() {
 					/>
 					flathill404
 				</Link>
-
-				{/* Desktop Navigation (Optional, can be hidden if only hamburger is desired, 
-                    but usually good to have visible links on desktop. 
-                    User asked for hamburger menu specifically, so we'll prioritize that, 
-                    but maybe show hamburger on all screens or just mobile? 
-                    The request: "Header no migiue ni hamburger menu wo setchi shitai" (I want to place a hamburger menu in the top right of the header).
-                    It doesn't explicitly say "only for mobile" or "replace standard nav". 
-                    I'll treat it as the primary navigation method for now as per the specific request for "hamburger menu". 
-                    Or I can keep it simple and just have the hamburger menu always visible or visible on mobile.
-                    Let's make the hamburger visible always as requested "hamburger menu in top right".
-                */}
 
 				<button
 					type="button"
@@ -58,7 +49,7 @@ export default function Header() {
 							animate={{ opacity: 1, x: 0 }}
 							exit={{ opacity: 0, x: "100%" }}
 							transition={{ type: "spring", damping: 25, stiffness: 200 }}
-							className="fixed inset-0 bg-white dark:bg-black z-50 flex flex-col items-center justify-center"
+							className="fixed top-0 left-0 right-0 bottom-0 bg-white/95 dark:bg-black/95 backdrop-blur-md z-40 flex flex-col items-center justify-start pt-28"
 						>
 							<nav className="flex flex-col items-center gap-8 text-2xl font-medium">
 								<Link
