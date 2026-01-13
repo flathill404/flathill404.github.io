@@ -8,6 +8,6 @@ updates:
       interval: "weekly"
       day: "friday"
     labels:
-      - "npm dependencies"
+      - "dependencies"
     assignees:
       - "flathill404"
