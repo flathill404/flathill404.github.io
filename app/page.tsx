@@ -2,77 +2,12 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { DiVisualstudio } from "react-icons/di";
-import {
-	FaApple,
-	FaAws,
-	FaDocker,
-	FaGitAlt,
-	FaGithub,
-	FaJava,
-	FaLinux,
-	FaPhp,
-	FaPython,
-	FaSlack,
-	FaTwitter,
-	FaWindows,
-} from "react-icons/fa";
-import {
-	SiApache,
-	SiBootstrap,
-	SiCloudflare,
-	SiConfluence,
-	SiCss3,
-	SiDart,
-	SiDjango,
-	SiDotnet,
-	SiElectron,
-	SiExpress,
-	SiFastapi,
-	SiFirebase,
-	SiFlask,
-	SiFlutter,
-	SiGnubash,
-	SiGo,
-	SiGooglecloud,
-	SiHtml5,
-	SiJavascript,
-	SiJenkins,
-	SiJira,
-	SiJquery,
-	SiLaravel,
-	SiMysql,
-	SiNextdotjs,
-	SiNginx,
-	SiNodedotjs,
-	SiNuxtdotjs,
-	SiOracle,
-	SiPostgresql,
-	SiPostman,
-	SiPrisma,
-	SiReact,
-	SiRedis,
-	SiSass,
-	SiSentry,
-	SiSpringboot,
-	SiSqlite,
-	SiStyledcomponents,
-	SiTailwindcss,
-	SiTypeorm,
-	SiTypescript,
-	SiVite,
-	SiVuedotjs,
-	SiWebpack,
-	SiWordpress,
-} from "react-icons/si";
-import { TbBrandCSharp } from "react-icons/tb";
-import { VscVscode } from "react-icons/vsc";
 
 // Skill Data Structure
 type Skill = {
 	name: string;
-	icon: React.ReactNode;
-	color?: string;
+	icon: string; // Path to SVG
+	color?: string; // Kept for text color or other uses, though SVGs are colored
 };
 
 type SkillCategory = {
@@ -84,85 +19,96 @@ const skillCategories: SkillCategory[] = [
 	{
 		title: "Programming Languages",
 		skills: [
-			{ name: "PHP", icon: <FaPhp />, color: "#777BB3" },
-			{ name: "TypeScript", icon: <SiTypescript />, color: "#3178C6" },
-			{ name: "JavaScript", icon: <SiJavascript />, color: "#F7DF1E" },
-			{ name: "Python", icon: <FaPython />, color: "#306998" },
-			{ name: "Java", icon: <FaJava />, color: "#007396" },
-			{ name: "C#", icon: <TbBrandCSharp />, color: "#9179E4" },
-			{ name: "Go", icon: <SiGo />, color: "#00ADD8" },
-			{ name: "Dart", icon: <SiDart />, color: "#0175C2" },
-			{ name: "Bash", icon: <SiGnubash />, color: "#4EAA25" },
+			{ name: "PHP", icon: "/icons/php.svg", color: "#777BB3" },
+			{ name: "TypeScript", icon: "/icons/typescript.svg", color: "#3178C6" },
+			{ name: "JavaScript", icon: "/icons/javascript.svg", color: "#F7DF1E" },
+			{ name: "Python", icon: "/icons/python.svg", color: "#306998" },
+			{ name: "Java", icon: "/icons/java.svg", color: "#007396" },
+			{ name: "C#", icon: "/icons/csharp.svg", color: "#9179E4" },
+			{ name: "Go", icon: "/icons/go.svg", color: "#00ADD8" },
+			{ name: "Dart", icon: "/icons/dart.svg", color: "#0175C2" },
+			{ name: "Bash", icon: "/icons/bash.svg", color: "#4EAA25" },
 		],
 	},
 	{
 		title: "Backend",
 		skills: [
-			{ name: "Laravel", icon: <SiLaravel />, color: "#FF2D20" },
-			{ name: "WordPress", icon: <SiWordpress />, color: "#21759B" },
-			{ name: "Spring Boot", icon: <SiSpringboot />, color: "#6DB33F" },
-			{ name: "ASP.NET Core", icon: <SiDotnet />, color: "#512BD4" },
-			{ name: "Django", icon: <SiDjango />, color: "#092E20" },
-			{ name: "Flask", icon: <SiFlask />, color: "#000000" },
-			{ name: "FastAPI", icon: <SiFastapi />, color: "#009688" },
-			{ name: "Node.js", icon: <SiNodedotjs />, color: "#339933" },
-			{ name: "Express", icon: <SiExpress />, color: "#000000" },
-			{ name: "Prisma", icon: <SiPrisma />, color: "#2D3748" },
-			{ name: "TypeORM", icon: <SiTypeorm />, color: "#FE0808" },
+			{ name: "Laravel", icon: "/icons/laravel.svg", color: "#FF2D20" },
+			{ name: "WordPress", icon: "/icons/wordpress.svg", color: "#21759B" },
+			{ name: "Spring Boot", icon: "/icons/spring.svg", color: "#6DB33F" },
+			{ name: "ASP.NET Core", icon: "/icons/dotnetcore.svg", color: "#512BD4" },
+			{ name: "Django", icon: "/icons/django.svg", color: "#092E20" },
+			{ name: "Flask", icon: "/icons/flask.svg", color: "#000000" },
+			{ name: "FastAPI", icon: "/icons/fastapi.svg", color: "#009688" },
+			{ name: "Node.js", icon: "/icons/nodejs.svg", color: "#339933" },
+			{ name: "Express", icon: "/icons/express.svg", color: "#000000" },
+			{ name: "Prisma", icon: "/icons/prisma.svg", color: "#2D3748" },
 		],
 	},
 	{
 		title: "Frontend",
 		skills: [
-			{ name: "React", icon: <SiReact />, color: "#61DAFB" },
-			{ name: "Next.js", icon: <SiNextdotjs />, color: "#000000" },
-			{ name: "Vue.js", icon: <SiVuedotjs />, color: "#4FC08D" },
-			{ name: "Nuxt", icon: <SiNuxtdotjs />, color: "#00DC82" },
-			{ name: "jQuery", icon: <SiJquery />, color: "#0769AD" },
-			{ name: "Flutter", icon: <SiFlutter />, color: "#02569B" },
-			{ name: "Electron", icon: <SiElectron />, color: "#47848F" },
-			{ name: "HTML5", icon: <SiHtml5 />, color: "#E34F26" },
-			{ name: "CSS3", icon: <SiCss3 />, color: "#1572B6" },
-			{ name: "Tailwind CSS", icon: <SiTailwindcss />, color: "#06B6D4" },
-			{ name: "Bootstrap", icon: <SiBootstrap />, color: "#7952B3" },
-			{ name: "Sass", icon: <SiSass />, color: "#CC6699" },
-			{ name: "Styled Comp", icon: <SiStyledcomponents />, color: "#DB7093" },
-			{ name: "Vite", icon: <SiVite />, color: "#646CFF" },
-			{ name: "Webpack", icon: <SiWebpack />, color: "#8DD6F9" },
+			{ name: "React", icon: "/icons/react.svg", color: "#61DAFB" },
+			{ name: "Next.js", icon: "/icons/nextjs.svg", color: "#000000" },
+			{ name: "Vue.js", icon: "/icons/vuejs.svg", color: "#4FC08D" },
+			{ name: "Nuxt", icon: "/icons/nuxtjs.svg", color: "#00DC82" },
+			{ name: "jQuery", icon: "/icons/jquery.svg", color: "#0769AD" },
+			{ name: "Flutter", icon: "/icons/flutter.svg", color: "#02569B" },
+			{ name: "Electron", icon: "/icons/electron.svg", color: "#47848F" },
+			{ name: "HTML5", icon: "/icons/html5.svg", color: "#E34F26" },
+			{ name: "CSS3", icon: "/icons/css3.svg", color: "#1572B6" },
+			{
+				name: "Tailwind CSS",
+				icon: "/icons/tailwindcss.svg",
+				color: "#06B6D4",
+			},
+			{ name: "Bootstrap", icon: "/icons/bootstrap.svg", color: "#7952B3" },
+			{ name: "Sass", icon: "/icons/sass.svg", color: "#CC6699" },
+			{
+				name: "Styled Comp",
+				icon: "/icons/styledcomponents.svg",
+				color: "#DB7093",
+			},
+			{ name: "Vite", icon: "/icons/vitejs.svg", color: "#646CFF" },
+			{ name: "Webpack", icon: "/icons/webpack.svg", color: "#8DD6F9" },
 		],
 	},
 	{
 		title: "Database & Infrastructure",
 		skills: [
-			{ name: "MySQL", icon: <SiMysql />, color: "#4479A1" },
-			{ name: "PostgreSQL", icon: <SiPostgresql />, color: "#4169E1" },
-			{ name: "Oracle DB", icon: <SiOracle />, color: "#F80000" },
-			{ name: "SQLite", icon: <SiSqlite />, color: "#003B57" },
-			{ name: "Redis", icon: <SiRedis />, color: "#DC382D" },
-			{ name: "Firebase", icon: <SiFirebase />, color: "#FFCA28" },
-			{ name: "AWS", icon: <FaAws />, color: "#FF9900" },
-			{ name: "GCP", icon: <SiGooglecloud />, color: "#4285F4" },
-			{ name: "Cloudflare", icon: <SiCloudflare />, color: "#F38020" },
-			{ name: "Docker", icon: <FaDocker />, color: "#2496ED" },
-			{ name: "Nginx", icon: <SiNginx />, color: "#009639" },
-			{ name: "Apache", icon: <SiApache />, color: "#D22128" },
-			{ name: "Jenkins", icon: <SiJenkins />, color: "#D24939" },
+			{ name: "MySQL", icon: "/icons/mysql.svg", color: "#4479A1" },
+			{ name: "PostgreSQL", icon: "/icons/postgresql.svg", color: "#4169E1" },
+			{ name: "Oracle DB", icon: "/icons/oracle.svg", color: "#F80000" },
+			{ name: "SQLite", icon: "/icons/sqlite.svg", color: "#003B57" },
+			{ name: "Redis", icon: "/icons/redis.svg", color: "#DC382D" },
+			{ name: "Firebase", icon: "/icons/firebase.svg", color: "#FFCA28" },
+			{ name: "AWS", icon: "/icons/aws.svg", color: "#FF9900" },
+			{ name: "GCP", icon: "/icons/gcp.svg", color: "#4285F4" },
+			{ name: "Cloudflare", icon: "/icons/cloudflare.svg", color: "#F38020" },
+			{ name: "Docker", icon: "/icons/docker.svg", color: "#2496ED" },
+			{ name: "Nginx", icon: "/icons/nginx.svg", color: "#009639" },
+			{ name: "Apache", icon: "/icons/apache.svg", color: "#D22128" },
+			{ name: "Jenkins", icon: "/icons/jenkins.svg", color: "#D24939" },
 		],
 	},
 	{
 		title: "Tools & Environment",
 		skills: [
-			{ name: "Linux", icon: <FaLinux />, color: "#FCC624" },
-			{ name: "macOS", icon: <FaApple />, color: "#000000" },
-			{ name: "Windows", icon: <FaWindows />, color: "#0078D6" },
-			{ name: "Git", icon: <FaGitAlt />, color: "#F05032" },
-			{ name: "Jira", icon: <SiJira />, color: "#0052CC" },
-			{ name: "Confluence", icon: <SiConfluence />, color: "#172B4D" },
-			{ name: "Slack", icon: <FaSlack />, color: "#4A154B" },
-			{ name: "Postman", icon: <SiPostman />, color: "#FF6C37" },
-			{ name: "Sentry", icon: <SiSentry />, color: "#362D59" },
-			{ name: "VS Code", icon: <VscVscode />, color: "#007ACC" },
-			{ name: "Visual Studio", icon: <DiVisualstudio />, color: "#5C2D91" },
+			{ name: "Linux", icon: "/icons/linux.svg", color: "#FCC624" },
+			{ name: "macOS", icon: "/icons/apple.svg", color: "#000000" },
+			{ name: "Windows", icon: "/icons/windows.svg", color: "#0078D6" },
+			{ name: "Git", icon: "/icons/git.svg", color: "#F05032" },
+			{ name: "Jira", icon: "/icons/jira.svg", color: "#0052CC" },
+			{ name: "Confluence", icon: "/icons/confluence.svg", color: "#172B4D" },
+			{ name: "Slack", icon: "/icons/slack.svg", color: "#4A154B" },
+			{ name: "Postman", icon: "/icons/postman.svg", color: "#FF6C37" },
+			{ name: "Sentry", icon: "/icons/sentry.svg", color: "#362D59" },
+			{ name: "VS Code", icon: "/icons/vscode.svg", color: "#007ACC" },
+			{
+				name: "Visual Studio",
+				icon: "/icons/visualstudio.svg",
+				color: "#5C2D91",
+			},
 		],
 	},
 ];
@@ -227,7 +173,14 @@ export default function Home() {
 							className="p-3 bg-white/5 hover:bg-white/10 rounded-full backdrop-blur-sm transition-all hover:scale-110 active:scale-95 border border-white/10"
 							aria-label="GitHub"
 						>
-							<FaGithub size={24} />
+							<div className="w-6 h-6 relative">
+								<Image
+									src="/icons/github-white.svg"
+									alt="GitHub"
+									fill
+									className="object-contain"
+								/>
+							</div>
 						</a>
 						<a
 							href="https://x.com/flathill404"
@@ -236,7 +189,14 @@ export default function Home() {
 							className="p-3 bg-white/5 hover:bg-white/10 rounded-full backdrop-blur-sm transition-all hover:scale-110 active:scale-95 border border-white/10"
 							aria-label="X (Twitter)"
 						>
-							<FaTwitter size={24} />
+							<div className="w-6 h-6 relative">
+								<Image
+									src="/icons/twitter-white.svg"
+									alt="X (Twitter)"
+									fill
+									className="object-contain"
+								/>
+							</div>
 						</a>
 					</motion.div>
 				</section>
@@ -265,11 +225,13 @@ export default function Home() {
 										}}
 										className="flex flex-col items-center justify-center p-4 rounded-xl bg-white/5 border border-white/5 backdrop-blur-sm hover:border-white/20 transition-colors group cursor-default"
 									>
-										<div
-											className="text-4xl mb-3 transition-transform group-hover:rotate-12 duration-300"
-											style={{ color: skill.color || "currentColor" }}
-										>
-											{skill.icon}
+										<div className="relative w-12 h-12 mb-3 transition-transform group-hover:rotate-12 duration-300">
+											<Image
+												src={skill.icon}
+												alt={skill.name}
+												fill
+												className="object-contain"
+											/>
 										</div>
 										<span className="text-sm font-medium text-gray-300 group-hover:text-white text-center">
 											{skill.name}
