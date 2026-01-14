@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -77,6 +76,7 @@ export default function ToolsLayout({
 						<span className="text-purple-500">My</span>Tools
 					</Link>
 					<button
+						type="button"
 						onClick={() => setIsSidebarOpen(false)}
 						className="lg:hidden p-2 text-gray-400 hover:text-white"
 					>
@@ -119,6 +119,7 @@ export default function ToolsLayout({
 			<div className="flex-1 flex flex-col min-w-0">
 				<header className="lg:hidden p-4 border-b border-white/10 flex items-center bg-[#111]">
 					<button
+						type="button"
 						onClick={() => setIsSidebarOpen(true)}
 						className="p-2 text-gray-400 hover:text-white mr-4"
 					>
