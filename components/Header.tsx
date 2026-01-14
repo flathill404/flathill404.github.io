@@ -66,6 +66,13 @@ export default function Header() {
 								>
 									Shelf
 								</Link>
+								<Link
+									href="/tools"
+									className="hover:text-purple-500 transition-colors"
+									onClick={closeMenu}
+								>
+									Tools
+								</Link>
 
 								<div className="flex gap-8 mt-8">
 									<a
