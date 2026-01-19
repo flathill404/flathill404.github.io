@@ -39,6 +39,7 @@ type SynthParam = {
 	max: number;
 	step: number;
 	defaultValue: number;
+	category?: "Synth" | "Filter";
 };
 
 const COMMON_ADSR: SynthParam[] = [
@@ -49,6 +50,7 @@ const COMMON_ADSR: SynthParam[] = [
 		max: 2,
 		step: 0.01,
 		defaultValue: 0.005,
+		category: "Synth",
 	},
 	{
 		label: "Decay",
@@ -56,7 +58,8 @@ const COMMON_ADSR: SynthParam[] = [
 		min: 0.01,
 		max: 2,
 		step: 0.01,
-		defaultValue: 0.1,
+		defaultValue: 0.3,
+		category: "Synth",
 	},
 	{
 		label: "Sustain",
@@ -64,7 +67,8 @@ const COMMON_ADSR: SynthParam[] = [
 		min: 0,
 		max: 1,
 		step: 0.01,
-		defaultValue: 0.3,
+		defaultValue: 0.0,
+		category: "Synth",
 	},
 	{
 		label: "Release",
@@ -73,14 +77,83 @@ const COMMON_ADSR: SynthParam[] = [
 		max: 5,
 		step: 0.01,
 		defaultValue: 1,
+		category: "Synth",
 	},
 ];
 
+const FILTER_PARAMS: SynthParam[] = [
+	{
+		label: "Filter Freq",
+		path: "filterEnvelope.baseFrequency",
+		min: 50,
+		max: 5000,
+		step: 10,
+		defaultValue: 200,
+		category: "Filter",
+	},
+	{
+		label: "Filter Res",
+		path: "filter.Q",
+		min: 0,
+		max: 10,
+		step: 0.1,
+		defaultValue: 2,
+		category: "Filter",
+	},
+	{
+		label: "Filter Amt",
+		path: "filterEnvelope.octaves",
+		min: 0,
+		max: 7,
+		step: 0.1,
+		defaultValue: 5,
+		category: "Filter",
+	},
+	{
+		label: "F. Attack",
+		path: "filterEnvelope.attack",
+		min: 0.005,
+		max: 2,
+		step: 0.01,
+		defaultValue: 0.005,
+		category: "Filter",
+	},
+	{
+		label: "F. Decay",
+		path: "filterEnvelope.decay",
+		min: 0.01,
+		max: 2,
+		step: 0.01,
+		defaultValue: 0.2,
+		category: "Filter",
+	},
+	{
+		label: "F. Sustain",
+		path: "filterEnvelope.sustain",
+		min: 0,
+		max: 1,
+		step: 0.01,
+		defaultValue: 0.0,
+		category: "Filter",
+	},
+	{
+		label: "F. Release",
+		path: "filterEnvelope.release",
+		min: 0.01,
+		max: 5,
+		step: 0.01,
+		defaultValue: 0.5,
+		category: "Filter",
+	},
+];
+
+const MONO_SYNTH_PARAMS = [...COMMON_ADSR, ...FILTER_PARAMS];
+
 const INSTRUMENT_PARAMS: Record<string, SynthParam[]> = {
-	Sine: COMMON_ADSR,
-	Square: COMMON_ADSR,
-	Triangle: COMMON_ADSR,
-	Sawtooth: COMMON_ADSR,
+	Sine: MONO_SYNTH_PARAMS,
+	Square: MONO_SYNTH_PARAMS,
+	Triangle: MONO_SYNTH_PARAMS,
+	Sawtooth: MONO_SYNTH_PARAMS,
 	FM: [
 		{
 			label: "Harmonicity",
@@ -89,6 +162,7 @@ const INSTRUMENT_PARAMS: Record<string, SynthParam[]> = {
 			max: 10,
 			step: 0.1,
 			defaultValue: 3,
+			category: "Synth",
 		},
 		{
 			label: "Modulation Index",
@@ -97,6 +171,7 @@ const INSTRUMENT_PARAMS: Record<string, SynthParam[]> = {
 			max: 100,
 			step: 1,
 			defaultValue: 10,
+			category: "Synth",
 		},
 		{
 			label: "Attack",
@@ -105,6 +180,7 @@ const INSTRUMENT_PARAMS: Record<string, SynthParam[]> = {
 			max: 2,
 			step: 0.01,
 			defaultValue: 0.01,
+			category: "Synth",
 		},
 		{
 			label: "Release",
@@ -113,6 +189,7 @@ const INSTRUMENT_PARAMS: Record<string, SynthParam[]> = {
 			max: 5,
 			step: 0.01,
 			defaultValue: 0.5,
+			category: "Synth",
 		},
 	],
 	AM: [
@@ -123,6 +200,7 @@ const INSTRUMENT_PARAMS: Record<string, SynthParam[]> = {
 			max: 10,
 			step: 0.1,
 			defaultValue: 3,
+			category: "Synth",
 		},
 		{
 			label: "Attack",
@@ -131,6 +209,7 @@ const INSTRUMENT_PARAMS: Record<string, SynthParam[]> = {
 			max: 2,
 			step: 0.01,
 			defaultValue: 0.01,
+			category: "Synth",
 		},
 		{
 			label: "Release",
@@ -139,6 +218,7 @@ const INSTRUMENT_PARAMS: Record<string, SynthParam[]> = {
 			max: 5,
 			step: 0.01,
 			defaultValue: 0.5,
+			category: "Synth",
 		},
 	],
 	Duo: [
@@ -149,6 +229,7 @@ const INSTRUMENT_PARAMS: Record<string, SynthParam[]> = {
 			max: 1,
 			step: 0.01,
 			defaultValue: 0.5,
+			category: "Synth",
 		},
 		{
 			label: "Vibrato Rate",
@@ -157,6 +238,7 @@ const INSTRUMENT_PARAMS: Record<string, SynthParam[]> = {
 			max: 20,
 			step: 0.1,
 			defaultValue: 5,
+			category: "Synth",
 		},
 		{
 			label: "Harmonicity",
@@ -165,6 +247,7 @@ const INSTRUMENT_PARAMS: Record<string, SynthParam[]> = {
 			max: 5,
 			step: 0.1,
 			defaultValue: 1.5,
+			category: "Synth",
 		},
 	],
 	Membrane: [
@@ -175,6 +258,7 @@ const INSTRUMENT_PARAMS: Record<string, SynthParam[]> = {
 			max: 0.5,
 			step: 0.01,
 			defaultValue: 0.05,
+			category: "Synth",
 		},
 		{
 			label: "Octaves",
@@ -183,6 +267,7 @@ const INSTRUMENT_PARAMS: Record<string, SynthParam[]> = {
 			max: 10,
 			step: 1,
 			defaultValue: 10,
+			category: "Synth",
 		},
 		{
 			label: "Attack",
@@ -191,6 +276,7 @@ const INSTRUMENT_PARAMS: Record<string, SynthParam[]> = {
 			max: 0.5,
 			step: 0.01,
 			defaultValue: 0.001,
+			category: "Synth",
 		},
 		{
 			label: "Release",
@@ -199,6 +285,7 @@ const INSTRUMENT_PARAMS: Record<string, SynthParam[]> = {
 			max: 2,
 			step: 0.01,
 			defaultValue: 1,
+			category: "Synth",
 		},
 	],
 };
@@ -252,13 +339,16 @@ const INSTRUMENTS = [
 ];
 
 const createSynth = (type: string) => {
+	// Basic waveforms use MonoSynth to have a Filter
 	switch (type) {
 		case "Sine":
-			return new Tone.Synth({ oscillator: { type: "sine" } });
+			return new Tone.MonoSynth({ oscillator: { type: "sine" } });
 		case "Square":
-			return new Tone.Synth({ oscillator: { type: "square" } });
+			return new Tone.MonoSynth({ oscillator: { type: "square" } });
 		case "Sawtooth":
-			return new Tone.Synth({ oscillator: { type: "sawtooth" } });
+			return new Tone.MonoSynth({ oscillator: { type: "sawtooth" } });
+		case "Triangle":
+			return new Tone.MonoSynth({ oscillator: { type: "triangle" } });
 		case "FM":
 			return new Tone.FMSynth();
 		case "AM":
@@ -268,7 +358,7 @@ const createSynth = (type: string) => {
 		case "Membrane":
 			return new Tone.MembraneSynth();
 		default:
-			return new Tone.Synth({ oscillator: { type: "triangle" } });
+			return new Tone.MonoSynth({ oscillator: { type: "triangle" } });
 	}
 };
 
@@ -294,19 +384,20 @@ export default function MelodyGenerator() {
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [currentNoteIndex, setCurrentNoteIndex] = useState<number | null>(null);
 
-	const [selectedKey, setSelectedKey] = useState("C");
+	const [selectedKey, setSelectedKey] = useState("F");
 	const [selectedScale, setSelectedScale] =
-		useState<keyof typeof SCALE_PATTERNS>("Major");
-	const [selectedInstrument, setSelectedInstrument] = useState("Triangle");
+		useState<keyof typeof SCALE_PATTERNS>("Natural Minor");
+	const [selectedInstrument, setSelectedInstrument] = useState("Sawtooth");
 	// Store all params in a single object: { "envelope.attack": 0.1, ... }
 	const [synthParams, setSynthParams] = useState<Record<string, number>>({});
+	const [activeTab, setActiveTab] = useState<"Synth" | "Filter">("Synth");
 
 	const [tempo, setTempo] = useState(140);
-	const [bars, setBars] = useState(2); // Default 2 bars
+	const [bars, setBars] = useState(1); // Default 1 bar
 
 	// Refs for Tone.js objects to survive re-renders
 	const synthRef = useRef<
-		| Tone.Synth
+		| Tone.MonoSynth
 		| Tone.FMSynth
 		| Tone.AMSynth
 		| Tone.DuoSynth
@@ -319,11 +410,18 @@ export default function MelodyGenerator() {
 	useEffect(() => {
 		const defaultParams: Record<string, number> = {};
 		const paramsConfig = INSTRUMENT_PARAMS[selectedInstrument] || COMMON_ADSR;
+		let hasFilter = false;
 		paramsConfig.forEach((p) => {
 			defaultParams[p.path] = p.defaultValue;
+			if (p.category === "Filter") hasFilter = true;
 		});
 		setSynthParams(defaultParams);
-	}, [selectedInstrument]);
+
+		// Reset tab to Synth if current instrument has no filter
+		if (!hasFilter && activeTab === "Filter") {
+			setActiveTab("Synth");
+		}
+	}, [selectedInstrument, activeTab]);
 
 	useEffect(() => {
 		// Initialize synth
@@ -790,37 +888,75 @@ export default function MelodyGenerator() {
 							</p>
 						</div>
 
-						{/* Advanced Parameters */}
+						{/* Advanced Parameters with Tabs */}
 						<div className="space-y-4 pt-4 border-t border-neutral-700">
-							<h4 className="text-sm font-bold text-neutral-300">Parameters</h4>
-							{(INSTRUMENT_PARAMS[selectedInstrument] || COMMON_ADSR).map(
-								(param) => (
-									<div key={param.path} className="space-y-1">
-										<div className="flex justify-between text-xs text-neutral-400">
-											<span>{param.label}</span>
-											<span>
-												{synthParams[param.path]?.toFixed(3) ??
-													param.defaultValue}
-											</span>
+							<div className="flex bg-neutral-800 p-1 rounded-lg">
+								<button
+									type="button"
+									onClick={() => setActiveTab("Synth")}
+									className={`flex-1 py-1.5 text-xs font-bold rounded transition-all ${
+										activeTab === "Synth"
+											? "bg-neutral-600 text-white shadow"
+											: "text-neutral-500 hover:text-neutral-300"
+									}`}
+								>
+									Synth
+								</button>
+								<button
+									type="button"
+									onClick={() => setActiveTab("Filter")}
+									disabled={
+										!(
+											INSTRUMENT_PARAMS[selectedInstrument] || COMMON_ADSR
+										).some((p) => p.category === "Filter")
+									}
+									className={`flex-1 py-1.5 text-xs font-bold rounded transition-all ${
+										activeTab === "Filter"
+											? "bg-neutral-600 text-white shadow"
+											: "text-neutral-500 hover:text-neutral-300 disabled:opacity-20 disabled:cursor-not-allowed"
+									}`}
+								>
+									Filter
+								</button>
+							</div>
+
+							<div className="h-[280px] overflow-y-auto pr-1 space-y-4 custom-scrollbar">
+								{(INSTRUMENT_PARAMS[selectedInstrument] || COMMON_ADSR)
+									.filter((p) => (p.category || "Synth") === activeTab)
+									.map((param) => (
+										<div key={param.path} className="space-y-1">
+											<div className="flex justify-between text-xs text-neutral-400">
+												<span>{param.label}</span>
+												<span>
+													{synthParams[param.path]?.toFixed(3) ??
+														param.defaultValue}
+												</span>
+											</div>
+											<input
+												type="range"
+												min={param.min}
+												max={param.max}
+												step={param.step}
+												value={synthParams[param.path] ?? param.defaultValue}
+												onChange={(e) => {
+													const val = Number(e.target.value);
+													setSynthParams((prev) => ({
+														...prev,
+														[param.path]: val,
+													}));
+												}}
+												className="w-full accent-cyan-400 h-1.5 bg-neutral-700 rounded-lg appearance-none cursor-pointer"
+											/>
 										</div>
-										<input
-											type="range"
-											min={param.min}
-											max={param.max}
-											step={param.step}
-											value={synthParams[param.path] ?? param.defaultValue}
-											onChange={(e) => {
-												const val = Number(e.target.value);
-												setSynthParams((prev) => ({
-													...prev,
-													[param.path]: val,
-												}));
-											}}
-											className="w-full accent-cyan-400 h-1.5 bg-neutral-700 rounded-lg appearance-none cursor-pointer"
-										/>
-									</div>
-								),
-							)}
+									))}
+								{(INSTRUMENT_PARAMS[selectedInstrument] || COMMON_ADSR).filter(
+									(p) => (p.category || "Synth") === activeTab,
+								).length === 0 && (
+									<p className="text-xs text-neutral-500 text-center py-4">
+										No parameters available for this category.
+									</p>
+								)}
+							</div>
 						</div>
 					</div>
 				</div>
