@@ -42,45 +42,16 @@ const getScaleNotes = (
 
 	const intervals = SCALE_PATTERNS[scaleType];
 	const notes: string[] = [];
-	const chromaticWithOctaves: string[] = [];
 
-	// Build a large chromatic map spanning enough octaves
-	const startOctave = 3;
-	const endOctave = startOctave + octaves + 1;
-
-	for (let oct = startOctave; oct < endOctave; oct++) {
-		for (const k of KEYS) {
-			chromaticWithOctaves.push(`${k}${oct}`);
-		}
-	}
-
-	// Find the starting index in the chromatic map
-	// The map starts at C3. rootIndex is offset from C.
-	// So if root is C, index is 0. If D, index is 2.
-	// We want the primary range to be around octave 4 mainly, so let's start from rootKey + 3 or 4
-	// Actually our map starts at C3. C3 is index 0.
-	// rootKey + "3" is simply rootIndex.
-	// Let's create notes starting from the root in octave 4 mostly.
-
-	// Let's simplify:
 	// Base is 4th octave.
 	const baseOctave = 4;
-	// We want notes spanning ~2 octaves starting from Root4
 
 	for (let o = 0; o < octaves; o++) {
 		const currentOctave = baseOctave + o;
 		intervals.forEach((interval) => {
-			// Calculate absolute semitone index from C0
-			// But we just need valid note names.
-
-			// Index in KEYS array (0-11)
 			const noteIndex = (rootIndex + interval) % 12;
-
-			// Check if we crossed into next octave relative to the root's octave
-			// If (rootIndex + interval) >= 12, then it's next octave
 			const octaveShift = Math.floor((rootIndex + interval) / 12);
 			const finalOctave = currentOctave + octaveShift;
-
 			notes.push(`${KEYS[noteIndex]}${finalOctave}`);
 		});
 	}
@@ -98,6 +69,8 @@ interface MelodyNote {
 	id: string; // Unique ID for rendering
 }
 
+const BAR_OPTIONS = [0.5, 1, 2, 4];
+
 export default function MelodyGenerator() {
 	const [melody, setMelody] = useState<MelodyNote[]>([]);
 	const [isPlaying, setIsPlaying] = useState(false);
@@ -107,7 +80,7 @@ export default function MelodyGenerator() {
 	const [selectedScale, setSelectedScale] =
 		useState<keyof typeof SCALE_PATTERNS>("Major");
 	const [tempo, setTempo] = useState(140);
-	const [length, setLength] = useState(8);
+	const [bars, setBars] = useState(1); // Default 1 bar
 
 	// Refs for Tone.js objects to survive re-renders
 	const synthRef = useRef<Tone.Synth | null>(null);
@@ -134,10 +107,30 @@ export default function MelodyGenerator() {
 		const newMelody: MelodyNote[] = [];
 		let currentTime = 0;
 
-		for (let i = 0; i < length; i++) {
+		// 1 bar = 16 sixteenth notes
+		const targetDuration = bars * 16;
+
+		while (currentTime < targetDuration) {
 			const pitch = scaleNotes[Math.floor(Math.random() * scaleNotes.length)];
-			// Simple duration logic for now: mostly 4n, some 8n
-			const duration: NoteLength = Math.random() > 0.3 ? "4n" : "8n";
+			const remaining = targetDuration - currentTime;
+
+			// Assume 4n=4, 8n=2.
+			// If remaining >= 4, can pick 4n or 8n.
+			// If remaining >= 2, can pick 8n.
+			// (Simplification: skipping 16n for now as requested/implied style)
+
+			let possibleDurations: NoteLength[] = [];
+			if (remaining >= 4) possibleDurations = ["4n", "8n"];
+			else if (remaining >= 2) possibleDurations = ["8n"];
+			else {
+				// Should not happen with 2 and 4 steps, but safety break
+				break;
+			}
+
+			// Bias towards 4n slightly? or 50/50? Earlier code had 70% 8n bias logic.
+			// Let's do random pick.
+			const duration =
+				possibleDurations[Math.floor(Math.random() * possibleDurations.length)];
 
 			newMelody.push({
 				pitch,
@@ -146,13 +139,12 @@ export default function MelodyGenerator() {
 				id: crypto.randomUUID(),
 			});
 
-			// Advance time (simple approximation for visualization/logic)
-			// In Tone.js Transport, we will schedule properly
-			currentTime += duration === "4n" ? 4 : 2; // in 16th notes
+			currentTime += duration === "4n" ? 4 : 2;
 		}
+
 		setMelody(newMelody);
 		setCurrentNoteIndex(null);
-	}, [selectedKey, selectedScale, length]);
+	}, [selectedKey, selectedScale, bars]);
 
 	const playMelody = async () => {
 		if (melody.length === 0) return;
@@ -311,27 +303,26 @@ export default function MelodyGenerator() {
 							</select>
 						</div>
 
+						{/* Length (Bars) Selection */}
 						<div className="space-y-2">
-							<label
-								htmlFor="length-slider"
-								className="text-xs font-semibold uppercase text-neutral-500 tracking-wider"
-							>
-								Length (Notes)
-							</label>
-							<input
-								id="length-slider"
-								type="range"
-								min="4"
-								max="32"
-								step="4"
-								value={length}
-								onChange={(e) => setLength(Number(e.target.value))}
-								className="w-full accent-cyan-400 h-2 bg-neutral-700 rounded-lg appearance-none cursor-pointer"
-							/>
-							<div className="flex justify-between text-xs text-neutral-400">
-								<span>4</span>
-								<span>{length} Notes</span>
-								<span>32</span>
+							<span className="text-xs font-semibold uppercase text-neutral-500 tracking-wider block">
+								Length (Bars)
+							</span>
+							<div className="grid grid-cols-4 gap-2">
+								{BAR_OPTIONS.map((b) => (
+									<button
+										type="button"
+										key={b}
+										onClick={() => setBars(b)}
+										className={`px-2 py-2 rounded-lg text-sm font-medium transition-all ${
+											bars === b
+												? "bg-cyan-500 text-black shadow-lg shadow-cyan-500/30"
+												: "bg-neutral-800 text-neutral-400 hover:bg-neutral-700"
+										}`}
+									>
+										{b}
+									</button>
+								))}
 							</div>
 						</div>
 
@@ -414,7 +405,8 @@ export default function MelodyGenerator() {
 										{selectedKey} {selectedScale}
 									</h2>
 									<p className="text-neutral-500 text-sm">
-										Generated Melody • {length} Notes • {tempo} BPM
+										Generated Melody • {bars} {bars === 1 ? "Bar" : "Bars"} •{" "}
+										{tempo} BPM
 									</p>
 								</div>
 							</div>
