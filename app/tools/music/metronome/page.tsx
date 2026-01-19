@@ -71,11 +71,11 @@ export default function MetronomePage() {
 					// We'll track the visual beat in a state, but for audio precision we rely on Tone/Time
 					// However, syncing React state to Tone loop at high BPM can be jitters.
 					// We'll use Tone.Draw to sync visual
-					const currentBeat =
-						Math.floor(Tone.Transport.position.toString().split(":")[1] || 0) %
-						4;
+					const position = Tone.getTransport().position;
+					const beat = Number(position.toString().split(":")[1]);
+					const currentBeat = Math.floor(beat) % 4;
 
-					Tone.Draw.schedule(() => {
+					Tone.getDraw().schedule(() => {
 						setBeat(currentBeat);
 					}, time);
 
@@ -154,24 +154,28 @@ export default function MetronomePage() {
 
 					<div className="flex justify-center gap-4">
 						<button
+							type="button"
 							onClick={() => adjustBpm(-1)}
 							className="w-12 h-12 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-white transition-colors"
 						>
 							<FaMinus />
 						</button>
 						<button
+							type="button"
 							onClick={() => adjustBpm(-5)}
 							className="px-4 h-12 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-white transition-colors text-sm font-bold"
 						>
 							-5
 						</button>
 						<button
+							type="button"
 							onClick={() => adjustBpm(5)}
 							className="px-4 h-12 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-white transition-colors text-sm font-bold"
 						>
 							+5
 						</button>
 						<button
+							type="button"
 							onClick={() => adjustBpm(1)}
 							className="w-12 h-12 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-white transition-colors"
 						>
@@ -182,6 +186,7 @@ export default function MetronomePage() {
 
 				{/* Play/Stop */}
 				<button
+					type="button"
 					onClick={togglePlay}
 					className={`w-24 h-24 rounded-full flex items-center justify-center text-3xl text-white transition-all transform hover:scale-105 mx-auto shadow-lg ${
 						isPlaying
@@ -195,6 +200,7 @@ export default function MetronomePage() {
 				{/* Volume Control */}
 				<div className="flex items-center gap-4 px-4">
 					<button
+						type="button"
 						onClick={() => setIsMuted(!isMuted)}
 						className="text-gray-400 hover:text-white transition-colors"
 					>
