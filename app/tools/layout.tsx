@@ -71,7 +71,7 @@ export default function ToolsLayout({
 
 			{/* Sidebar */}
 			<aside
-				className={`fixed lg:static inset-y-0 left-0 z-50 w-64 bg-[#111] border-r border-white/10 transform transition-transform duration-200 ease-in-out ${
+				className={`fixed lg:static inset-y-0 left-0 z-50 lg:z-30 w-64 bg-[#111] border-r border-white/10 transform transition-transform duration-200 ease-in-out ${
 					isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
 				}`}
 			>
