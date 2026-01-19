@@ -146,19 +146,24 @@ export default function MelodyGenerator() {
 		setCurrentNoteIndex(null);
 	}, [selectedKey, selectedScale, bars]);
 
-	const playMelody = async () => {
+	// Playback control
+	const stopPlayback = useCallback(() => {
+		Tone.Transport.stop();
+		Tone.Transport.cancel();
+		setIsPlaying(false);
+		setCurrentNoteIndex(null);
+		if (sequenceRef.current) {
+			sequenceRef.current.dispose();
+			sequenceRef.current = null;
+		}
+	}, []);
+
+	const startPlayback = useCallback(() => {
 		if (melody.length === 0) return;
 
-		await Tone.start();
-		Tone.Transport.cancel();
+		Tone.start();
+		Tone.Transport.cancel(); // Clear previous events
 		Tone.Transport.bpm.value = tempo;
-
-		if (isPlaying) {
-			Tone.Transport.stop();
-			setIsPlaying(false);
-			setCurrentNoteIndex(null);
-			return;
-		}
 
 		// Better scheduling strategy: calculate exact start times based on accumulated duration
 		let now = 0;
@@ -195,15 +200,29 @@ export default function MelodyGenerator() {
 
 		Tone.Transport.start();
 		setIsPlaying(true);
+
+		// Cleanup old ref if exists (though cancel should have handled events, the object persists)
+		if (sequenceRef.current) {
+			sequenceRef.current.dispose();
+		}
 		sequenceRef.current = part;
+	}, [melody, tempo]);
+
+	// Toggle Play/Stop
+	const togglePlayback = () => {
+		if (isPlaying) {
+			stopPlayback();
+		} else {
+			startPlayback();
+		}
 	};
 
-	const stopMelody = () => {
-		Tone.Transport.stop();
-		Tone.Transport.cancel();
-		setIsPlaying(false);
-		setCurrentNoteIndex(null);
-	};
+	// Auto-restart if melody changes while playing
+	useEffect(() => {
+		if (isPlaying) {
+			startPlayback();
+		}
+	}, [isPlaying, startPlayback]);
 
 	const downloadMidi = () => {
 		if (melody.length === 0) return;
@@ -414,7 +433,7 @@ export default function MelodyGenerator() {
 							<div className="grid grid-cols-2 gap-4">
 								<button
 									type="button"
-									onClick={isPlaying ? stopMelody : playMelody}
+									onClick={togglePlayback}
 									disabled={melody.length === 0}
 									className={`
                                 py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all
