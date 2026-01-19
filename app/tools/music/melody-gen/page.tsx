@@ -69,6 +69,38 @@ interface MelodyNote {
 	id: string; // Unique ID for rendering
 }
 
+const INSTRUMENTS = [
+	{ id: "Triangle", label: "Triangle Wave" },
+	{ id: "Sine", label: "Sine Wave" },
+	{ id: "Square", label: "Square Wave" },
+	{ id: "Sawtooth", label: "Sawtooth Wave" },
+	{ id: "FM", label: "FM Synth" },
+	{ id: "AM", label: "AM Synth" },
+	{ id: "Duo", label: "Duo Synth" },
+	{ id: "Membrane", label: "Membrane Synth" },
+];
+
+const createSynth = (type: string) => {
+	switch (type) {
+		case "Sine":
+			return new Tone.Synth({ oscillator: { type: "sine" } });
+		case "Square":
+			return new Tone.Synth({ oscillator: { type: "square" } });
+		case "Sawtooth":
+			return new Tone.Synth({ oscillator: { type: "sawtooth" } });
+		case "FM":
+			return new Tone.FMSynth();
+		case "AM":
+			return new Tone.AMSynth();
+		case "Duo":
+			return new Tone.DuoSynth();
+		case "Membrane":
+			return new Tone.MembraneSynth();
+		default:
+			return new Tone.Synth({ oscillator: { type: "triangle" } });
+	}
+};
+
 const BAR_OPTIONS = [0.5, 1, 2, 4];
 
 export default function MelodyGenerator() {
@@ -79,16 +111,32 @@ export default function MelodyGenerator() {
 	const [selectedKey, setSelectedKey] = useState("C");
 	const [selectedScale, setSelectedScale] =
 		useState<keyof typeof SCALE_PATTERNS>("Major");
+	const [selectedInstrument, setSelectedInstrument] = useState("Triangle");
 	const [tempo, setTempo] = useState(140);
-	const [bars, setBars] = useState(1); // Default 1 bar
+	const [bars, setBars] = useState(2); // Default 2 bars
 
 	// Refs for Tone.js objects to survive re-renders
-	const synthRef = useRef<Tone.Synth | null>(null);
+	const synthRef = useRef<
+		| Tone.Synth
+		| Tone.FMSynth
+		| Tone.AMSynth
+		| Tone.DuoSynth
+		| Tone.MembraneSynth
+		| null
+	>(null);
 	const sequenceRef = useRef<Tone.Part | null>(null);
 
 	useEffect(() => {
 		// Initialize synth
-		synthRef.current = new Tone.Synth().toDestination();
+		// Dispose old one first if exists
+		if (synthRef.current) {
+			synthRef.current.dispose();
+		}
+
+		const synth = createSynth(selectedInstrument).toDestination();
+		// Lower volume slightly for sharper synths
+		synth.volume.value = -5;
+		synthRef.current = synth;
 
 		return () => {
 			// Cleanup
@@ -98,9 +146,9 @@ export default function MelodyGenerator() {
 			if (synthRef.current) {
 				synthRef.current.dispose();
 			}
-			Tone.Transport.stop();
+			Tone.getTransport().stop();
 		};
-	}, []);
+	}, [selectedInstrument]);
 
 	const generateMelody = useCallback(() => {
 		const scaleNotes = getScaleNotes(selectedKey, selectedScale);
@@ -148,8 +196,8 @@ export default function MelodyGenerator() {
 
 	// Playback control
 	const stopPlayback = useCallback(() => {
-		Tone.Transport.stop();
-		Tone.Transport.cancel();
+		Tone.getTransport().stop();
+		Tone.getTransport().cancel();
 		setIsPlaying(false);
 		setCurrentNoteIndex(null);
 		if (sequenceRef.current) {
@@ -162,8 +210,8 @@ export default function MelodyGenerator() {
 		if (melody.length === 0) return;
 
 		Tone.start();
-		Tone.Transport.cancel(); // Clear previous events
-		Tone.Transport.bpm.value = tempo;
+		Tone.getTransport().cancel(); // Clear previous events
+		Tone.getTransport().bpm.value = tempo;
 
 		// Better scheduling strategy: calculate exact start times based on accumulated duration
 		let now = 0;
@@ -185,9 +233,10 @@ export default function MelodyGenerator() {
 		}, 0);
 
 		const part = new Tone.Part((time, value) => {
-			if (synthRef.current) {
+			const synth = synthRef.current;
+			if (synth && !synth.disposed) {
 				// Ensure note name doesn't contain weird chars if that happens, mainly '#' is fine
-				synthRef.current.triggerAttackRelease(value.note, value.duration, time);
+				synth.triggerAttackRelease(value.note, value.duration, time);
 			}
 			Tone.Draw.schedule(() => {
 				setCurrentNoteIndex(value.index);
@@ -198,7 +247,7 @@ export default function MelodyGenerator() {
 		part.loopEnd = totalDuration;
 		part.start(0);
 
-		Tone.Transport.start();
+		Tone.getTransport().start();
 		setIsPlaying(true);
 
 		// Cleanup old ref if exists (though cancel should have handled events, the object persists)
@@ -317,6 +366,28 @@ export default function MelodyGenerator() {
 								{Object.keys(SCALE_PATTERNS).map((s) => (
 									<option key={s} value={s}>
 										{s}
+									</option>
+								))}
+							</select>
+						</div>
+
+						{/* Instrument Selection */}
+						<div className="space-y-2">
+							<label
+								htmlFor="instrument-select"
+								className="text-xs font-semibold uppercase text-neutral-500 tracking-wider block"
+							>
+								Instrument
+							</label>
+							<select
+								id="instrument-select"
+								value={selectedInstrument}
+								onChange={(e) => setSelectedInstrument(e.target.value)}
+								className="w-full bg-neutral-800 border border-neutral-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500"
+							>
+								{INSTRUMENTS.map((inst) => (
+									<option key={inst.id} value={inst.id}>
+										{inst.label}
 									</option>
 								))}
 							</select>
