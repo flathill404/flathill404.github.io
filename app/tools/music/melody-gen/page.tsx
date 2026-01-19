@@ -9,7 +9,7 @@ import * as Tone from "tone";
 // Constants & Logic
 // ----------------------------------------------------------------------
 
-type NoteLength = "4n" | "8n" | "16n";
+type NoteLength = "4n" | "8n" | "8n." | "16n";
 
 const KEYS = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 
@@ -30,6 +30,177 @@ const SCALE_PATTERNS: Record<string, number[]> = {
 	Hirajoshi: [0, 2, 3, 7, 8],
 	"In-Sen": [0, 1, 5, 7, 10],
 	Iwato: [0, 1, 5, 6, 10],
+};
+
+type SynthParam = {
+	label: string;
+	path: string;
+	min: number;
+	max: number;
+	step: number;
+	defaultValue: number;
+};
+
+const COMMON_ADSR: SynthParam[] = [
+	{
+		label: "Attack",
+		path: "envelope.attack",
+		min: 0.005,
+		max: 2,
+		step: 0.01,
+		defaultValue: 0.005,
+	},
+	{
+		label: "Decay",
+		path: "envelope.decay",
+		min: 0.01,
+		max: 2,
+		step: 0.01,
+		defaultValue: 0.1,
+	},
+	{
+		label: "Sustain",
+		path: "envelope.sustain",
+		min: 0,
+		max: 1,
+		step: 0.01,
+		defaultValue: 0.3,
+	},
+	{
+		label: "Release",
+		path: "envelope.release",
+		min: 0.01,
+		max: 5,
+		step: 0.01,
+		defaultValue: 1,
+	},
+];
+
+const INSTRUMENT_PARAMS: Record<string, SynthParam[]> = {
+	Sine: COMMON_ADSR,
+	Square: COMMON_ADSR,
+	Triangle: COMMON_ADSR,
+	Sawtooth: COMMON_ADSR,
+	FM: [
+		{
+			label: "Harmonicity",
+			path: "harmonicity",
+			min: 0.1,
+			max: 10,
+			step: 0.1,
+			defaultValue: 3,
+		},
+		{
+			label: "Modulation Index",
+			path: "modulationIndex",
+			min: 0,
+			max: 100,
+			step: 1,
+			defaultValue: 10,
+		},
+		{
+			label: "Attack",
+			path: "envelope.attack",
+			min: 0.005,
+			max: 2,
+			step: 0.01,
+			defaultValue: 0.01,
+		},
+		{
+			label: "Release",
+			path: "envelope.release",
+			min: 0.01,
+			max: 5,
+			step: 0.01,
+			defaultValue: 0.5,
+		},
+	],
+	AM: [
+		{
+			label: "Harmonicity",
+			path: "harmonicity",
+			min: 0.1,
+			max: 10,
+			step: 0.1,
+			defaultValue: 3,
+		},
+		{
+			label: "Attack",
+			path: "envelope.attack",
+			min: 0.005,
+			max: 2,
+			step: 0.01,
+			defaultValue: 0.01,
+		},
+		{
+			label: "Release",
+			path: "envelope.release",
+			min: 0.01,
+			max: 5,
+			step: 0.01,
+			defaultValue: 0.5,
+		},
+	],
+	Duo: [
+		{
+			label: "Vibrato Amount",
+			path: "vibratoAmount",
+			min: 0,
+			max: 1,
+			step: 0.01,
+			defaultValue: 0.5,
+		},
+		{
+			label: "Vibrato Rate",
+			path: "vibratoRate",
+			min: 0.1,
+			max: 20,
+			step: 0.1,
+			defaultValue: 5,
+		},
+		{
+			label: "Harmonicity",
+			path: "harmonicity",
+			min: 0.1,
+			max: 5,
+			step: 0.1,
+			defaultValue: 1.5,
+		},
+	],
+	Membrane: [
+		{
+			label: "Pitch Decay",
+			path: "pitchDecay",
+			min: 0,
+			max: 0.5,
+			step: 0.01,
+			defaultValue: 0.05,
+		},
+		{
+			label: "Octaves",
+			path: "octaves",
+			min: 1,
+			max: 10,
+			step: 1,
+			defaultValue: 10,
+		},
+		{
+			label: "Attack",
+			path: "envelope.attack",
+			min: 0.001,
+			max: 0.5,
+			step: 0.01,
+			defaultValue: 0.001,
+		},
+		{
+			label: "Release",
+			path: "envelope.release",
+			min: 0.01,
+			max: 2,
+			step: 0.01,
+			defaultValue: 1,
+		},
+	],
 };
 
 const getScaleNotes = (
@@ -103,6 +274,21 @@ const createSynth = (type: string) => {
 
 const BAR_OPTIONS = [0.5, 1, 2, 4];
 
+// Helper to set nested object properties by path
+const setNestedProperty = (
+	obj: Record<string, any>,
+	path: string,
+	value: any,
+) => {
+	const parts = path.split(".");
+	let current = obj;
+	for (let i = 0; i < parts.length - 1; i++) {
+		if (!current[parts[i]]) current[parts[i]] = {};
+		current = current[parts[i]];
+	}
+	current[parts[parts.length - 1]] = value;
+};
+
 export default function MelodyGenerator() {
 	const [melody, setMelody] = useState<MelodyNote[]>([]);
 	const [isPlaying, setIsPlaying] = useState(false);
@@ -112,6 +298,9 @@ export default function MelodyGenerator() {
 	const [selectedScale, setSelectedScale] =
 		useState<keyof typeof SCALE_PATTERNS>("Major");
 	const [selectedInstrument, setSelectedInstrument] = useState("Triangle");
+	// Store all params in a single object: { "envelope.attack": 0.1, ... }
+	const [synthParams, setSynthParams] = useState<Record<string, number>>({});
+
 	const [tempo, setTempo] = useState(140);
 	const [bars, setBars] = useState(2); // Default 2 bars
 
@@ -126,6 +315,16 @@ export default function MelodyGenerator() {
 	>(null);
 	const sequenceRef = useRef<Tone.Part | null>(null);
 
+	// Initialize/Reset params when instrument changes
+	useEffect(() => {
+		const defaultParams: Record<string, number> = {};
+		const paramsConfig = INSTRUMENT_PARAMS[selectedInstrument] || COMMON_ADSR;
+		paramsConfig.forEach((p) => {
+			defaultParams[p.path] = p.defaultValue;
+		});
+		setSynthParams(defaultParams);
+	}, [selectedInstrument]);
+
 	useEffect(() => {
 		// Initialize synth
 		// Dispose old one first if exists
@@ -136,6 +335,10 @@ export default function MelodyGenerator() {
 		const synth = createSynth(selectedInstrument).toDestination();
 		// Lower volume slightly for sharper synths
 		synth.volume.value = -5;
+
+		// Apply initial params
+		// Let's just create it clean, and then the params effect will run and set values.
+
 		synthRef.current = synth;
 
 		return () => {
@@ -150,6 +353,20 @@ export default function MelodyGenerator() {
 		};
 	}, [selectedInstrument]);
 
+	// Update synth params when state changes
+	useEffect(() => {
+		if (synthRef.current && Object.keys(synthParams).length > 0) {
+			const options: Record<string, any> = {};
+			// Reconstruct nested options object
+			Object.entries(synthParams).forEach(([path, value]) => {
+				setNestedProperty(options, path, value);
+			});
+
+			// Apply to synth
+			synthRef.current.set(options);
+		}
+	}, [synthParams]);
+
 	const generateMelody = useCallback(() => {
 		const scaleNotes = getScaleNotes(selectedKey, selectedScale);
 		const newMelody: MelodyNote[] = [];
@@ -162,21 +379,22 @@ export default function MelodyGenerator() {
 			const pitch = scaleNotes[Math.floor(Math.random() * scaleNotes.length)];
 			const remaining = targetDuration - currentTime;
 
-			// Assume 4n=4, 8n=2.
-			// If remaining >= 4, can pick 4n or 8n.
+			// Note steps: 4n=4, 8n.=3, 8n=2
+			// If remaining >= 4, can pick 4n, 8n., 8n.
+			// If remaining >= 3, can pick 8n., 8n.
 			// If remaining >= 2, can pick 8n.
-			// (Simplification: skipping 16n for now as requested/implied style)
 
 			let possibleDurations: NoteLength[] = [];
-			if (remaining >= 4) possibleDurations = ["4n", "8n"];
+			if (remaining >= 4) possibleDurations = ["4n", "8n.", "8n"];
+			else if (remaining >= 3) possibleDurations = ["8n.", "8n"];
 			else if (remaining >= 2) possibleDurations = ["8n"];
 			else {
-				// Should not happen with 2 and 4 steps, but safety break
+				// If only 1 step left, we technically need 16n or rest, but let's break safely.
+				// Or maybe force 16n?
+				// Let's break to avoid infinite loop if 1 remaining, though practically should be aligned if starting from 0.
 				break;
 			}
 
-			// Bias towards 4n slightly? or 50/50? Earlier code had 70% 8n bias logic.
-			// Let's do random pick.
 			const duration =
 				possibleDurations[Math.floor(Math.random() * possibleDurations.length)];
 
@@ -187,7 +405,13 @@ export default function MelodyGenerator() {
 				id: crypto.randomUUID(),
 			});
 
-			currentTime += duration === "4n" ? 4 : 2;
+			let step = 2; // Default 8n
+			if (duration === "4n") step = 4;
+			else if (duration === "8n.") step = 3;
+			else if (duration === "8n") step = 2;
+			else if (duration === "16n") step = 1;
+
+			currentTime += step;
 		}
 
 		setMelody(newMelody);
@@ -303,6 +527,13 @@ export default function MelodyGenerator() {
 	useEffect(() => {
 		generateMelody();
 	}, [generateMelody]);
+
+	// Helper for visual height
+	const getNoteHeight = (duration: NoteLength) => {
+		if (duration === "4n") return "100%";
+		if (duration === "8n.") return "75%";
+		return "50%";
+	};
 
 	return (
 		<div className="min-h-screen bg-neutral-900 text-white p-8 font-sans flex flex-col items-center justify-center">
@@ -458,12 +689,18 @@ export default function MelodyGenerator() {
 											<div
 												className="absolute bottom-0 left-0 w-full bg-white/10 rounded-b-lg mix-blend-overlay"
 												style={{
-													height: note.duration === "4n" ? "100%" : "50%",
+													height: getNoteHeight(note.duration),
 												}}
 											></div>
 											{/* Note duration indicator */}
 											<div
-												className={`absolute top-1 right-1 w-1.5 h-1.5 rounded-full ${note.duration === "4n" ? "bg-cyan-500/50" : "bg-purple-500/50"}`}
+												className={`absolute top-1 right-1 w-1.5 h-1.5 rounded-full ${
+													note.duration === "4n"
+														? "bg-cyan-500/50"
+														: note.duration === "8n."
+															? "bg-yellow-500/50"
+															: "bg-purple-500/50"
+												}`}
 											/>
 										</div>
 									))}
@@ -551,6 +788,39 @@ export default function MelodyGenerator() {
 							<p className="text-xs text-neutral-500 mt-2">
 								Select the synthesizer engine used for playback.
 							</p>
+						</div>
+
+						{/* Advanced Parameters */}
+						<div className="space-y-4 pt-4 border-t border-neutral-700">
+							<h4 className="text-sm font-bold text-neutral-300">Parameters</h4>
+							{(INSTRUMENT_PARAMS[selectedInstrument] || COMMON_ADSR).map(
+								(param) => (
+									<div key={param.path} className="space-y-1">
+										<div className="flex justify-between text-xs text-neutral-400">
+											<span>{param.label}</span>
+											<span>
+												{synthParams[param.path]?.toFixed(3) ??
+													param.defaultValue}
+											</span>
+										</div>
+										<input
+											type="range"
+											min={param.min}
+											max={param.max}
+											step={param.step}
+											value={synthParams[param.path] ?? param.defaultValue}
+											onChange={(e) => {
+												const val = Number(e.target.value);
+												setSynthParams((prev) => ({
+													...prev,
+													[param.path]: val,
+												}));
+											}}
+											className="w-full accent-cyan-400 h-1.5 bg-neutral-700 rounded-lg appearance-none cursor-pointer"
+										/>
+									</div>
+								),
+							)}
 						</div>
 					</div>
 				</div>
