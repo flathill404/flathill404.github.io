@@ -1,7 +1,7 @@
 "use client";
 
 import { Midi } from "@tonejs/midi";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { FaDice, FaDownload, FaMusic, FaPlay, FaStop } from "react-icons/fa";
 import * as Tone from "tone";
 
@@ -18,6 +18,7 @@ interface MelodyNote {
 	pitch: string;
 	duration: NoteLength;
 	time: number; // accumulated time in 16th notes
+	id: string; // Unique ID for rendering
 }
 
 export default function MelodyGenerator() {
@@ -48,7 +49,7 @@ export default function MelodyGenerator() {
 		};
 	}, []);
 
-	const generateMelody = () => {
+	const generateMelody = useCallback(() => {
 		const scale = SCALES[scaleName];
 		const newMelody: MelodyNote[] = [];
 		let currentTime = 0;
@@ -62,6 +63,7 @@ export default function MelodyGenerator() {
 				pitch,
 				duration,
 				time: currentTime,
+				id: crypto.randomUUID(),
 			});
 
 			// Advance time (simple approximation for visualization/logic)
@@ -70,7 +72,7 @@ export default function MelodyGenerator() {
 		}
 		setMelody(newMelody);
 		setCurrentNoteIndex(null);
-	};
+	}, [scaleName, length]);
 
 	const playMelody = async () => {
 		if (melody.length === 0) return;
@@ -85,13 +87,6 @@ export default function MelodyGenerator() {
 			setCurrentNoteIndex(null);
 			return;
 		}
-
-		const events = melody.map((note, index) => ({
-			time: `0:0:${note.time * 4}`, // Approximation assuming time was in 16th notes steps? Wait, let's simplify scheduling.
-			note: note.pitch,
-			duration: note.duration,
-			index,
-		}));
 
 		// Better scheduling strategy: calculate exact start times based on accumulated duration
 		let now = 0;
@@ -167,14 +162,7 @@ export default function MelodyGenerator() {
 	// Generate on first load
 	useEffect(() => {
 		generateMelody();
-	}, [scaleName, length]); // Re-generate when settings change? Maybe, or just let user click. Let's just do empty or initial.
-
-	// Actually, let's generate one initially on mount only to not annoy user
-	useEffect(() => {
-		// Intentionally empty dep array for mount only if we wanted,
-		// but putting dependencies in the other effect is safer for correctness if desired.
-		// Let's just generate manually or once.
-	}, []);
+	}, [generateMelody]);
 
 	return (
 		<div className="min-h-screen bg-neutral-900 text-white p-8 font-sans flex flex-col items-center justify-center">
@@ -195,13 +183,14 @@ export default function MelodyGenerator() {
 						<h3 className="text-lg font-bold text-white mb-4">Settings</h3>
 
 						<div className="space-y-2">
-							<label className="text-xs font-semibold uppercase text-neutral-500 tracking-wider">
+							<span className="text-xs font-semibold uppercase text-neutral-500 tracking-wider block">
 								Scale
-							</label>
+							</span>
 							<div className="grid grid-cols-2 gap-2">
 								{(Object.keys(SCALES) as Array<keyof typeof SCALES>).map(
 									(s) => (
 										<button
+											type="button"
 											key={s}
 											onClick={() => setScaleName(s)}
 											className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${
@@ -218,10 +207,14 @@ export default function MelodyGenerator() {
 						</div>
 
 						<div className="space-y-2">
-							<label className="text-xs font-semibold uppercase text-neutral-500 tracking-wider">
+							<label
+								htmlFor="length-slider"
+								className="text-xs font-semibold uppercase text-neutral-500 tracking-wider"
+							>
 								Length (Notes)
 							</label>
 							<input
+								id="length-slider"
 								type="range"
 								min="4"
 								max="32"
@@ -238,10 +231,14 @@ export default function MelodyGenerator() {
 						</div>
 
 						<div className="space-y-2">
-							<label className="text-xs font-semibold uppercase text-neutral-500 tracking-wider">
+							<label
+								htmlFor="tempo-slider"
+								className="text-xs font-semibold uppercase text-neutral-500 tracking-wider"
+							>
 								Tempo (BPM)
 							</label>
 							<input
+								id="tempo-slider"
 								type="range"
 								min="60"
 								max="200"
@@ -258,6 +255,7 @@ export default function MelodyGenerator() {
 						</div>
 
 						<button
+							type="button"
 							onClick={generateMelody}
 							className="w-full py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold rounded-xl shadow-lg shadow-cyan-900/20 transform transition-all active:scale-95 flex items-center justify-center gap-2"
 						>
@@ -277,7 +275,7 @@ export default function MelodyGenerator() {
 								<div className="flex flex-wrap gap-2 justify-center items-center w-full">
 									{melody.map((note, idx) => (
 										<div
-											key={idx}
+											key={note.id}
 											className={`
                                         relative w-10 h-16 rounded-lg flex items-end justify-center pb-2 text-xs font-bold transition-all duration-150
                                         ${
@@ -302,6 +300,7 @@ export default function MelodyGenerator() {
 
 						<div className="grid grid-cols-2 gap-4">
 							<button
+								type="button"
 								onClick={isPlaying ? stopMelody : playMelody}
 								disabled={melody.length === 0}
 								className={`
@@ -326,6 +325,7 @@ export default function MelodyGenerator() {
 							</button>
 
 							<button
+								type="button"
 								onClick={downloadMidi}
 								disabled={melody.length === 0}
 								className="py-4 rounded-xl font-bold flex items-center justify-center gap-2 bg-neutral-800 text-white border border-neutral-700 hover:bg-neutral-700 hover:border-neutral-600 hover:text-cyan-400 transition-all disabled:opacity-50 disabled:cursor-not-allowed"

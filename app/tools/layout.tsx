@@ -60,10 +60,12 @@ export default function ToolsLayout({
 	return (
 		<div className="min-h-screen bg-[#0a0a0a] text-white flex">
 			{/* Mobile Sidebar Overlay */}
-			<div
+			<button
+				type="button"
 				className={`fixed inset-0 bg-black/50 z-40 lg:hidden ${
 					isSidebarOpen ? "block" : "hidden"
-				}`}
+				} border-none cursor-default`}
+				aria-label="Close sidebar"
 				onClick={() => setIsSidebarOpen(false)}
 			/>
 
