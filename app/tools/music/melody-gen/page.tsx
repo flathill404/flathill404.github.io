@@ -5,13 +5,90 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { FaDice, FaDownload, FaMusic, FaPlay, FaStop } from "react-icons/fa";
 import * as Tone from "tone";
 
-// Define note types and utilities
+// ----------------------------------------------------------------------
+// Constants & Logic
+// ----------------------------------------------------------------------
+
 type NoteLength = "4n" | "8n" | "16n";
-const SCALES = {
-	"C Major": ["C4", "D4", "E4", "F4", "G4", "A4", "B4", "C5"],
-	"G Major": ["G3", "A3", "B3", "C4", "D4", "E4", "F#4", "G4"],
-	"A Minor": ["A3", "B3", "C4", "D4", "E4", "F4", "G4", "A4"],
-	Pentatonic: ["C4", "D4", "E4", "G4", "A4", "C5"],
+
+const KEYS = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+
+const SCALE_PATTERNS: Record<string, number[]> = {
+	Major: [0, 2, 4, 5, 7, 9, 11],
+	"Natural Minor": [0, 2, 3, 5, 7, 8, 10],
+	"Harmonic Minor": [0, 2, 3, 5, 7, 8, 11],
+	Dorian: [0, 2, 3, 5, 7, 9, 10],
+	Phrygian: [0, 1, 3, 5, 7, 8, 10],
+	Lydian: [0, 2, 4, 6, 7, 9, 11],
+	Mixolydian: [0, 2, 4, 5, 7, 9, 10],
+	Locrian: [0, 1, 3, 5, 6, 8, 10],
+	"Major Pentatonic": [0, 2, 4, 7, 9],
+	"Minor Pentatonic": [0, 3, 5, 7, 10],
+	Blues: [0, 3, 5, 6, 7, 10],
+	Chromatic: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+	// Japanese Modes
+	Hirajoshi: [0, 2, 3, 7, 8],
+	"In-Sen": [0, 1, 5, 7, 10],
+	Iwato: [0, 1, 5, 6, 10],
+};
+
+const getScaleNotes = (
+	rootKey: string,
+	scaleType: string,
+	octaves = 2,
+): string[] => {
+	const rootIndex = KEYS.indexOf(rootKey);
+	if (rootIndex === -1) return [];
+
+	const intervals = SCALE_PATTERNS[scaleType];
+	const notes: string[] = [];
+	const chromaticWithOctaves: string[] = [];
+
+	// Build a large chromatic map spanning enough octaves
+	const startOctave = 3;
+	const endOctave = startOctave + octaves + 1;
+
+	for (let oct = startOctave; oct < endOctave; oct++) {
+		for (const k of KEYS) {
+			chromaticWithOctaves.push(`${k}${oct}`);
+		}
+	}
+
+	// Find the starting index in the chromatic map
+	// The map starts at C3. rootIndex is offset from C.
+	// So if root is C, index is 0. If D, index is 2.
+	// We want the primary range to be around octave 4 mainly, so let's start from rootKey + 3 or 4
+	// Actually our map starts at C3. C3 is index 0.
+	// rootKey + "3" is simply rootIndex.
+	// Let's create notes starting from the root in octave 4 mostly.
+
+	// Let's simplify:
+	// Base is 4th octave.
+	const baseOctave = 4;
+	// We want notes spanning ~2 octaves starting from Root4
+
+	for (let o = 0; o < octaves; o++) {
+		const currentOctave = baseOctave + o;
+		intervals.forEach((interval) => {
+			// Calculate absolute semitone index from C0
+			// But we just need valid note names.
+
+			// Index in KEYS array (0-11)
+			const noteIndex = (rootIndex + interval) % 12;
+
+			// Check if we crossed into next octave relative to the root's octave
+			// If (rootIndex + interval) >= 12, then it's next octave
+			const octaveShift = Math.floor((rootIndex + interval) / 12);
+			const finalOctave = currentOctave + octaveShift;
+
+			notes.push(`${KEYS[noteIndex]}${finalOctave}`);
+		});
+	}
+
+	// Add the high root note to resolve
+	notes.push(`${KEYS[rootIndex]}${baseOctave + octaves}`);
+
+	return notes;
 };
 
 interface MelodyNote {
@@ -25,8 +102,11 @@ export default function MelodyGenerator() {
 	const [melody, setMelody] = useState<MelodyNote[]>([]);
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [currentNoteIndex, setCurrentNoteIndex] = useState<number | null>(null);
-	const [scaleName, setScaleName] = useState<keyof typeof SCALES>("C Major");
-	const [tempo, setTempo] = useState(120);
+
+	const [selectedKey, setSelectedKey] = useState("C");
+	const [selectedScale, setSelectedScale] =
+		useState<keyof typeof SCALE_PATTERNS>("Major");
+	const [tempo, setTempo] = useState(140);
 	const [length, setLength] = useState(8);
 
 	// Refs for Tone.js objects to survive re-renders
@@ -50,12 +130,12 @@ export default function MelodyGenerator() {
 	}, []);
 
 	const generateMelody = useCallback(() => {
-		const scale = SCALES[scaleName];
+		const scaleNotes = getScaleNotes(selectedKey, selectedScale);
 		const newMelody: MelodyNote[] = [];
 		let currentTime = 0;
 
 		for (let i = 0; i < length; i++) {
-			const pitch = scale[Math.floor(Math.random() * scale.length)];
+			const pitch = scaleNotes[Math.floor(Math.random() * scaleNotes.length)];
 			// Simple duration logic for now: mostly 4n, some 8n
 			const duration: NoteLength = Math.random() > 0.3 ? "4n" : "8n";
 
@@ -72,7 +152,7 @@ export default function MelodyGenerator() {
 		}
 		setMelody(newMelody);
 		setCurrentNoteIndex(null);
-	}, [scaleName, length]);
+	}, [selectedKey, selectedScale, length]);
 
 	const playMelody = async () => {
 		if (melody.length === 0) return;
@@ -104,6 +184,7 @@ export default function MelodyGenerator() {
 
 		const part = new Tone.Part((time, value) => {
 			if (synthRef.current) {
+				// Ensure note name doesn't contain weird chars if that happens, mainly '#' is fine
 				synthRef.current.triggerAttackRelease(value.note, value.duration, time);
 			}
 			Tone.Draw.schedule(() => {
@@ -154,7 +235,7 @@ export default function MelodyGenerator() {
 		const url = URL.createObjectURL(blob);
 		const a = document.createElement("a");
 		a.href = url;
-		a.download = "melody.mid";
+		a.download = `${selectedKey}-${selectedScale.replace(/\s/g, "-").toLowerCase()}.mid`;
 		a.click();
 		URL.revokeObjectURL(url);
 	};
@@ -166,44 +247,69 @@ export default function MelodyGenerator() {
 
 	return (
 		<div className="min-h-screen bg-neutral-900 text-white p-8 font-sans flex flex-col items-center justify-center">
-			<div className="w-full max-w-4xl bg-neutral-800 rounded-2xl shadow-2xl p-8 border border-neutral-700">
+			<div className="w-full max-w-5xl bg-neutral-800 rounded-2xl shadow-2xl p-8 border border-neutral-700">
 				<header className="mb-10 text-center">
 					<h1 className="text-4xl font-black bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent inline-flex items-center gap-4">
 						<FaMusic className="text-cyan-400" />
 						Melody Generator
 					</h1>
 					<p className="text-neutral-400 mt-2">
-						Create, Play, and Export unique MIDI melodies instantly.
+						Create, Play, and Export unique MIDI melodies using advanced scales.
 					</p>
 				</header>
 
-				<div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+				<div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
 					{/* Controls */}
-					<div className="bg-neutral-900/50 p-6 rounded-xl border border-neutral-700 space-y-6">
+					<div className="bg-neutral-900/50 p-6 rounded-xl border border-neutral-700 space-y-6 lg:col-span-1">
 						<h3 className="text-lg font-bold text-white mb-4">Settings</h3>
 
+						{/* Key Selection */}
 						<div className="space-y-2">
 							<span className="text-xs font-semibold uppercase text-neutral-500 tracking-wider block">
-								Scale
+								Key
 							</span>
-							<div className="grid grid-cols-2 gap-2">
-								{(Object.keys(SCALES) as Array<keyof typeof SCALES>).map(
-									(s) => (
-										<button
-											type="button"
-											key={s}
-											onClick={() => setScaleName(s)}
-											className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-												scaleName === s
-													? "bg-purple-600 text-white shadow-lg shadow-purple-900/50"
-													: "bg-neutral-800 text-neutral-400 hover:bg-neutral-700"
-											}`}
-										>
-											{s}
-										</button>
-									),
-								)}
+							<div className="grid grid-cols-6 gap-1">
+								{KEYS.map((k) => (
+									<button
+										type="button"
+										key={k}
+										onClick={() => setSelectedKey(k)}
+										className={`px-1 py-2 rounded text-xs font-bold transition-all ${
+											selectedKey === k
+												? "bg-cyan-500 text-black shadow-lg shadow-cyan-500/30"
+												: "bg-neutral-800 text-neutral-500 hover:bg-neutral-700 hover:text-neutral-300"
+										}`}
+									>
+										{k}
+									</button>
+								))}
 							</div>
+						</div>
+
+						{/* Scale Selection */}
+						<div className="space-y-2">
+							<label
+								htmlFor="scale-select"
+								className="text-xs font-semibold uppercase text-neutral-500 tracking-wider block"
+							>
+								Scale Type
+							</label>
+							<select
+								id="scale-select"
+								value={selectedScale}
+								onChange={(e) =>
+									setSelectedScale(
+										e.target.value as keyof typeof SCALE_PATTERNS,
+									)
+								}
+								className="w-full bg-neutral-800 border border-neutral-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500"
+							>
+								{Object.keys(SCALE_PATTERNS).map((s) => (
+									<option key={s} value={s}>
+										{s}
+									</option>
+								))}
+							</select>
 						</div>
 
 						<div className="space-y-2">
@@ -265,78 +371,95 @@ export default function MelodyGenerator() {
 					</div>
 
 					{/* Visualizer & Actions */}
-					<div className="md:col-span-2 flex flex-col gap-6">
-						<div className="bg-neutral-950 rounded-xl p-6 border border-neutral-800 min-h-[200px] flex items-center justify-center relative overflow-hidden group">
+					<div className="lg:col-span-2 flex flex-col gap-6">
+						<div className="bg-neutral-950 rounded-xl p-8 border border-neutral-800 min-h-[300px] flex items-center justify-center relative overflow-hidden group">
 							{melody.length === 0 ? (
 								<span className="text-neutral-600">
 									Click Generate to start
 								</span>
 							) : (
-								<div className="flex flex-wrap gap-2 justify-center items-center w-full">
+								<div className="flex flex-wrap gap-3 justify-center items-center w-full max-w-2xl">
 									{melody.map((note, idx) => (
 										<div
 											key={note.id}
 											className={`
-                                        relative w-10 h-16 rounded-lg flex items-end justify-center pb-2 text-xs font-bold transition-all duration-150
+                                        relative w-12 h-20 rounded-lg flex items-end justify-center pb-2 text-xs font-bold transition-all duration-150 border border-white/5
                                         ${
 																					currentNoteIndex === idx
-																						? "bg-cyan-400 text-black scale-110 shadow-[0_0_20px_rgba(34,211,238,0.6)] z-10"
+																						? "bg-cyan-400 text-black scale-110 shadow-[0_0_20px_rgba(34,211,238,0.6)] z-10 border-cyan-300"
 																						: "bg-neutral-800 text-neutral-400 hover:bg-neutral-700"
 																				}
                                     `}
 										>
 											<span className="z-10">{note.pitch}</span>
 											<div
-												className="absolute bottom-0 left-0 w-full bg-white/10 rounded-b-lg"
+												className="absolute bottom-0 left-0 w-full bg-white/10 rounded-b-lg mix-blend-overlay"
 												style={{
 													height: note.duration === "4n" ? "100%" : "50%",
 												}}
 											></div>
+											{/* Note duration indicator */}
+											<div
+												className={`absolute top-1 right-1 w-1.5 h-1.5 rounded-full ${note.duration === "4n" ? "bg-cyan-500/50" : "bg-purple-500/50"}`}
+											/>
 										</div>
 									))}
 								</div>
 							)}
 						</div>
 
-						<div className="grid grid-cols-2 gap-4">
-							<button
-								type="button"
-								onClick={isPlaying ? stopMelody : playMelody}
-								disabled={melody.length === 0}
-								className={`
-                            py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all
-                            ${
-															isPlaying
-																? "bg-red-500/20 text-red-400 border border-red-500/50 hover:bg-red-500/30"
-																: "bg-neutral-800 text-white border border-neutral-700 hover:bg-neutral-700 hover:border-neutral-600"
-														}
-                            disabled:opacity-50 disabled:cursor-not-allowed
-                        `}
-							>
-								{isPlaying ? (
-									<>
-										<FaStop /> Stop
-									</>
-								) : (
-									<>
-										<FaPlay /> Play
-									</>
-								)}
-							</button>
+						<div className="flex flex-col gap-2">
+							<div className="flex justify-between items-end px-2">
+								<div>
+									<h2 className="text-2xl font-bold">
+										{selectedKey} {selectedScale}
+									</h2>
+									<p className="text-neutral-500 text-sm">
+										Generated Melody • {length} Notes • {tempo} BPM
+									</p>
+								</div>
+							</div>
 
-							<button
-								type="button"
-								onClick={downloadMidi}
-								disabled={melody.length === 0}
-								className="py-4 rounded-xl font-bold flex items-center justify-center gap-2 bg-neutral-800 text-white border border-neutral-700 hover:bg-neutral-700 hover:border-neutral-600 hover:text-cyan-400 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-							>
-								<FaDownload /> Download MIDI
-							</button>
+							<div className="grid grid-cols-2 gap-4">
+								<button
+									type="button"
+									onClick={isPlaying ? stopMelody : playMelody}
+									disabled={melody.length === 0}
+									className={`
+                                py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all
+                                ${
+																	isPlaying
+																		? "bg-red-500/20 text-red-400 border border-red-500/50 hover:bg-red-500/30"
+																		: "bg-neutral-800 text-white border border-neutral-700 hover:bg-neutral-700 hover:border-neutral-600"
+																}
+                                disabled:opacity-50 disabled:cursor-not-allowed
+                            `}
+								>
+									{isPlaying ? (
+										<>
+											<FaStop /> Stop
+										</>
+									) : (
+										<>
+											<FaPlay /> Play
+										</>
+									)}
+								</button>
+
+								<button
+									type="button"
+									onClick={downloadMidi}
+									disabled={melody.length === 0}
+									className="py-4 rounded-xl font-bold flex items-center justify-center gap-2 bg-neutral-800 text-white border border-neutral-700 hover:bg-neutral-700 hover:border-neutral-600 hover:text-cyan-400 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+								>
+									<FaDownload /> Download MIDI
+								</button>
+							</div>
 						</div>
 					</div>
 				</div>
 
-				<footer className="text-center text-neutral-600 text-sm">
+				<footer className="text-center text-neutral-600 text-sm pt-8 border-t border-neutral-800">
 					Powered by Tone.js & @tonejs/midi
 				</footer>
 			</div>
