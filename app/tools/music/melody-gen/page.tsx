@@ -387,7 +387,7 @@ export default function MelodyGenerator() {
 	const [selectedKey, setSelectedKey] = useState("F");
 	const [selectedScale, setSelectedScale] =
 		useState<keyof typeof SCALE_PATTERNS>("Natural Minor");
-	const [selectedInstrument, setSelectedInstrument] = useState("Sawtooth");
+	const [selectedInstrument, setSelectedInstrument] = useState("Sine");
 	// Store all params in a single object: { "envelope.attack": 0.1, ... }
 	const [synthParams, setSynthParams] = useState<Record<string, number>>({});
 	const [activeTab, setActiveTab] = useState<"Synth" | "Filter">("Synth");
