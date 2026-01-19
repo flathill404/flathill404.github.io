@@ -61,6 +61,12 @@ const allTools = [
 				description: "Simple metronome for practice",
 				href: "/tools/metronome",
 			},
+			{
+				id: "melody-gen",
+				name: "Melody Generator",
+				description: "Generate and download MIDI melodies",
+				href: "/tools/music/melody-gen",
+			},
 		],
 	},
 ];

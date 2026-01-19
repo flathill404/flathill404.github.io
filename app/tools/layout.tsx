@@ -40,6 +40,11 @@ const categories: ToolCategory[] = [
 			{ id: "bpm-counter", name: "BPM Counter", href: "/tools/bpm-counter" },
 			{ id: "scale-finder", name: "Scale Finder", href: "/tools/scale-finder" },
 			{ id: "metronome", name: "Metronome", href: "/tools/metronome" },
+			{
+				id: "melody-gen",
+				name: "Melody Generator",
+				href: "/tools/music/melody-gen",
+			},
 		],
 	},
 ];
