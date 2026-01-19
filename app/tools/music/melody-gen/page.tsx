@@ -182,6 +182,11 @@ export default function MelodyGenerator() {
 			};
 		});
 
+		// Calculate total duration for loop
+		const totalDuration = scheduledEvents.reduce((acc, event) => {
+			return Math.max(acc, event.time + Tone.Time(event.duration).toSeconds());
+		}, 0);
+
 		const part = new Tone.Part((time, value) => {
 			if (synthRef.current) {
 				// Ensure note name doesn't contain weird chars if that happens, mainly '#' is fine
@@ -192,15 +197,9 @@ export default function MelodyGenerator() {
 			}, time);
 		}, scheduledEvents);
 
+		part.loop = true;
+		part.loopEnd = totalDuration;
 		part.start(0);
-
-		// Stop callback
-		Tone.Transport.schedule((time) => {
-			Tone.Draw.schedule(() => {
-				setIsPlaying(false);
-				setCurrentNoteIndex(null);
-			}, time);
-		}, now);
 
 		Tone.Transport.start();
 		setIsPlaying(true);
