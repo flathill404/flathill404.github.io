@@ -40,7 +40,7 @@ const nextConfig: NextConfig = {
 		],
 	},
 	experimental: {
-		optimizePackageImports: ["react-icons"],
+		optimizePackageImports: ["@tonejs/midi", "tone", "react-icons"],
 	},
 };
 

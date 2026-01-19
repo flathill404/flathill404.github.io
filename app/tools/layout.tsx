@@ -37,9 +37,12 @@ const categories: ToolCategory[] = [
 		name: "Music",
 		icon: <BsMusicNoteBeamed />,
 		items: [
-			{ id: "bpm-counter", name: "BPM Counter", href: "/tools/bpm-counter" },
-			{ id: "scale-finder", name: "Scale Finder", href: "/tools/scale-finder" },
-			{ id: "metronome", name: "Metronome", href: "/tools/metronome" },
+			{
+				id: "bpm-counter",
+				name: "BPM Counter",
+				href: "/tools/music/bpm-counter",
+			},
+			{ id: "metronome", name: "Metronome", href: "/tools/music/metronome" },
 			{
 				id: "melody-gen",
 				name: "Melody Generator",

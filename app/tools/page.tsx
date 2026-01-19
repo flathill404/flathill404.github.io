@@ -47,19 +47,13 @@ const allTools = [
 				id: "bpm-counter",
 				name: "BPM Counter",
 				description: "Calculate beats per minute",
-				href: "/tools/bpm-counter",
-			},
-			{
-				id: "scale-finder",
-				name: "Scale Finder",
-				description: "Find musical scales and modes",
-				href: "/tools/scale-finder",
+				href: "/tools/music/bpm-counter",
 			},
 			{
 				id: "metronome",
 				name: "Metronome",
 				description: "Simple metronome for practice",
-				href: "/tools/metronome",
+				href: "/tools/music/metronome",
 			},
 			{
 				id: "melody-gen",
