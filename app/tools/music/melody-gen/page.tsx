@@ -306,7 +306,7 @@ export default function MelodyGenerator() {
 
 	return (
 		<div className="min-h-screen bg-neutral-900 text-white p-8 font-sans flex flex-col items-center justify-center">
-			<div className="w-full max-w-5xl bg-neutral-800 rounded-2xl shadow-2xl p-8 border border-neutral-700">
+			<div className="w-full max-w-7xl bg-neutral-800 rounded-2xl shadow-2xl p-8 border border-neutral-700">
 				<header className="mb-10 text-center">
 					<h1 className="text-4xl font-black bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent inline-flex items-center gap-4">
 						<FaMusic className="text-cyan-400" />
@@ -317,23 +317,25 @@ export default function MelodyGenerator() {
 					</p>
 				</header>
 
-				<div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-					{/* Controls */}
-					<div className="bg-neutral-900/50 p-6 rounded-xl border border-neutral-700 space-y-6 lg:col-span-1">
-						<h3 className="text-lg font-bold text-white mb-4">Settings</h3>
+				<div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+					{/* Left Panel: Composition Settings */}
+					<div className="lg:col-span-3 bg-neutral-900/50 p-6 rounded-xl border border-neutral-700 space-y-6 h-fit">
+						<h3 className="text-lg font-bold text-white mb-4 border-b border-neutral-700 pb-2">
+							Composition
+						</h3>
 
 						{/* Key Selection */}
 						<div className="space-y-2">
 							<span className="text-xs font-semibold uppercase text-neutral-500 tracking-wider block">
 								Key
 							</span>
-							<div className="grid grid-cols-6 gap-1">
+							<div className="grid grid-cols-4 gap-1">
 								{KEYS.map((k) => (
 									<button
 										type="button"
 										key={k}
 										onClick={() => setSelectedKey(k)}
-										className={`px-1 py-2 rounded text-xs font-bold transition-all ${
+										className={`px-1 py-1.5 rounded text-xs font-bold transition-all ${
 											selectedKey === k
 												? "bg-cyan-500 text-black shadow-lg shadow-cyan-500/30"
 												: "bg-neutral-800 text-neutral-500 hover:bg-neutral-700 hover:text-neutral-300"
@@ -366,28 +368,6 @@ export default function MelodyGenerator() {
 								{Object.keys(SCALE_PATTERNS).map((s) => (
 									<option key={s} value={s}>
 										{s}
-									</option>
-								))}
-							</select>
-						</div>
-
-						{/* Instrument Selection */}
-						<div className="space-y-2">
-							<label
-								htmlFor="instrument-select"
-								className="text-xs font-semibold uppercase text-neutral-500 tracking-wider block"
-							>
-								Instrument
-							</label>
-							<select
-								id="instrument-select"
-								value={selectedInstrument}
-								onChange={(e) => setSelectedInstrument(e.target.value)}
-								className="w-full bg-neutral-800 border border-neutral-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500"
-							>
-								{INSTRUMENTS.map((inst) => (
-									<option key={inst.id} value={inst.id}>
-										{inst.label}
 									</option>
 								))}
 							</select>
@@ -450,20 +430,23 @@ export default function MelodyGenerator() {
 						</button>
 					</div>
 
-					{/* Visualizer & Actions */}
-					<div className="lg:col-span-2 flex flex-col gap-6">
-						<div className="bg-neutral-950 rounded-xl p-8 border border-neutral-800 min-h-[300px] flex items-center justify-center relative overflow-hidden group">
+					{/* Center Panel: Visualization */}
+					<div className="lg:col-span-6 flex flex-col gap-6">
+						<div className="bg-neutral-950 rounded-xl p-8 border border-neutral-800 min-h-[400px] flex items-center justify-center relative overflow-hidden group">
 							{melody.length === 0 ? (
-								<span className="text-neutral-600">
-									Click Generate to start
-								</span>
+								<div className="text-center">
+									<FaMusic className="text-6xl text-neutral-800 mx-auto mb-4" />
+									<span className="text-neutral-600">
+										Configure settings and click Generate
+									</span>
+								</div>
 							) : (
-								<div className="flex flex-wrap gap-3 justify-center items-center w-full max-w-2xl">
+								<div className="flex flex-wrap gap-2 justify-center items-center w-full">
 									{melody.map((note, idx) => (
 										<div
 											key={note.id}
 											className={`
-                                        relative w-12 h-20 rounded-lg flex items-end justify-center pb-2 text-xs font-bold transition-all duration-150 border border-white/5
+                                        relative w-10 h-16 rounded-lg flex items-end justify-center pb-2 text-[10px] font-bold transition-all duration-150 border border-white/5
                                         ${
 																					currentNoteIndex === idx
 																						? "bg-cyan-400 text-black scale-110 shadow-[0_0_20px_rgba(34,211,238,0.6)] z-10 border-cyan-300"
@@ -536,6 +519,38 @@ export default function MelodyGenerator() {
 									<FaDownload /> Download MIDI
 								</button>
 							</div>
+						</div>
+					</div>
+
+					{/* Right Panel: Sound Settings */}
+					<div className="lg:col-span-3 bg-neutral-900/50 p-6 rounded-xl border border-neutral-700 space-y-6 h-fit">
+						<h3 className="text-lg font-bold text-white mb-4 border-b border-neutral-700 pb-2">
+							Sound Design
+						</h3>
+
+						{/* Instrument Selection */}
+						<div className="space-y-2">
+							<label
+								htmlFor="instrument-select"
+								className="text-xs font-semibold uppercase text-neutral-500 tracking-wider block"
+							>
+								Instrument
+							</label>
+							<select
+								id="instrument-select"
+								value={selectedInstrument}
+								onChange={(e) => setSelectedInstrument(e.target.value)}
+								className="w-full bg-neutral-800 border border-neutral-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500"
+							>
+								{INSTRUMENTS.map((inst) => (
+									<option key={inst.id} value={inst.id}>
+										{inst.label}
+									</option>
+								))}
+							</select>
+							<p className="text-xs text-neutral-500 mt-2">
+								Select the synthesizer engine used for playback.
+							</p>
 						</div>
 					</div>
 				</div>
