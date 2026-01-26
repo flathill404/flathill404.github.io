@@ -22,7 +22,7 @@
 		"tone": "^15.1.22"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^2.3.11",
+		"@biomejs/biome": "^2.3.12",
 		"@tailwindcss/postcss": "^4.1.18",
 		"@types/node": "^25.0.10",
 		"@types/react": "^19.2.9",
