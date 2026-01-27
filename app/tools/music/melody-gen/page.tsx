@@ -366,9 +366,10 @@ const BAR_OPTIONS = [0.5, 1, 2, 4];
 
 // Helper to set nested object properties by path
 const setNestedProperty = (
+	// biome-ignore lint/suspicious/noExplicitAny: Recursive object construction
 	obj: Record<string, any>,
 	path: string,
-	value: any,
+	value: number,
 ) => {
 	const parts = path.split(".");
 	let current = obj;
@@ -454,6 +455,7 @@ export default function MelodyGenerator() {
 	// Update synth params when state changes
 	useEffect(() => {
 		if (synthRef.current && Object.keys(synthParams).length > 0) {
+			// biome-ignore lint/suspicious/noExplicitAny: Tone.js options are loosely typed
 			const options: Record<string, any> = {};
 			// Reconstruct nested options object
 			Object.entries(synthParams).forEach(([path, value]) => {
@@ -612,6 +614,7 @@ export default function MelodyGenerator() {
 		});
 
 		const array = midi.toArray();
+		// biome-ignore lint/suspicious/noExplicitAny: Uint8Array type mismatch with BlobPart in this env
 		const blob = new Blob([array as any], { type: "audio/midi" });
 		const url = URL.createObjectURL(blob);
 		const a = document.createElement("a");

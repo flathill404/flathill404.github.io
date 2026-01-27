@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
-import { FaHeart, FaRedo } from "react-icons/fa";
+import { FaRedo } from "react-icons/fa";
 
 export default function BPMCounterPage() {
 	const [taps, setTaps] = useState<number[]>([]);
@@ -28,7 +28,7 @@ export default function BPMCounterPage() {
 		return Math.round(calculatedBpm * 10) / 10;
 	}, []);
 
-	const handleTap = () => {
+	const handleTap = useCallback(() => {
 		const now = Date.now();
 		const timeSinceLastTap = now - lastTapTime;
 
@@ -52,7 +52,7 @@ export default function BPMCounterPage() {
 		if (newBpm > 0) {
 			setBpm(newBpm);
 		}
-	};
+	}, [taps, lastTapTime, calculateBPM]);
 
 	const handleReset = () => {
 		setTaps([]);
@@ -71,7 +71,7 @@ export default function BPMCounterPage() {
 
 		window.addEventListener("keydown", handleKeyDown);
 		return () => window.removeEventListener("keydown", handleKeyDown);
-	}, [taps, lastTapTime]); // Depend on state to ensure fresh closure if needed, though handleTap uses state setters which is fine. Added refs/deps for safety.
+	}, [handleTap]);
 
 	return (
 		<div className="flex flex-col items-center justify-center min-h-[calc(100vh-100px)] max-w-2xl mx-auto text-center space-y-12">
@@ -126,6 +126,7 @@ export default function BPMCounterPage() {
 				</motion.button>
 
 				<button
+					type="button"
 					onClick={handleReset}
 					className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
 				>
