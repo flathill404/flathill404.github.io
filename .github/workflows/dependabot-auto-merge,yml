@@ -3,7 +3,7 @@ name: Dependabot Auto Merge
 on:
   pull_request_target:
     files:
-      - "bun.lockb"
+      - "bun.lock"
     types: [opened, synchronize, reopened, labeled]
 
 permissions:
