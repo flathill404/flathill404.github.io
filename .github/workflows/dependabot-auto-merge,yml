@@ -1,8 +1,10 @@
 name: Dependabot Auto Merge
 
 on:
-  pull_request:
-    types: [labeled]
+  pull_request_target:
+    files:
+      - "bun.lockb"
+    types: [opened, synchronize, reopened, labeled]
 
 permissions:
   contents: write
@@ -11,7 +13,7 @@ permissions:
 jobs:
   dependabot:
     runs-on: ubuntu-latest
-    if: ${{ github.actor == 'dependabot[bot]' && github.event.label.name == 'dependencies' }}
+    if: ${{ github.actor == 'dependabot[bot]' && contains(github.event.pull_request.labels.*.name, 'dependencies') }}
     
     steps:
       - name: Dependabot metadata
