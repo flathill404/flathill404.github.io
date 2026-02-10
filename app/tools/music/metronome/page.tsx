@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import {
 	FaMinus,
@@ -17,12 +16,11 @@ export default function MetronomePage() {
 	const [bpm, setBpm] = useState(120);
 	const [volume, setVolume] = useState(-10);
 	const [isMuted, setIsMuted] = useState(false);
-	const [beat, setBeat] = useState(0); // 0-3 for 4/4
+	const [beat, setBeat] = useState(0);
 
 	const synthRef = useRef<Tone.MembraneSynth | null>(null);
 	const loopRef = useRef<Tone.Loop | null>(null);
 
-	// Initialize Tone.js
 	useEffect(() => {
 		const synth = new Tone.MembraneSynth({
 			pitchDecay: 0.008,
@@ -48,14 +46,12 @@ export default function MetronomePage() {
 		};
 	}, []);
 
-	// Update Volume
 	useEffect(() => {
 		if (synthRef.current) {
 			synthRef.current.volume.value = isMuted ? -Infinity : volume;
 		}
 	}, [volume, isMuted]);
 
-	// Update BPM
 	useEffect(() => {
 		Tone.Transport.bpm.value = bpm;
 	}, [bpm]);
@@ -64,16 +60,11 @@ export default function MetronomePage() {
 		if (!isPlaying) {
 			await Tone.start();
 
-			// Create loop if not exists
 			if (!loopRef.current) {
 				loopRef.current = new Tone.Loop((time) => {
-					// Logic for strong/weak beats
-					// We'll track the visual beat in a state, but for audio precision we rely on Tone/Time
-					// However, syncing React state to Tone loop at high BPM can be jitters.
-					// We'll use Tone.Draw to sync visual
 					const position = Tone.getTransport().position;
-					const beat = Number(position.toString().split(":")[1]);
-					const currentBeat = Math.floor(beat) % 4;
+					const beatVal = Number(position.toString().split(":")[1]);
+					const currentBeat = Math.floor(beatVal) % 4;
 
 					Tone.getDraw().schedule(() => {
 						setBeat(currentBeat);
@@ -82,7 +73,7 @@ export default function MetronomePage() {
 					if (currentBeat === 0) {
 						synthRef.current?.triggerAttackRelease("C4", "32n", time);
 					} else {
-						synthRef.current?.triggerAttackRelease("G3", "32n", time, 0.5); // Lower velocity/pitch
+						synthRef.current?.triggerAttackRelease("G3", "32n", time, 0.5);
 					}
 				}, "4n").start(0);
 			}
@@ -91,7 +82,6 @@ export default function MetronomePage() {
 			setIsPlaying(true);
 		} else {
 			Tone.Transport.stop();
-			// Reset position
 			setBeat(0);
 			Tone.Transport.position = 0;
 			setIsPlaying(false);
@@ -103,119 +93,105 @@ export default function MetronomePage() {
 	};
 
 	return (
-		<div className="flex flex-col items-center justify-center min-h-[calc(100vh-100px)] max-w-2xl mx-auto text-center space-y-12 px-4">
-			<div className="space-y-4">
-				<h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-600">
-					Metronome
-				</h1>
-				<p className="text-gray-400 text-lg">
-					Precision timing tool using Web Audio API
-				</p>
-			</div>
+		<div className="text-center space-y-6">
+			<h3 className="text-accent-yellow font-bold">
+				♪ メトロノーム ♪
+			</h3>
+			<p className="text-sm text-accent-cyan">
+				Web Audio APIを使ったメトロノーム
+			</p>
 
-			{/* Visual Indicator */}
-			<div className="relative w-full h-32 flex items-center justify-center">
-				<div className="flex gap-4">
-					{[0, 1, 2, 3].map((i) => (
-						<motion.div
-							key={i}
-							className={`w-4 h-16 rounded-full transition-shadow duration-75 ${
-								beat === i && isPlaying
-									? i === 0
-										? "bg-cyan-500 shadow-[0_0_20px_rgba(6,182,212,0.8)]"
-										: "bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.6)]"
-									: "bg-gray-800"
-							}`}
-							animate={{
-								scale: beat === i && isPlaying ? 1.2 : 1,
-							}}
-						/>
-					))}
-				</div>
-			</div>
-
-			{/* Controls */}
-			<div className="bg-[#111] p-8 rounded-3xl border border-white/10 shadow-2xl w-full max-w-md space-y-8">
-				{/* BPM Control */}
-				<div className="space-y-6">
-					<div className="text-6xl font-black tabular-nums text-white flex items-center justify-center gap-2">
-						{bpm}
-						<span className="text-xl font-medium text-gray-500 mt-6">BPM</span>
-					</div>
-
-					<input
-						type="range"
-						min="20"
-						max="300"
-						value={bpm}
-						onChange={(e) => setBpm(Number(e.target.value))}
-						className="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-cyan-500"
+			<div className="flex justify-center gap-3">
+				{[0, 1, 2, 3].map((i) => (
+					<div
+						key={i}
+						className={`w-4 h-12 border transition-all duration-75 ${
+							beat === i && isPlaying
+								? i === 0
+									? "bg-accent-cyan border-accent-cyan shadow-[0_0_10px_#00ffff]"
+									: "bg-accent-pink border-accent-pink shadow-[0_0_10px_#ff66cc]"
+								: "bg-transparent border-gray-600"
+						} ${beat === i && isPlaying ? "scale-110" : "scale-100"}`}
 					/>
+				))}
+			</div>
 
-					<div className="flex justify-center gap-4">
-						<button
-							type="button"
-							onClick={() => adjustBpm(-1)}
-							className="w-12 h-12 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-white transition-colors"
-						>
-							<FaMinus />
-						</button>
-						<button
-							type="button"
-							onClick={() => adjustBpm(-5)}
-							className="px-4 h-12 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-white transition-colors text-sm font-bold"
-						>
-							-5
-						</button>
-						<button
-							type="button"
-							onClick={() => adjustBpm(5)}
-							className="px-4 h-12 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-white transition-colors text-sm font-bold"
-						>
-							+5
-						</button>
-						<button
-							type="button"
-							onClick={() => adjustBpm(1)}
-							className="w-12 h-12 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center text-white transition-colors"
-						>
-							<FaPlus />
-						</button>
-					</div>
+			<div className="border-2 border-accent-pink p-4 space-y-4">
+				<div>
+					<span className="text-4xl font-bold text-accent-yellow">{bpm}</span>
+					<span className="text-sm text-gray-400 ml-2">BPM</span>
 				</div>
 
-				{/* Play/Stop */}
-				<button
-					type="button"
-					onClick={togglePlay}
-					className={`w-24 h-24 rounded-full flex items-center justify-center text-3xl text-white transition-all transform hover:scale-105 mx-auto shadow-lg ${
-						isPlaying
-							? "bg-red-500 shadow-red-500/20"
-							: "bg-cyan-500 shadow-cyan-500/20"
-					}`}
-				>
-					{isPlaying ? <FaStop /> : <FaPlay className="ml-1" />}
-				</button>
+				<input
+					type="range"
+					min="20"
+					max="300"
+					value={bpm}
+					onChange={(e) => setBpm(Number(e.target.value))}
+					className="w-full accent-accent-cyan"
+				/>
 
-				{/* Volume Control */}
-				<div className="flex items-center gap-4 px-4">
+				<div className="flex justify-center gap-2">
 					<button
 						type="button"
-						onClick={() => setIsMuted(!isMuted)}
-						className="text-gray-400 hover:text-white transition-colors"
+						onClick={() => adjustBpm(-1)}
+						className="w-10 h-10 border border-accent-cyan text-white flex items-center justify-center hover:bg-accent-cyan/20 cursor-pointer"
 					>
-						{isMuted ? <FaVolumeMute size={20} /> : <FaVolumeUp size={20} />}
+						<FaMinus />
 					</button>
-					<input
-						type="range"
-						min="-60"
-						max="0"
-						value={volume}
-						onChange={(e) => setVolume(Number(e.target.value))}
-						className="flex-1 h-1 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-gray-500"
-						disabled={isMuted}
-					/>
+					<button
+						type="button"
+						onClick={() => adjustBpm(-5)}
+						className="px-3 h-10 border border-accent-cyan text-white flex items-center justify-center hover:bg-accent-cyan/20 text-sm cursor-pointer"
+					>
+						-5
+					</button>
+					<button
+						type="button"
+						onClick={() => adjustBpm(5)}
+						className="px-3 h-10 border border-accent-cyan text-white flex items-center justify-center hover:bg-accent-cyan/20 text-sm cursor-pointer"
+					>
+						+5
+					</button>
+					<button
+						type="button"
+						onClick={() => adjustBpm(1)}
+						className="w-10 h-10 border border-accent-cyan text-white flex items-center justify-center hover:bg-accent-cyan/20 cursor-pointer"
+					>
+						<FaPlus />
+					</button>
 				</div>
+			</div>
+
+			<button
+				type="button"
+				onClick={togglePlay}
+				className={`w-16 h-16 border-2 flex items-center justify-center text-xl cursor-pointer ${
+					isPlaying
+						? "border-accent-pink text-accent-pink hover:bg-accent-pink/20"
+						: "border-accent-cyan text-accent-cyan hover:bg-accent-cyan/20"
+				}`}
+			>
+				{isPlaying ? <FaStop /> : <FaPlay className="ml-1" />}
+			</button>
+
+			<div className="flex items-center gap-3 justify-center">
+				<button
+					type="button"
+					onClick={() => setIsMuted(!isMuted)}
+					className="text-gray-400 hover:text-accent-pink cursor-pointer"
+				>
+					{isMuted ? <FaVolumeMute size={16} /> : <FaVolumeUp size={16} />}
+				</button>
+				<input
+					type="range"
+					min="-60"
+					max="0"
+					value={volume}
+					onChange={(e) => setVolume(Number(e.target.value))}
+					className="w-32 accent-accent-pink"
+					disabled={isMuted}
+				/>
 			</div>
 		</div>
 	);

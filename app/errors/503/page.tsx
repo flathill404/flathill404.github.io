@@ -5,8 +5,8 @@ export default function ServiceUnavailablePage() {
 		<ErrorView
 			imageSrc="/images/errors/503.webp"
 			altText="503 Service Unavailable"
-			title="Service Unavailable"
-			message="The server is currently unavailable. Please try again later."
+			title="サービス利用不可"
+			message="現在サービスをご利用いただけません。しばらくしてから再度お試しください。"
 		/>
 	);
 }

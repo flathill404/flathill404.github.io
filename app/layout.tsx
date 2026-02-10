@@ -1,13 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono } from "next/font/google";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import "./globals.css";
-
-const geistSans = Geist({
-	variable: "--font-geist-sans",
-	subsets: ["latin"],
-});
 
 const geistMono = Geist_Mono({
 	variable: "--font-geist-mono",
@@ -15,8 +10,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	title: "flathill404",
-	description: "flathill404's personal website",
+	title: "flathill404のホームページ",
+	description: "flathill404の個人ホームページへようこそ！",
 };
 
 export default function RootLayout({
@@ -25,13 +20,13 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
-			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
-			>
-				<Header />
-				<main className="flex-grow">{children}</main>
-				<Footer />
+		<html lang="ja">
+			<body className={`${geistMono.variable}`}>
+				<div className="max-w-[640px] mx-auto px-4 py-2 min-h-screen">
+					<Header />
+					<main>{children}</main>
+					<Footer />
+				</div>
 			</body>
 		</html>
 	);

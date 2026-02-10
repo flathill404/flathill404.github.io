@@ -1,26 +1,109 @@
 @import "tailwindcss";
 
 :root {
-	--background: #ffffff;
-	--foreground: #171717;
+	--background: #000033;
+	--foreground: #ffffff;
+	--accent-pink: #ff66cc;
+	--accent-cyan: #00ffff;
+	--accent-yellow: #ffff00;
+	--accent-lime: #00ff00;
+	--link-color: #66ccff;
+	--link-visited: #cc99ff;
+	--link-hover: #ff66cc;
+	--border-retro: #ff66cc;
 }
 
 @theme inline {
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
-	--font-sans: var(--font-geist-sans);
+	--color-accent-pink: var(--accent-pink);
+	--color-accent-cyan: var(--accent-cyan);
+	--color-accent-yellow: var(--accent-yellow);
+	--color-accent-lime: var(--accent-lime);
+	--color-link: var(--link-color);
+	--color-link-visited: var(--link-visited);
+	--color-link-hover: var(--link-hover);
+	--color-border-retro: var(--border-retro);
 	--font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-	:root {
-		--background: #0a0a0a;
-		--foreground: #ededed;
-	}
 }
 
 body {
 	background: var(--background);
 	color: var(--foreground);
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: "MS Gothic", "Hiragino Kaku Gothic ProN", "Geist Mono", monospace;
+	cursor: crosshair;
+}
+
+a {
+	color: var(--link-color);
+}
+a:visited {
+	color: var(--link-visited);
+}
+a:hover {
+	color: var(--link-hover);
+	text-decoration: underline;
+}
+
+/* Marquee animation */
+@keyframes marquee {
+	0% { transform: translateX(100%); }
+	100% { transform: translateX(-100%); }
+}
+
+/* Blink animation */
+@keyframes blink {
+	0%, 49% { opacity: 1; }
+	50%, 100% { opacity: 0; }
+}
+
+/* Rainbow text animation */
+@keyframes rainbow {
+	0% { color: #ff0000; }
+	16% { color: #ff8800; }
+	33% { color: #ffff00; }
+	50% { color: #00ff00; }
+	66% { color: #0088ff; }
+	83% { color: #8800ff; }
+	100% { color: #ff0000; }
+}
+
+/* Twinkle for decorative stars */
+@keyframes twinkle {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0.3; }
+}
+
+.animate-marquee {
+	animation: marquee 15s linear infinite;
+}
+
+.animate-blink {
+	animation: blink 1s step-end infinite;
+}
+
+.animate-rainbow {
+	animation: rainbow 3s linear infinite;
+}
+
+.animate-twinkle {
+	animation: twinkle 2s ease-in-out infinite;
+}
+
+/* Retro scrollbar */
+::-webkit-scrollbar {
+	width: 12px;
+}
+::-webkit-scrollbar-track {
+	background: #000033;
+}
+::-webkit-scrollbar-thumb {
+	background: #ff66cc;
+	border: 2px solid #000033;
+}
+
+/* Retro selection */
+::selection {
+	background: #ff66cc;
+	color: #000033;
 }

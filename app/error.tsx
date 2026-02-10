@@ -17,8 +17,8 @@ export default function ErrorPage({
 		<ErrorView
 			imageSrc="/images/errors/500.webp"
 			altText="500 Internal Server Error"
-			title="Something went wrong"
-			message="We apologize for the inconvenience. Please try again later."
+			title="エラーが発生しました"
+			message="ご迷惑をおかけします。しばらくしてから再度お試しください。"
 		/>
 	);
 }
