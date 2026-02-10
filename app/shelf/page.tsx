@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
-import { BookCard } from "./BookCard"; // 作ったコンポーネントをインポートじゃ！
+import { BookCard } from "./BookCard";
 import booksData from "./books.json";
 
 export const metadata: Metadata = {
-	title: "Book Shelf | flathill404",
-	description: "A list of books I have read.",
+	title: "本棚 | flathill404のホームページ",
+	description: "読んだ本の一覧です。",
 };
 
 export default function ShelfPage() {
-	// booksData is imported as an array
 	const books = Array.isArray(booksData)
 		? booksData.sort((a, b) => {
 				if (!a.published_at) return 1;
@@ -18,21 +17,23 @@ export default function ShelfPage() {
 		: [];
 
 	return (
-		<div className="flex min-h-screen justify-center bg-zinc-50 font-sans dark:bg-black">
-			<main className="flex min-h-screen w-full max-w-5xl flex-col p-8 bg-white dark:bg-black">
-				<h1 className="text-4xl font-bold text-zinc-900 dark:text-zinc-100 mb-8">
-					Book Shelf
-				</h1>
-				<h2 className="text-zinc-700 dark:text-zinc-300 mb-8">
-					A list of books I have read.
-				</h2>
+		<div className="space-y-4">
+			<h2 className="text-center text-accent-yellow font-bold my-4">
+				★ 本棚 ★
+			</h2>
+			<p className="text-center text-sm text-accent-cyan">
+				読んだ本の一覧です。クリックで詳細が見れます。
+			</p>
 
-				<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-					{books.map((book) => (
-						<BookCard key={book.url} book={book} />
-					))}
-				</div>
-			</main>
+			<div className="text-accent-cyan text-xs text-center my-2">
+				☆━━━━━━━━━━━━━━━━━━━━☆
+			</div>
+
+			<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+				{books.map((book) => (
+					<BookCard key={book.url} book={book} />
+				))}
+			</div>
 		</div>
 	);
 }

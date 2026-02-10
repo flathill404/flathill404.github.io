@@ -15,30 +15,39 @@ export default function ErrorView({
 	title = "Error",
 }: ErrorViewProps) {
 	return (
-		<div className="flex min-h-screen flex-col items-center justify-center p-4 bg-background text-foreground">
-			<div className="w-full max-w-lg mb-8">
+		<div className="text-center py-8 space-y-4">
+			<div className="text-accent-cyan text-xs my-2">
+				☆━━━━━━━━━━━━━━━━━━━━☆
+			</div>
+
+			<h1 className="text-2xl font-bold text-accent-pink animate-blink">
+				‼！ {title} ‼！
+			</h1>
+
+			<div className="w-48 mx-auto border-2 border-accent-pink p-1">
 				<Image
 					src={imageSrc}
 					alt={altText}
 					width={800}
 					height={600}
-					className="w-full h-auto object-contain rounded-full"
+					className="w-full h-auto object-contain"
 					priority
 				/>
 			</div>
-			<h1 className="text-2xl font-bold mb-4">{title}</h1>
+
 			{message && (
-				<p className="text-gray-600 dark:text-gray-400 mb-8 text-center">
-					{message}
-				</p>
+				<p className="text-accent-yellow text-sm">{message}</p>
 			)}
 
-			<Link
-				href="/"
-				className="px-6 py-3 rounded-full bg-foreground text-background hover:opacity-90 transition-opacity duration-200 font-medium"
-			>
-				Back to Home
-			</Link>
+			<div className="my-4">
+				<Link href="/" className="text-accent-cyan">
+					{">>> ホームに戻る <<<"}
+				</Link>
+			</div>
+
+			<div className="text-accent-cyan text-xs my-2">
+				☆━━━━━━━━━━━━━━━━━━━━☆
+			</div>
 		</div>
 	);
 }

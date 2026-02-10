@@ -5,8 +5,8 @@ export default function ForbiddenPage() {
 		<ErrorView
 			imageSrc="/images/errors/403.webp"
 			altText="403 Forbidden"
-			title="Access Restricted"
-			message="You do not have permission to access this resource."
+			title="アクセス制限"
+			message="このページへのアクセス権限がありません。"
 		/>
 	);
 }

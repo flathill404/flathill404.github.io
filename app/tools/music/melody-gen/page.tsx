@@ -637,337 +637,243 @@ export default function MelodyGenerator() {
 	};
 
 	return (
-		<div className="min-h-screen bg-neutral-900 text-white p-8 font-sans flex flex-col items-center justify-center">
-			<div className="w-full max-w-7xl bg-neutral-800 rounded-2xl shadow-2xl p-8 border border-neutral-700">
-				<header className="mb-10 text-center">
-					<h1 className="text-4xl font-black bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent inline-flex items-center gap-4">
-						<FaMusic className="text-cyan-400" />
-						Melody Generator
-					</h1>
-					<p className="text-neutral-400 mt-2">
-						Create, Play, and Export unique MIDI melodies using advanced scales.
-					</p>
-				</header>
+		<div className="space-y-6 text-sm">
+			<h3 className="text-accent-yellow font-bold text-center">
+				♪ メロディジェネレーター ♪
+			</h3>
+			<p className="text-center text-accent-cyan text-xs">
+				MIDIメロディの生成・再生・ダウンロード
+			</p>
 
-				<div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
-					{/* Left Panel: Composition Settings */}
-					<div className="lg:col-span-3 bg-neutral-900/50 p-6 rounded-xl border border-neutral-700 space-y-6 h-fit">
-						<h3 className="text-lg font-bold text-white mb-4 border-b border-neutral-700 pb-2">
-							Composition
-						</h3>
+			{/* Composition Settings */}
+			<div className="border-2 border-accent-pink p-4 space-y-4">
+				<p className="text-accent-lime font-bold">【作曲設定】</p>
 
-						{/* Key Selection */}
-						<div className="space-y-2">
-							<span className="text-xs font-semibold uppercase text-neutral-500 tracking-wider block">
-								Key
-							</span>
-							<div className="grid grid-cols-4 gap-1">
-								{KEYS.map((k) => (
-									<button
-										type="button"
-										key={k}
-										onClick={() => setSelectedKey(k)}
-										className={`px-1 py-1.5 rounded text-xs font-bold transition-all ${
-											selectedKey === k
-												? "bg-cyan-500 text-black shadow-lg shadow-cyan-500/30"
-												: "bg-neutral-800 text-neutral-500 hover:bg-neutral-700 hover:text-neutral-300"
-										}`}
-									>
-										{k}
-									</button>
-								))}
-							</div>
-						</div>
-
-						{/* Scale Selection */}
-						<div className="space-y-2">
-							<label
-								htmlFor="scale-select"
-								className="text-xs font-semibold uppercase text-neutral-500 tracking-wider block"
+				{/* Key */}
+				<div className="space-y-1">
+					<span className="text-accent-cyan text-xs">Key:</span>
+					<div className="flex flex-wrap gap-1">
+						{KEYS.map((k) => (
+							<button
+								type="button"
+								key={k}
+								onClick={() => setSelectedKey(k)}
+								className={`px-2 py-1 text-xs border cursor-pointer ${
+									selectedKey === k
+										? "border-accent-cyan text-accent-cyan bg-accent-cyan/20"
+										: "border-gray-600 text-gray-400 hover:border-accent-pink"
+								}`}
 							>
-								Scale Type
-							</label>
-							<select
-								id="scale-select"
-								value={selectedScale}
-								onChange={(e) =>
-									setSelectedScale(
-										e.target.value as keyof typeof SCALE_PATTERNS,
-									)
-								}
-								className="w-full bg-neutral-800 border border-neutral-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500"
-							>
-								{Object.keys(SCALE_PATTERNS).map((s) => (
-									<option key={s} value={s}>
-										{s}
-									</option>
-								))}
-							</select>
-						</div>
-
-						{/* Length (Bars) Selection */}
-						<div className="space-y-2">
-							<span className="text-xs font-semibold uppercase text-neutral-500 tracking-wider block">
-								Length (Bars)
-							</span>
-							<div className="grid grid-cols-4 gap-2">
-								{BAR_OPTIONS.map((b) => (
-									<button
-										type="button"
-										key={b}
-										onClick={() => setBars(b)}
-										className={`px-2 py-2 rounded-lg text-sm font-medium transition-all ${
-											bars === b
-												? "bg-cyan-500 text-black shadow-lg shadow-cyan-500/30"
-												: "bg-neutral-800 text-neutral-400 hover:bg-neutral-700"
-										}`}
-									>
-										{b}
-									</button>
-								))}
-							</div>
-						</div>
-
-						<div className="space-y-2">
-							<label
-								htmlFor="tempo-slider"
-								className="text-xs font-semibold uppercase text-neutral-500 tracking-wider"
-							>
-								Tempo (BPM)
-							</label>
-							<input
-								id="tempo-slider"
-								type="range"
-								min="60"
-								max="200"
-								step="10"
-								value={tempo}
-								onChange={(e) => setTempo(Number(e.target.value))}
-								className="w-full accent-cyan-400 h-2 bg-neutral-700 rounded-lg appearance-none cursor-pointer"
-							/>
-							<div className="flex justify-between text-xs text-neutral-400">
-								<span>60</span>
-								<span>{tempo} BPM</span>
-								<span>200</span>
-							</div>
-						</div>
-
-						<button
-							type="button"
-							onClick={generateMelody}
-							className="w-full py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold rounded-xl shadow-lg shadow-cyan-900/20 transform transition-all active:scale-95 flex items-center justify-center gap-2"
-						>
-							<FaDice className="text-xl" />
-							Generate New
-						</button>
-					</div>
-
-					{/* Center Panel: Visualization */}
-					<div className="lg:col-span-6 flex flex-col gap-6">
-						<div className="bg-neutral-950 rounded-xl p-8 border border-neutral-800 min-h-[400px] flex items-center justify-center relative overflow-hidden group">
-							{melody.length === 0 ? (
-								<div className="text-center">
-									<FaMusic className="text-6xl text-neutral-800 mx-auto mb-4" />
-									<span className="text-neutral-600">
-										Configure settings and click Generate
-									</span>
-								</div>
-							) : (
-								<div className="flex flex-wrap gap-2 justify-center items-center w-full">
-									{melody.map((note, idx) => (
-										<div
-											key={note.id}
-											className={`
-                                        relative w-10 h-16 rounded-lg flex items-end justify-center pb-2 text-[10px] font-bold transition-all duration-150 border border-white/5
-                                        ${
-																					currentNoteIndex === idx
-																						? "bg-cyan-400 text-black scale-110 shadow-[0_0_20px_rgba(34,211,238,0.6)] z-10 border-cyan-300"
-																						: "bg-neutral-800 text-neutral-400 hover:bg-neutral-700"
-																				}
-                                    `}
-										>
-											<span className="z-10">{note.pitch}</span>
-											<div
-												className="absolute bottom-0 left-0 w-full bg-white/10 rounded-b-lg mix-blend-overlay"
-												style={{
-													height: getNoteHeight(note.duration),
-												}}
-											></div>
-											{/* Note duration indicator */}
-											<div
-												className={`absolute top-1 right-1 w-1.5 h-1.5 rounded-full ${
-													note.duration === "4n"
-														? "bg-cyan-500/50"
-														: note.duration === "8n."
-															? "bg-yellow-500/50"
-															: "bg-purple-500/50"
-												}`}
-											/>
-										</div>
-									))}
-								</div>
-							)}
-						</div>
-
-						<div className="flex flex-col gap-2">
-							<div className="flex justify-between items-end px-2">
-								<div>
-									<h2 className="text-2xl font-bold">
-										{selectedKey} {selectedScale}
-									</h2>
-									<p className="text-neutral-500 text-sm">
-										Generated Melody • {bars} {bars === 1 ? "Bar" : "Bars"} •{" "}
-										{tempo} BPM
-									</p>
-								</div>
-							</div>
-
-							<div className="grid grid-cols-2 gap-4">
-								<button
-									type="button"
-									onClick={togglePlayback}
-									disabled={melody.length === 0}
-									className={`
-                                py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all
-                                ${
-																	isPlaying
-																		? "bg-red-500/20 text-red-400 border border-red-500/50 hover:bg-red-500/30"
-																		: "bg-neutral-800 text-white border border-neutral-700 hover:bg-neutral-700 hover:border-neutral-600"
-																}
-                                disabled:opacity-50 disabled:cursor-not-allowed
-                            `}
-								>
-									{isPlaying ? (
-										<>
-											<FaStop /> Stop
-										</>
-									) : (
-										<>
-											<FaPlay /> Play
-										</>
-									)}
-								</button>
-
-								<button
-									type="button"
-									onClick={downloadMidi}
-									disabled={melody.length === 0}
-									className="py-4 rounded-xl font-bold flex items-center justify-center gap-2 bg-neutral-800 text-white border border-neutral-700 hover:bg-neutral-700 hover:border-neutral-600 hover:text-cyan-400 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-								>
-									<FaDownload /> Download MIDI
-								</button>
-							</div>
-						</div>
-					</div>
-
-					{/* Right Panel: Sound Settings */}
-					<div className="lg:col-span-3 bg-neutral-900/50 p-6 rounded-xl border border-neutral-700 space-y-6 h-fit">
-						<h3 className="text-lg font-bold text-white mb-4 border-b border-neutral-700 pb-2">
-							Sound Design
-						</h3>
-
-						{/* Instrument Selection */}
-						<div className="space-y-2">
-							<label
-								htmlFor="instrument-select"
-								className="text-xs font-semibold uppercase text-neutral-500 tracking-wider block"
-							>
-								Instrument
-							</label>
-							<select
-								id="instrument-select"
-								value={selectedInstrument}
-								onChange={(e) => setSelectedInstrument(e.target.value)}
-								className="w-full bg-neutral-800 border border-neutral-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500"
-							>
-								{INSTRUMENTS.map((inst) => (
-									<option key={inst.id} value={inst.id}>
-										{inst.label}
-									</option>
-								))}
-							</select>
-							<p className="text-xs text-neutral-500 mt-2">
-								Select the synthesizer engine used for playback.
-							</p>
-						</div>
-
-						{/* Advanced Parameters with Tabs */}
-						<div className="space-y-4 pt-4 border-t border-neutral-700">
-							<div className="flex bg-neutral-800 p-1 rounded-lg">
-								<button
-									type="button"
-									onClick={() => setActiveTab("Synth")}
-									className={`flex-1 py-1.5 text-xs font-bold rounded transition-all ${
-										activeTab === "Synth"
-											? "bg-neutral-600 text-white shadow"
-											: "text-neutral-500 hover:text-neutral-300"
-									}`}
-								>
-									Synth
-								</button>
-								<button
-									type="button"
-									onClick={() => setActiveTab("Filter")}
-									disabled={
-										!(
-											INSTRUMENT_PARAMS[selectedInstrument] || COMMON_ADSR
-										).some((p) => p.category === "Filter")
-									}
-									className={`flex-1 py-1.5 text-xs font-bold rounded transition-all ${
-										activeTab === "Filter"
-											? "bg-neutral-600 text-white shadow"
-											: "text-neutral-500 hover:text-neutral-300 disabled:opacity-20 disabled:cursor-not-allowed"
-									}`}
-								>
-									Filter
-								</button>
-							</div>
-
-							<div className="h-[280px] overflow-y-auto pr-1 space-y-4 custom-scrollbar">
-								{(INSTRUMENT_PARAMS[selectedInstrument] || COMMON_ADSR)
-									.filter((p) => (p.category || "Synth") === activeTab)
-									.map((param) => (
-										<div key={param.path} className="space-y-1">
-											<div className="flex justify-between text-xs text-neutral-400">
-												<span>{param.label}</span>
-												<span>
-													{synthParams[param.path]?.toFixed(3) ??
-														param.defaultValue}
-												</span>
-											</div>
-											<input
-												type="range"
-												min={param.min}
-												max={param.max}
-												step={param.step}
-												value={synthParams[param.path] ?? param.defaultValue}
-												onChange={(e) => {
-													const val = Number(e.target.value);
-													setSynthParams((prev) => ({
-														...prev,
-														[param.path]: val,
-													}));
-												}}
-												className="w-full accent-cyan-400 h-1.5 bg-neutral-700 rounded-lg appearance-none cursor-pointer"
-											/>
-										</div>
-									))}
-								{(INSTRUMENT_PARAMS[selectedInstrument] || COMMON_ADSR).filter(
-									(p) => (p.category || "Synth") === activeTab,
-								).length === 0 && (
-									<p className="text-xs text-neutral-500 text-center py-4">
-										No parameters available for this category.
-									</p>
-								)}
-							</div>
-						</div>
+								{k}
+							</button>
+						))}
 					</div>
 				</div>
 
-				<footer className="text-center text-neutral-600 text-sm pt-8 border-t border-neutral-800">
-					Powered by Tone.js & @tonejs/midi
-				</footer>
+				{/* Scale */}
+				<div className="space-y-1">
+					<label htmlFor="scale-select" className="text-accent-cyan text-xs">Scale:</label>
+					<select
+						id="scale-select"
+						value={selectedScale}
+						onChange={(e) => setSelectedScale(e.target.value as keyof typeof SCALE_PATTERNS)}
+						className="w-full bg-[#000044] border border-accent-cyan text-white px-2 py-1 text-xs"
+					>
+						{Object.keys(SCALE_PATTERNS).map((s) => (
+							<option key={s} value={s}>{s}</option>
+						))}
+					</select>
+				</div>
+
+				{/* Bars */}
+				<div className="space-y-1">
+					<span className="text-accent-cyan text-xs">Bars:</span>
+					<div className="flex gap-2">
+						{BAR_OPTIONS.map((b) => (
+							<button
+								type="button"
+								key={b}
+								onClick={() => setBars(b)}
+								className={`px-3 py-1 text-xs border cursor-pointer ${
+									bars === b
+										? "border-accent-cyan text-accent-cyan bg-accent-cyan/20"
+										: "border-gray-600 text-gray-400 hover:border-accent-pink"
+								}`}
+							>
+								{b}
+							</button>
+						))}
+					</div>
+				</div>
+
+				{/* Tempo */}
+				<div className="space-y-1">
+					<label htmlFor="tempo-slider" className="text-accent-cyan text-xs">
+						Tempo: {tempo} BPM
+					</label>
+					<input
+						id="tempo-slider"
+						type="range"
+						min="60"
+						max="200"
+						step="10"
+						value={tempo}
+						onChange={(e) => setTempo(Number(e.target.value))}
+						className="w-full accent-accent-cyan"
+					/>
+				</div>
+
+				<button
+					type="button"
+					onClick={generateMelody}
+					className="w-full py-2 border-2 border-accent-pink text-accent-yellow font-bold hover:bg-accent-pink/20 active:scale-95 transition-transform flex items-center justify-center gap-2 cursor-pointer"
+				>
+					<FaDice /> Generate New
+				</button>
 			</div>
+
+			{/* Visualization */}
+			<div className="border border-accent-cyan p-4 min-h-[200px]">
+				{melody.length === 0 ? (
+					<div className="text-center text-gray-500">
+						<FaMusic className="text-4xl mx-auto mb-2" />
+						<span>設定してGenerateをクリック</span>
+					</div>
+				) : (
+					<div className="flex flex-wrap gap-1 justify-center items-center w-full">
+						{melody.map((note, idx) => (
+							<div
+								key={note.id}
+								className={`relative w-9 h-14 flex items-end justify-center pb-1 text-[9px] font-bold border transition-all duration-150 ${
+									currentNoteIndex === idx
+										? "bg-accent-cyan/30 text-accent-cyan border-accent-cyan scale-110 z-10"
+										: "bg-[#000044] text-gray-400 border-gray-600 hover:border-accent-pink"
+								}`}
+							>
+								<span className="z-10">{note.pitch}</span>
+								<div
+									className="absolute bottom-0 left-0 w-full bg-accent-cyan/10"
+									style={{ height: getNoteHeight(note.duration) }}
+								/>
+								<div
+									className={`absolute top-0.5 right-0.5 w-1 h-1 ${
+										note.duration === "4n"
+											? "bg-accent-cyan/50"
+											: note.duration === "8n."
+												? "bg-accent-yellow/50"
+												: "bg-accent-pink/50"
+									}`}
+								/>
+							</div>
+						))}
+					</div>
+				)}
+			</div>
+
+			{/* Info & Controls */}
+			<div className="text-center space-y-2">
+				<p className="text-accent-yellow font-bold">
+					{selectedKey} {selectedScale} - {bars} {bars === 1 ? "Bar" : "Bars"} - {tempo} BPM
+				</p>
+
+				<div className="flex justify-center gap-4">
+					<button
+						type="button"
+						onClick={togglePlayback}
+						disabled={melody.length === 0}
+						className={`px-4 py-2 border-2 font-bold flex items-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed ${
+							isPlaying
+								? "border-accent-pink text-accent-pink"
+								: "border-accent-cyan text-accent-cyan"
+						}`}
+					>
+						{isPlaying ? (<><FaStop /> Stop</>) : (<><FaPlay /> Play</>)}
+					</button>
+
+					<button
+						type="button"
+						onClick={downloadMidi}
+						disabled={melody.length === 0}
+						className="px-4 py-2 border-2 border-accent-lime text-accent-lime font-bold flex items-center gap-2 cursor-pointer hover:bg-accent-lime/20 disabled:opacity-50 disabled:cursor-not-allowed"
+					>
+						<FaDownload /> MIDI DL
+					</button>
+				</div>
+			</div>
+
+			{/* Sound Design */}
+			<div className="border-2 border-accent-pink p-4 space-y-4">
+				<p className="text-accent-lime font-bold">【音色設定】</p>
+
+				<div className="space-y-1">
+					<label htmlFor="instrument-select" className="text-accent-cyan text-xs">Instrument:</label>
+					<select
+						id="instrument-select"
+						value={selectedInstrument}
+						onChange={(e) => setSelectedInstrument(e.target.value)}
+						className="w-full bg-[#000044] border border-accent-cyan text-white px-2 py-1 text-xs"
+					>
+						{INSTRUMENTS.map((inst) => (
+							<option key={inst.id} value={inst.id}>{inst.label}</option>
+						))}
+					</select>
+				</div>
+
+				{/* Tabs */}
+				<div className="flex gap-2 border-b border-gray-600 pb-1">
+					<button
+						type="button"
+						onClick={() => setActiveTab("Synth")}
+						className={`text-xs cursor-pointer ${activeTab === "Synth" ? "text-accent-cyan font-bold" : "text-gray-500"}`}
+					>
+						[Synth]
+					</button>
+					<button
+						type="button"
+						onClick={() => setActiveTab("Filter")}
+						disabled={!(INSTRUMENT_PARAMS[selectedInstrument] || COMMON_ADSR).some((p) => p.category === "Filter")}
+						className={`text-xs cursor-pointer disabled:opacity-20 ${activeTab === "Filter" ? "text-accent-cyan font-bold" : "text-gray-500"}`}
+					>
+						[Filter]
+					</button>
+				</div>
+
+				<div className="max-h-[200px] overflow-y-auto space-y-3">
+					{(INSTRUMENT_PARAMS[selectedInstrument] || COMMON_ADSR)
+						.filter((p) => (p.category || "Synth") === activeTab)
+						.map((param) => (
+							<div key={param.path} className="space-y-0.5">
+								<div className="flex justify-between text-xs text-gray-400">
+									<span>{param.label}</span>
+									<span className="text-accent-cyan">{synthParams[param.path]?.toFixed(3) ?? param.defaultValue}</span>
+								</div>
+								<input
+									type="range"
+									min={param.min}
+									max={param.max}
+									step={param.step}
+									value={synthParams[param.path] ?? param.defaultValue}
+									onChange={(e) => {
+										const val = Number(e.target.value);
+										setSynthParams((prev) => ({ ...prev, [param.path]: val }));
+									}}
+									className="w-full accent-accent-cyan"
+								/>
+							</div>
+						))}
+					{(INSTRUMENT_PARAMS[selectedInstrument] || COMMON_ADSR).filter(
+						(p) => (p.category || "Synth") === activeTab,
+					).length === 0 && (
+						<p className="text-xs text-gray-500 text-center py-2">
+							No parameters available.
+						</p>
+					)}
+				</div>
+			</div>
+
+			<p className="text-center text-gray-500 text-xs">
+				Powered by Tone.js & @tonejs/midi
+			</p>
 		</div>
 	);
 }

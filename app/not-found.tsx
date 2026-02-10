@@ -5,8 +5,8 @@ export default function NotFound() {
 		<ErrorView
 			imageSrc="/images/errors/404.webp"
 			altText="404 Not Found"
-			title="Page Not Found"
-			message="The page you are looking for does not exist."
+			title="ページが見つかりません"
+			message="お探しのページは存在しません。"
 		/>
 	);
 }

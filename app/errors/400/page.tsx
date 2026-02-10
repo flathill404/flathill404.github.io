@@ -5,8 +5,8 @@ export default function BadRequestPage() {
 		<ErrorView
 			imageSrc="/images/errors/400.webp"
 			altText="400 Bad Request"
-			title="Bad Request"
-			message="The server cannot process your request due to a client error."
+			title="不正なリクエスト"
+			message="リクエストを処理できませんでした。"
 		/>
 	);
 }
