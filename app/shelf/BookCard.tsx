@@ -24,7 +24,7 @@ export function BookCard({ book }: BookCardProps) {
 				rel="noopener noreferrer"
 				className="block"
 			>
-				<div className="relative h-36 w-full mb-2 border border-accent-cyan/30 bg-[#000044]">
+				<div className="relative h-36 w-full mb-2 bg-[#000044]">
 					{hasImage && book.og_image ? (
 						<Image
 							src={book.og_image}
