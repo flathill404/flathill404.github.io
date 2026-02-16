@@ -27,6 +27,8 @@ export default function Header() {
 			<nav className="flex justify-center gap-4 text-sm mt-2">
 				<Link href="/">★ ホーム</Link>
 				<span className="text-accent-pink">|</span>
+				<Link href="/diary">★ 日記</Link>
+				<span className="text-accent-pink">|</span>
 				<Link href="/shelf">★ 本棚</Link>
 				<span className="text-accent-pink">|</span>
 				<Link href="/tools">★ ツール</Link>

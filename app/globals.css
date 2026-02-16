@@ -136,3 +136,83 @@ a:hover {
 	background: #ff66cc;
 	color: #000033;
 }
+
+/* Diary markdown content styles */
+.diary-content h1 {
+	font-size: 1.25rem;
+	font-weight: bold;
+	color: var(--accent-yellow);
+	margin: 1rem 0 0.5rem;
+}
+.diary-content h2 {
+	font-size: 1.125rem;
+	font-weight: bold;
+	color: var(--accent-lime);
+	margin: 1rem 0 0.5rem;
+}
+.diary-content h3 {
+	font-size: 1rem;
+	font-weight: bold;
+	color: var(--accent-cyan);
+	margin: 0.75rem 0 0.25rem;
+}
+.diary-content p {
+	margin: 0.5rem 0;
+	font-size: 0.875rem;
+	line-height: 1.75;
+}
+.diary-content ul,
+.diary-content ol {
+	margin: 0.5rem 0;
+	padding-left: 1.5rem;
+	font-size: 0.875rem;
+}
+.diary-content ul {
+	list-style-type: disc;
+}
+.diary-content ol {
+	list-style-type: decimal;
+}
+.diary-content li {
+	margin: 0.25rem 0;
+}
+.diary-content li::marker {
+	color: var(--accent-pink);
+}
+.diary-content code {
+	background: #000066;
+	color: var(--accent-cyan);
+	padding: 0.125rem 0.25rem;
+	font-size: 0.8125rem;
+}
+.diary-content pre {
+	background: #000066;
+	border: 1px solid var(--accent-cyan);
+	padding: 0.75rem;
+	overflow-x: auto;
+	margin: 0.75rem 0;
+	font-size: 0.8125rem;
+}
+.diary-content pre code {
+	background: none;
+	padding: 0;
+}
+.diary-content blockquote {
+	border-left: 3px solid var(--accent-pink);
+	padding-left: 0.75rem;
+	margin: 0.5rem 0;
+	color: #cccccc;
+	font-style: italic;
+}
+.diary-content hr {
+	border: none;
+	border-top: 1px dashed var(--accent-pink);
+	margin: 1rem 0;
+}
+.diary-content strong {
+	color: var(--accent-yellow);
+	font-weight: bold;
+}
+.diary-content em {
+	color: var(--accent-pink);
+}
