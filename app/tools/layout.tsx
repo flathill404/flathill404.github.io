@@ -20,7 +20,11 @@ const categories: ToolCategory[] = [
 		id: "development",
 		name: "開発ツール",
 		items: [
-			{ id: "json-formatter", name: "JSON Formatter", href: "/tools/json-formatter" },
+			{
+				id: "json-formatter",
+				name: "JSON Formatter",
+				href: "/tools/json-formatter",
+			},
 			{ id: "regex-tester", name: "Regex Tester", href: "/tools/regex-tester" },
 			{ id: "base64", name: "Base64 Encoder", href: "/tools/base64" },
 			{ id: "uuid", name: "UUID Generator", href: "/tools/uuid" },
@@ -30,9 +34,17 @@ const categories: ToolCategory[] = [
 		id: "music",
 		name: "音楽ツール",
 		items: [
-			{ id: "bpm-counter", name: "BPM Counter", href: "/tools/music/bpm-counter" },
+			{
+				id: "bpm-counter",
+				name: "BPM Counter",
+				href: "/tools/music/bpm-counter",
+			},
 			{ id: "metronome", name: "メトロノーム", href: "/tools/music/metronome" },
-			{ id: "melody-gen", name: "メロディジェネレーター", href: "/tools/music/melody-gen" },
+			{
+				id: "melody-gen",
+				name: "メロディジェネレーター",
+				href: "/tools/music/melody-gen",
+			},
 		],
 	},
 ];

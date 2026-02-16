@@ -67,9 +67,7 @@ export default function BPMCounterPage() {
 
 	return (
 		<div className="text-center space-y-6">
-			<h3 className="text-accent-yellow font-bold">
-				♪ BPM Counter ♪
-			</h3>
+			<h3 className="text-accent-yellow font-bold">♪ BPM Counter ♪</h3>
 			<p className="text-sm text-accent-cyan">
 				ボタンをタップ or スペースキーで計測
 			</p>

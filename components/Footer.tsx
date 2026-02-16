@@ -5,9 +5,7 @@ export default function Footer() {
 				☆━━━━━━━━━━━━━━━━━━━━☆
 			</div>
 
-			<p className="text-accent-yellow my-2">
-				★ リンクフリーです ★
-			</p>
+			<p className="text-accent-yellow my-2">★ リンクフリーです ★</p>
 
 			<div className="my-3 space-y-1">
 				<p className="text-accent-lime">【外部リンク】</p>
@@ -31,14 +29,11 @@ export default function Footer() {
 			</div>
 
 			<p className="text-accent-pink my-2">
-				あなたは{" "}
-				<span className="text-accent-yellow font-bold">000893</span>
-				{" "}人目の訪問者です
+				あなたは <span className="text-accent-yellow font-bold">000893</span>{" "}
+				人目の訪問者です
 			</p>
 
-			<p className="text-gray-400 my-2">
-				Last Update: 2025-02-10
-			</p>
+			<p className="text-gray-400 my-2">Last Update: 2025-02-10</p>
 
 			<p className="text-gray-400">
 				&copy; {new Date().getFullYear()} flathill404

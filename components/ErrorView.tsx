@@ -35,9 +35,7 @@ export default function ErrorView({
 				/>
 			</div>
 
-			{message && (
-				<p className="text-accent-yellow text-sm">{message}</p>
-			)}
+			{message && <p className="text-accent-yellow text-sm">{message}</p>}
 
 			<div className="my-4">
 				<Link href="/" className="text-accent-cyan">

@@ -94,9 +94,7 @@ export default function MetronomePage() {
 
 	return (
 		<div className="text-center space-y-6">
-			<h3 className="text-accent-yellow font-bold">
-				♪ メトロノーム ♪
-			</h3>
+			<h3 className="text-accent-yellow font-bold">♪ メトロノーム ♪</h3>
 			<p className="text-sm text-accent-cyan">
 				Web Audio APIを使ったメトロノーム
 			</p>

@@ -672,15 +672,21 @@ export default function MelodyGenerator() {
 
 				{/* Scale */}
 				<div className="space-y-1">
-					<label htmlFor="scale-select" className="text-accent-cyan text-xs">Scale:</label>
+					<label htmlFor="scale-select" className="text-accent-cyan text-xs">
+						Scale:
+					</label>
 					<select
 						id="scale-select"
 						value={selectedScale}
-						onChange={(e) => setSelectedScale(e.target.value as keyof typeof SCALE_PATTERNS)}
+						onChange={(e) =>
+							setSelectedScale(e.target.value as keyof typeof SCALE_PATTERNS)
+						}
 						className="w-full bg-[#000044] border border-accent-cyan text-white px-2 py-1 text-xs"
 					>
 						{Object.keys(SCALE_PATTERNS).map((s) => (
-							<option key={s} value={s}>{s}</option>
+							<option key={s} value={s}>
+								{s}
+							</option>
 						))}
 					</select>
 				</div>
@@ -773,7 +779,8 @@ export default function MelodyGenerator() {
 			{/* Info & Controls */}
 			<div className="text-center space-y-2">
 				<p className="text-accent-yellow font-bold">
-					{selectedKey} {selectedScale} - {bars} {bars === 1 ? "Bar" : "Bars"} - {tempo} BPM
+					{selectedKey} {selectedScale} - {bars} {bars === 1 ? "Bar" : "Bars"} -{" "}
+					{tempo} BPM
 				</p>
 
 				<div className="flex justify-center gap-4">
@@ -787,7 +794,15 @@ export default function MelodyGenerator() {
 								: "border-accent-cyan text-accent-cyan"
 						}`}
 					>
-						{isPlaying ? (<><FaStop /> Stop</>) : (<><FaPlay /> Play</>)}
+						{isPlaying ? (
+							<>
+								<FaStop /> Stop
+							</>
+						) : (
+							<>
+								<FaPlay /> Play
+							</>
+						)}
 					</button>
 
 					<button
@@ -806,7 +821,12 @@ export default function MelodyGenerator() {
 				<p className="text-accent-lime font-bold">【音色設定】</p>
 
 				<div className="space-y-1">
-					<label htmlFor="instrument-select" className="text-accent-cyan text-xs">Instrument:</label>
+					<label
+						htmlFor="instrument-select"
+						className="text-accent-cyan text-xs"
+					>
+						Instrument:
+					</label>
 					<select
 						id="instrument-select"
 						value={selectedInstrument}
@@ -814,7 +834,9 @@ export default function MelodyGenerator() {
 						className="w-full bg-[#000044] border border-accent-cyan text-white px-2 py-1 text-xs"
 					>
 						{INSTRUMENTS.map((inst) => (
-							<option key={inst.id} value={inst.id}>{inst.label}</option>
+							<option key={inst.id} value={inst.id}>
+								{inst.label}
+							</option>
 						))}
 					</select>
 				</div>
@@ -831,7 +853,11 @@ export default function MelodyGenerator() {
 					<button
 						type="button"
 						onClick={() => setActiveTab("Filter")}
-						disabled={!(INSTRUMENT_PARAMS[selectedInstrument] || COMMON_ADSR).some((p) => p.category === "Filter")}
+						disabled={
+							!(INSTRUMENT_PARAMS[selectedInstrument] || COMMON_ADSR).some(
+								(p) => p.category === "Filter",
+							)
+						}
 						className={`text-xs cursor-pointer disabled:opacity-20 ${activeTab === "Filter" ? "text-accent-cyan font-bold" : "text-gray-500"}`}
 					>
 						[Filter]
@@ -845,7 +871,9 @@ export default function MelodyGenerator() {
 							<div key={param.path} className="space-y-0.5">
 								<div className="flex justify-between text-xs text-gray-400">
 									<span>{param.label}</span>
-									<span className="text-accent-cyan">{synthParams[param.path]?.toFixed(3) ?? param.defaultValue}</span>
+									<span className="text-accent-cyan">
+										{synthParams[param.path]?.toFixed(3) ?? param.defaultValue}
+									</span>
 								</div>
 								<input
 									type="range"

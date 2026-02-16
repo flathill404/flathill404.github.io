@@ -108,7 +108,9 @@ export default function Home() {
 					<table className="mx-auto text-sm">
 						<tbody>
 							<tr>
-								<td className="text-accent-cyan pr-4 py-1 align-top">■ ハンドルネーム</td>
+								<td className="text-accent-cyan pr-4 py-1 align-top">
+									■ ハンドルネーム
+								</td>
 								<td className="py-1">flathill404</td>
 							</tr>
 							<tr>
@@ -120,7 +122,9 @@ export default function Home() {
 								<td className="py-1">プログラミング、読書、音楽</td>
 							</tr>
 							<tr>
-								<td className="text-accent-cyan pr-4 py-1 align-top">■ 好きなもの</td>
+								<td className="text-accent-cyan pr-4 py-1 align-top">
+									■ 好きなもの
+								</td>
 								<td className="py-1">平成のインターネット</td>
 							</tr>
 						</tbody>
