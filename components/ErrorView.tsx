@@ -16,10 +16,6 @@ export default function ErrorView({
 }: ErrorViewProps) {
 	return (
 		<div className="text-center py-8 space-y-4">
-			<div className="text-accent-cyan text-xs my-2">
-				☆━━━━━━━━━━━━━━━━━━━━☆
-			</div>
-
 			<h1 className="text-2xl font-bold text-accent-pink animate-blink">
 				‼！ {title} ‼！
 			</h1>
@@ -41,10 +37,6 @@ export default function ErrorView({
 				<Link href="/" className="text-accent-cyan">
 					{">>> ホームに戻る <<<"}
 				</Link>
-			</div>
-
-			<div className="text-accent-cyan text-xs my-2">
-				☆━━━━━━━━━━━━━━━━━━━━☆
 			</div>
 		</div>
 	);

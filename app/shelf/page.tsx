@@ -25,10 +25,6 @@ export default function ShelfPage() {
 				読んだ本の一覧です。クリックで詳細が見れます。
 			</p>
 
-			<div className="text-accent-cyan text-xs text-center my-2">
-				☆━━━━━━━━━━━━━━━━━━━━☆
-			</div>
-
 			<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
 				{books.map((book) => (
 					<BookCard key={book.url} book={book} />

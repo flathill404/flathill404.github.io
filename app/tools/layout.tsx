@@ -88,10 +88,6 @@ export default function ToolsLayout({
 				))}
 			</div>
 
-			<div className="text-accent-cyan text-xs text-center my-2">
-				☆━━━━━━━━━━━━━━━━━━━━☆
-			</div>
-
 			{children}
 		</div>
 	);

@@ -137,9 +137,6 @@ export default function Home() {
 				<h2 className="text-center text-accent-yellow font-bold my-4">
 					★ スキル一覧 ★
 				</h2>
-				<div className="text-accent-cyan text-xs text-center my-2">
-					☆━━━━━━━━━━━━━━━━━━━━☆
-				</div>
 
 				{skillCategories.map((category) => (
 					<div key={category.title} className="mb-6">
@@ -166,10 +163,6 @@ export default function Home() {
 					</div>
 				))}
 			</section>
-
-			<div className="text-accent-cyan text-xs text-center my-4">
-				☆━━━━━━━━━━━━━━━━━━━━☆
-			</div>
 		</div>
 	);
 }

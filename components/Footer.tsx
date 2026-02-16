@@ -1,12 +1,6 @@
 export default function Footer() {
 	return (
 		<footer className="text-center py-4 border-t-2 border-accent-pink mt-8 text-sm">
-			<div className="text-accent-cyan text-xs my-2">
-				☆━━━━━━━━━━━━━━━━━━━━☆
-			</div>
-
-			<p className="text-accent-yellow my-2">★ リンクフリーです ★</p>
-
 			<div className="my-3 space-y-1">
 				<p className="text-accent-lime">【外部リンク】</p>
 				<p>
@@ -29,7 +23,7 @@ export default function Footer() {
 			</div>
 
 			<p className="text-accent-pink my-2">
-				あなたは <span className="text-accent-yellow font-bold">000893</span>{" "}
+				あなたは <span className="text-accent-yellow font-bold">{}</span>{" "}
 				人目の訪問者です
 			</p>
 
@@ -38,10 +32,6 @@ export default function Footer() {
 			<p className="text-gray-400">
 				&copy; {new Date().getFullYear()} flathill404
 			</p>
-
-			<div className="text-accent-cyan text-xs my-2">
-				☆━━━━━━━━━━━━━━━━━━━━☆
-			</div>
 		</footer>
 	);
 }
