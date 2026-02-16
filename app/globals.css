@@ -32,7 +32,6 @@ body {
 	color: var(--foreground);
 	font-family:
 		"MS Gothic", "Hiragino Kaku Gothic ProN", "Geist Mono", monospace;
-	cursor: crosshair;
 }
 
 a {
