@@ -32,14 +32,13 @@ export default async function DiaryEntryPage({ params }: Props) {
 		<div className="space-y-4">
 			<div className="text-center">
 				<p className="text-accent-cyan text-sm">{entry.date}</p>
-				<h2 className="text-accent-yellow font-bold my-2">
-					★ {entry.title} ★
-				</h2>
+				<h2 className="text-accent-yellow font-bold my-2">★ {entry.title} ★</h2>
 			</div>
 
 			<div className="border-2 border-accent-pink p-4">
 				<div
 					className="diary-content"
+					// biome-ignore lint/security/noDangerouslySetInnerHtml: This is necessary to render the HTML content of the diary entry.
 					dangerouslySetInnerHTML={{ __html: entry.html }}
 				/>
 			</div>

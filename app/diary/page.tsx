@@ -26,9 +26,7 @@ export default function DiaryPage() {
 			<h2 className="text-center text-accent-yellow font-bold my-4">
 				★ 日記 ★
 			</h2>
-			<p className="text-center text-sm text-accent-cyan">
-				日々の記録です。
-			</p>
+			<p className="text-center text-sm text-accent-cyan">日々の記録です。</p>
 
 			{Object.keys(grouped).length === 0 ? (
 				<p className="text-center text-sm text-gray-400">
@@ -43,13 +41,8 @@ export default function DiaryPage() {
 						<div className="space-y-1 pl-2">
 							{monthEntries.map((entry) => (
 								<div key={entry.slug} className="text-sm">
-									<Link href={`/diary/${entry.slug}`}>
-										► {entry.date}
-									</Link>
-									<span className="text-gray-400">
-										{" "}
-										- {entry.title}
-									</span>
+									<Link href={`/diary/${entry.slug}`}>► {entry.date}</Link>
+									<span className="text-gray-400"> - {entry.title}</span>
 								</div>
 							))}
 						</div>
