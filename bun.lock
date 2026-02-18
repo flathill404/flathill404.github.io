@@ -8,7 +8,7 @@
         "@tonejs/midi": "^2.0.28",
         "clsx": "^2.1.1",
         "gray-matter": "^4.0.3",
-        "marked": "^17.0.2",
+        "marked": "^17.0.3",
         "next": "^16.1.6",
         "react": "^19.2.4",
         "react-dom": "^19.2.4",
@@ -236,7 +236,7 @@
 
     "magic-string": ["magic-string@0.30.21", "", { "dependencies": { "@jridgewell/sourcemap-codec": "^1.5.5" } }, "sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ=="],
 
-    "marked": ["marked@17.0.2", "", { "bin": { "marked": "bin/marked.js" } }, "sha512-s5HZGFQea7Huv5zZcAGhJLT3qLpAfnY7v7GWkICUr0+Wd5TFEtdlRR2XUL5Gg+RH7u2Df595ifrxR03mBaw7gA=="],
+    "marked": ["marked@17.0.3", "", { "bin": { "marked": "bin/marked.js" } }, "sha512-jt1v2ObpyOKR8p4XaUJVk3YWRJ5n+i4+rjQopxvV32rSndTJXvIzuUdWWIy/1pFQMkQmvTXawzDNqOH/CUmx6A=="],
 
     "midi-file": ["midi-file@1.2.4", "", {}, "sha512-B5SnBC6i2bwJIXTY9MElIydJwAmnKx+r5eJ1jknTLetzLflEl0GWveuBB6ACrQpecSRkOB6fhTx1PwXk2BVxnA=="],
 
