@@ -4,15 +4,14 @@
 	"private": true,
 	"scripts": {
 		"dev": "bun --bun next dev",
-		"prebuild": "bun scripts/copy-diary-images.ts",
+		"prebuild": "bun scripts/diary.ts copy-assets",
 		"build": "bun --bun next build",
 		"start": "bun --bun next start",
 		"lint": "biome lint .",
 		"format": "biome format --write .",
 		"check": "biome check --write .",
 		"typecheck": "tsc --noEmit",
-		"new-diary": "bun scripts/new-diary.ts",
-		"convert-diary-images": "bun scripts/convert-diary-images.ts"
+		"diary": "bun scripts/diary.ts"
 	},
 	"dependencies": {
 		"@tonejs/midi": "^2.0.28",
