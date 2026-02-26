@@ -23,11 +23,15 @@ const categories: ToolCategory[] = [
 			{
 				id: "json-formatter",
 				name: "JSON Formatter",
-				href: "/tools/json-formatter",
+				href: "/tools/dev/json-formatter",
 			},
-			{ id: "regex-tester", name: "Regex Tester", href: "/tools/regex-tester" },
-			{ id: "base64", name: "Base64 Encoder", href: "/tools/base64" },
-			{ id: "uuid", name: "UUID Generator", href: "/tools/uuid" },
+			{
+				id: "regex-tester",
+				name: "Regex Tester",
+				href: "/tools/dev/regex-tester",
+			},
+			{ id: "base64", name: "Base64 Encoder", href: "/tools/dev/base64" },
+			{ id: "uuid", name: "UUID Generator", href: "/tools/dev/uuid" },
 		],
 	},
 	{

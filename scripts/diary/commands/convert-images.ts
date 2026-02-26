@@ -1,8 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
-import type { ICommand } from "../types";
 import type { DiaryConfig } from "../config";
+import type { ICommand } from "../types";
 
 const IMAGE_EXTS = new Set([".jpg", ".jpeg", ".png", ".gif", ".tiff", ".avif"]);
 

@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { ICommand } from "../types";
 import type { DiaryConfig } from "../config";
+import type { ICommand } from "../types";
 
 export class CopyAssetsCommand implements ICommand {
 	name = "copy-assets";

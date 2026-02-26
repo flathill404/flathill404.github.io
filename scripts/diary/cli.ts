@@ -1,5 +1,5 @@
-import type { ICommand } from "./types";
 import type { DiaryConfig } from "./config";
+import type { ICommand } from "./types";
 
 export class CLI {
 	private commands: Map<string, ICommand> = new Map();
